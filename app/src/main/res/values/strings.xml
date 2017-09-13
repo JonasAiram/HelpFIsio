@@ -1,3 +1,14 @@
 <resources>
     <string name="app_name">HelpFIsio</string>
+    <string name="btnPaciente">Cadastrar Paciente</string>
+    <string name="btnCalc">Calculos</string>
+    <string name="VolCorrente">Volume Corrente</string>
+    <string name="btnListarPaciente">Listar Pacientes</string>
+    <string-array name="funcoes">
+        <item>Volume Corrente</item>
+        <item>Peso ideal</item>
+        <item>Pressão Arterial de O²</item>
+        <item>Capacidade Vital Lenta</item>
+    </string-array>
+    <string name="erro_intent">Ação Não Suportada</string>
 </resources>
