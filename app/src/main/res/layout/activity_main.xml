@@ -35,7 +35,7 @@
         <Button
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:id="@+id/btnCalc"
+            android:id="@+id/btnCalculos"
             android:text="@string/btnCalc"
             android:layout_weight="4"/>
 
@@ -55,28 +55,28 @@
         <Button
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:id="@+id/btnPaciente"
+            android:id="@+id/btnCadastro"
             android:text="@string/btnPaciente"
             android:layout_weight="1"/>
 
     </LinearLayout>
 
-    <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content">
+    <!-- <LinearLayout
+         android:layout_width="match_parent"
+         android:layout_height="wrap_content">
 
-        <ImageView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:src="@mipmap/ic_add"/>
+         <ImageView
+             android:layout_width="wrap_content"
+             android:layout_height="wrap_content"
+             android:src="@mipmap/ic_add"/>
 
-        <Button
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:id="@+id/btnListarPaciente"
-            android:text="@string/btnListarPaciente"
-            android:layout_weight="1"/>
+          <Button
+             android:layout_width="wrap_content"
+             android:layout_height="wrap_content"
+             android:id="@+id/btnListarPaciente"
+             android:text="@string/btnListarPaciente"
+             android:layout_weight="1"/>
 
-    </LinearLayout>
+    </LinearLayout>-->
 
 </LinearLayout>

@@ -16,6 +16,10 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
+        <activity android:name=".calculos.VolumeCorrente"></activity>
+        <activity android:name=".ListaCalculos"></activity>
+        <activity android:name=".ListaCadastros"></activity>
+        <activity android:name=".calculos.PesoIdeal"></activity>
     </application>
 
 </manifest>
