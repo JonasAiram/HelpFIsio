@@ -8,6 +8,7 @@ import android.support.v7.app.AppCompatActivity;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.Toast;
 
 import com.airam.helpfisio.R;
 
@@ -15,9 +16,9 @@ import com.airam.helpfisio.R;
  * Created by jonas on 31/10/2017.
  */
 
-public class VolumeCorrente extends AppCompatActivity implements View.OnClickListener{
+public class VolumeCorrente extends AppCompatActivity{
 
-    Button btnCalcular, btnLimpar;
+
     EditText edtTextVolMin, edtTextFreRes;
 
     @Override
@@ -25,50 +26,71 @@ public class VolumeCorrente extends AppCompatActivity implements View.OnClickLis
         super.onCreate(savedInstanceState);
         setContentView(R.layout.volcorrente);
 
+        Button btnCalcular, btnLimpar;
+
         btnCalcular = (Button) findViewById(R.id.btnCalcular);
-        btnCalcular.setOnClickListener(this);
-
         btnLimpar = (Button) findViewById(R.id.btnLimpar);
-        btnLimpar.setOnClickListener(this);
 
+        btnCalcular.setOnClickListener(btnCalcularAction);
+        btnLimpar.setOnClickListener(btnLimparAction);
     }
 
-    @Override
-    public void onClick(View view) {
+    private View.OnClickListener btnLimparAction = new View.OnClickListener() {
+        @Override
+        public void onClick(View view) {
 
-        edtTextVolMin = (EditText) findViewById(R.id.edtVolMin);
-        edtTextFreRes = (EditText) findViewById(R.id.edtFreRes);
+            edtTextVolMin.setText("");
+            edtTextFreRes.setText("");
 
-        double dobVm = Double.parseDouble(edtTextVolMin.getText().toString());
-        double dobFr = Double.parseDouble(edtTextFreRes.getText().toString());
-        double result = dobVm * dobFr;
+        }
+    };
 
-        final Context context = view.getContext();
-        final AlertDialog.Builder alertDialogBuilder = new AlertDialog.Builder(context);
+    private View.OnClickListener btnCalcularAction = new View.OnClickListener() {
+        @Override
+        public void onClick(View view) {
 
-        alertDialogBuilder.setTitle("Resultado!");
-        alertDialogBuilder.setMessage("Volume Corrente = " + result);
+            final Context context = view.getContext();
 
-        alertDialogBuilder.setPositiveButton(" Salvar ", new DialogInterface.OnClickListener(){
+            edtTextVolMin = (EditText) findViewById(R.id.edtVolMin);
+            edtTextFreRes = (EditText) findViewById(R.id.edtFreRes);
 
-            public void onClick(DialogInterface dialog, int which) {
-
-                //Regras de negocio para salvar o resultado no banco de dados.
-
-                dialog.dismiss();
+            if (edtTextVolMin.getText().toString().equals("") || edtTextFreRes.getText().toString().equals("")){
+                Toast.makeText(context, "Por favor, Preencha os Campos.", Toast.LENGTH_LONG).show();
+                return;
             }
-        });
 
-        alertDialogBuilder.setNegativeButton(" Limpar ", new DialogInterface.OnClickListener() {
+            double dobVm = Double.parseDouble(edtTextVolMin.getText().toString());
+            double dobFr = Double.parseDouble(edtTextFreRes.getText().toString());
+            double result = dobVm * dobFr;
 
-            public void onClick(DialogInterface dialog, int which) {
+            final AlertDialog.Builder alertDialogBuilder = new AlertDialog.Builder(context);
 
-                edtTextVolMin.setText("");
-                edtTextFreRes.setText("");
-                dialog.dismiss();
-            }
-        });
-        alertDialogBuilder.show();
+            alertDialogBuilder.setTitle("Resultado!");
+            alertDialogBuilder.setMessage("Volume Corrente = " + result);
 
-    }
+            alertDialogBuilder.setPositiveButton(" Salvar ", new DialogInterface.OnClickListener(){
+
+                public void onClick(DialogInterface dialog, int which) {
+
+                    //Regras de negocio para salvar o resultado no banco de dados.
+
+                    dialog.dismiss();
+                }
+            });
+
+            alertDialogBuilder.setNegativeButton(" Limpar ", new DialogInterface.OnClickListener() {
+
+                public void onClick(DialogInterface dialog, int which) {
+
+                    edtTextVolMin.setText("");
+                    edtTextFreRes.setText("");
+                    dialog.dismiss();
+                }
+            });
+            alertDialogBuilder.show();
+
+        }
+    };
+
+
 }
