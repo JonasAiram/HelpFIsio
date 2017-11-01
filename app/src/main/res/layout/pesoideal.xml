@@ -66,12 +66,13 @@
         android:layout_height="wrap_content">
 
         <RadioButton
+            android:checked="true"
             android:id="@+id/Masculino"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_weight="1"
-            android:textSize="20sp"
-            android:text="Masculino"/>
+            android:text="Masculino"
+            android:textSize="20sp" />
 
         <RadioButton
             android:id="@+id/Feminino"

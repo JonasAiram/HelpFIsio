@@ -28,6 +28,9 @@ public class VolumeCorrente extends AppCompatActivity{
 
         Button btnCalcular, btnLimpar;
 
+        edtTextVolMin = (EditText) findViewById(R.id.edtVolMin);
+        edtTextFreRes = (EditText) findViewById(R.id.edtFreRes);
+
         btnCalcular = (Button) findViewById(R.id.btnCalcular);
         btnLimpar = (Button) findViewById(R.id.btnLimpar);
 
@@ -50,9 +53,6 @@ public class VolumeCorrente extends AppCompatActivity{
         public void onClick(View view) {
 
             final Context context = view.getContext();
-
-            edtTextVolMin = (EditText) findViewById(R.id.edtVolMin);
-            edtTextFreRes = (EditText) findViewById(R.id.edtFreRes);
 
             if (edtTextVolMin.getText().toString().equals("") || edtTextFreRes.getText().toString().equals("")){
                 Toast.makeText(context, "Por favor, Preencha os Campos.", Toast.LENGTH_LONG).show();
