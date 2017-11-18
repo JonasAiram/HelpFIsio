@@ -10,5 +10,12 @@
         <item>Pressão Arterial de O²</item>
         <item>Capacidade Vital Lenta</item>
     </string-array>
+    <string-array name="cadastro">
+        <item>Paciente</item>
+        <item>Hospital</item>
+        <item>Médico</item>
+        <item>Leito</item>
+    </string-array>
+
     <string name="erro_intent">Ação Não Suportada</string>
 </resources>

@@ -29,8 +29,9 @@ public class PacienteController {
 
     //INSERT
 
-    public long insert(Paciente paciente){
-        return db.insert(Paciente.TABLE, null, convertToContentValue(paciente));
+    public boolean insert(Paciente paciente){
+        boolean isCreate = db.insert(Paciente.TABLE, null, convertToContentValue(paciente)) > 0;
+        return isCreate;
     }
 
     //LISTAR Pacientes
