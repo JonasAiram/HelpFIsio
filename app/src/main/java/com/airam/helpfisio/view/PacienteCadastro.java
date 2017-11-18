@@ -33,14 +33,14 @@ public class PacienteCadastro {
         final EditText editTextNome = (EditText) formElementsView.findViewById(R.id.edtPacienteNome);
         final EditText editTextRG = (EditText) formElementsView.findViewById(R.id.edtPacienteRG);
         final EditText editTextCPF = (EditText) formElementsView.findViewById(R.id.edtPacienteCPF);
-        final EditText editTextAltura = (EditText) formElementsView.findViewById(R.id.edtAltura);
+        final EditText editTextAltura = (EditText) formElementsView.findViewById(R.id.edtAlturaPaciente);
         final EditText editTextPeso = (EditText) formElementsView.findViewById(R.id.edtPacientePeso);
         final EditText editTextData = (EditText) formElementsView.findViewById(R.id.edtPacienteData);
 
         new AlertDialog.Builder(context)
                 .setView(formElementsView)
-                .setTitle("Criar Contato")
-                .setPositiveButton("Incluir",
+                .setTitle("Cadastrar Paciente")
+                .setPositiveButton("Salvar",
                         new DialogInterface.OnClickListener() {
                             @Override
                             public void onClick(DialogInterface dialogInterface, int id) {
@@ -73,7 +73,20 @@ public class PacienteCadastro {
 
                                 dialogInterface.cancel();
                             }
-                        }).show();
+                        }).setNegativeButton("Voltar",
+                            new DialogInterface.OnClickListener() {
+                                @Override
+                                public void onClick(DialogInterface dialogInterface, int i) {
+
+                                    editTextNome.setText("");
+                                    editTextRG.setText("");
+                                    editTextCPF.setText("");
+                                    editTextAltura.setText("");
+                                    editTextPeso.setText("");
+                                    editTextData.setText("");
+
+                                }
+                            }).show();
 
     }
 }

@@ -89,10 +89,10 @@ public class PacienteController {
         ContentValues values = new ContentValues();
 
         values.put(Paciente.COLUMN_NOME, paciente.getNome());
-        values.put(Paciente.COLUMN_RG, paciente.getNome());
-        values.put(Paciente.COLUMN_CPF, paciente.getNome());
-        values.put(Paciente.COLUMN_PESO, paciente.getNome());
-        values.put(Paciente.COLUMN_ALTURA, paciente.getNome());
+        values.put(Paciente.COLUMN_RG, paciente.getRG());
+        values.put(Paciente.COLUMN_CPF, paciente.getCPF());
+        values.put(Paciente.COLUMN_PESO, paciente.getPeso());
+        values.put(Paciente.COLUMN_ALTURA, paciente.getAltura());
         values.put(Paciente.COLUMN_DATA, paciente.getData());
 
         return values;

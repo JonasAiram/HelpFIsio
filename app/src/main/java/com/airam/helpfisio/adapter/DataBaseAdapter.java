@@ -4,6 +4,7 @@ import android.content.Context;
 import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteOpenHelper;
 
+import com.airam.helpfisio.model.Leito;
 import com.airam.helpfisio.model.Paciente;
 
 /**
@@ -19,6 +20,7 @@ public class DataBaseAdapter extends SQLiteOpenHelper {
     @Override
     public void onCreate(SQLiteDatabase db) {
         db.execSQL(Paciente.SQL_CREATE);
+        db.execSQL(Leito.SQL_CREATE);
     }
 
     @Override
