@@ -5,6 +5,7 @@ import android.content.Context;
 import android.content.DialogInterface;
 import android.view.LayoutInflater;
 import android.view.View;
+import android.widget.Button;
 import android.widget.EditText;
 import android.widget.Toast;
 
@@ -12,81 +13,98 @@ import com.airam.helpfisio.R;
 import com.airam.helpfisio.controller.PacienteController;
 import com.airam.helpfisio.model.Paciente;
 
-
 /**
  * Created by jonas on 10/11/2017.
  */
 
-public class PacienteCadastro {
+public class PacienteCadastro implements DialogInterface.OnShowListener, View.OnClickListener{
 
     private PacienteController pacienteController;
+    private AlertDialog dialog;
 
-    public PacienteCadastro(View v){
+    private EditText editTextNome, editTextRG, editTextCPF, editTextAltura, editTextPeso, editTextData;
 
-        final Context context = v.getContext();
+    public PacienteCadastro(View v) {
+
+        //CRIA O CONTEXT
+        Context context = v.getContext();
 
         pacienteController = new PacienteController(context);
 
-        LayoutInflater inflater = (LayoutInflater) context.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
-        final View formElementsView = inflater.inflate(R.layout.pacientecadastro, null, false);
+        AlertDialog.Builder builder = new AlertDialog.Builder(context);
+        View view = LayoutInflater.from(context).inflate(R.layout.pacientecadastro, null);
+        builder.setView(view);
 
-        final EditText editTextNome = (EditText) formElementsView.findViewById(R.id.edtPacienteNome);
-        final EditText editTextRG = (EditText) formElementsView.findViewById(R.id.edtPacienteRG);
-        final EditText editTextCPF = (EditText) formElementsView.findViewById(R.id.edtPacienteCPF);
-        final EditText editTextAltura = (EditText) formElementsView.findViewById(R.id.edtAlturaPaciente);
-        final EditText editTextPeso = (EditText) formElementsView.findViewById(R.id.edtPacientePeso);
-        final EditText editTextData = (EditText) formElementsView.findViewById(R.id.edtPacienteData);
+        editTextNome = (EditText)view.findViewById(R.id.edtPacienteNome);
+        editTextRG = (EditText) view.findViewById(R.id.edtPacienteRG);
+        editTextCPF = (EditText) view.findViewById(R.id.edtPacienteCPF);
+        editTextAltura = (EditText) view.findViewById(R.id.edtAlturaPaciente);
+        editTextPeso = (EditText) view.findViewById(R.id.edtPacientePeso);
+        editTextData = (EditText) view.findViewById(R.id.edtPacienteData);
 
-        new AlertDialog.Builder(context)
-                .setView(formElementsView)
-                .setTitle("Cadastrar Paciente")
-                .setPositiveButton("Salvar",
-                        new DialogInterface.OnClickListener() {
-                            @Override
-                            public void onClick(DialogInterface dialogInterface, int id) {
-                                // REGRAS DE NEGOCIOS PARA INCLUIR OS NOVOS CONTATOS
+        //CRIA OS BUTTONS DO ALERTDIALOG
+        builder.setPositiveButton("Salvar", null);
+        builder.setNegativeButton("Voltar", null);
 
-                                String pacienteNome = editTextNome.getText().toString();
-                                String pacienteRG = editTextRG.getText().toString();
-                                String pacienteCPF = editTextCPF.getText().toString();
-                                String pacienteAltura = editTextAltura.getText().toString();
-                                String pacientePeso = editTextPeso.getText().toString();
-                                String pacienteData = editTextData.getText().toString();
+        dialog = builder.create();
+        dialog.setOnShowListener(this);
+        dialog.show();
+    }
 
+    @Override
+    public void onShow(DialogInterface d){
+        Button b = dialog.getButton(DialogInterface.BUTTON_POSITIVE);
+        b.setId(DialogInterface.BUTTON_POSITIVE);
+        b.setOnClickListener(this);
+    }
 
-                                Paciente paciente= new Paciente();
-                                paciente.setNome(pacienteNome);
-                                paciente.setRG(pacienteRG);
-                                paciente.setCPF(pacienteCPF);
-                                paciente.setAltura(pacienteAltura);
-                                paciente.setPeso(pacientePeso);
-                                paciente.setData(pacienteData);
+    @Override
+    public void onClick(View v){
 
+        //APRESENTA OS ERROS AO DEIXAR ALGUM ATRIBUTO EM BRANCO
+        if(editTextNome.getText().toString().length() == 0)
+            editTextNome.setError("Digite o Nome!");
+        if (editTextData.getText().toString().length() == 0)
+            editTextData.setError("Digite a Data de Nascimento!");
+        if (editTextPeso.getText().toString().length() == 0)
+            editTextPeso.setError("Digite o Peso!");
+        if (editTextAltura.getText().toString().length() == 0)
+            editTextAltura.setError("Digite a Altura!");
+        if (editTextCPF.getText().toString().length() == 0)
+            editTextCPF.setError("Digite o CPF!");
+        if (editTextRG.getText().toString().length() == 0)
+            editTextRG.setError("Digite o RG!");
 
-                                boolean criadoComSucesso = pacienteController.insert(paciente);
+        if (editTextNome.getText().toString().length() != 0 && editTextData.getText().toString().length() != 0 && editTextPeso.getText().toString().length() != 0 &&
+                editTextAltura.getText().toString().length() != 0 && editTextCPF.getText().toString().length() != 0 && editTextRG.getText().toString().length() != 0){
 
-                                if (criadoComSucesso)
-                                    Toast.makeText(context, "Paciente Cadastrado Com Sucesso.", Toast.LENGTH_SHORT).show();
-                                else
-                                    Toast.makeText(context, "Não Foi Possivel Cadastrar o Paciente.", Toast.LENGTH_SHORT).show();
+            //REGRAS PARA ARMAZENAR NO BANCO DE DADOS
+            Context context = v.getContext();
 
+            String pacienteNome = editTextNome.getText().toString();
+            String pacienteRG = editTextRG.getText().toString();
+            String pacienteCPF = editTextCPF.getText().toString();
+            String pacienteAltura = editTextAltura.getText().toString();
+            String pacientePeso = editTextPeso.getText().toString();
+            String pacienteData = editTextData.getText().toString();
 
-                                dialogInterface.cancel();
-                            }
-                        }).setNegativeButton("Voltar",
-                            new DialogInterface.OnClickListener() {
-                                @Override
-                                public void onClick(DialogInterface dialogInterface, int i) {
+            Paciente paciente= new Paciente();
+            paciente.setNome(pacienteNome);
+            paciente.setRG(pacienteRG);
+            paciente.setCPF(pacienteCPF);
+            paciente.setAltura(pacienteAltura);
+            paciente.setPeso(pacientePeso);
+            paciente.setData(pacienteData);
 
-                                    editTextNome.setText("");
-                                    editTextRG.setText("");
-                                    editTextCPF.setText("");
-                                    editTextAltura.setText("");
-                                    editTextPeso.setText("");
-                                    editTextData.setText("");
+            boolean criadoComSucesso = pacienteController.insert(paciente);
 
-                                }
-                            }).show();
+            if (criadoComSucesso)
+                Toast.makeText(context, "Paciente Cadastrado Com Sucesso.", Toast.LENGTH_SHORT).show();
+            else
+                Toast.makeText(context, "Não Foi Possivel Cadastrar o Paciente.", Toast.LENGTH_SHORT).show();
 
+            dialog.dismiss();
+
+        }
     }
 }
