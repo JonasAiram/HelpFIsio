@@ -60,11 +60,24 @@ public class LeitoController {
         columnId = c.getColumnIndex(Leito.COLUMN_TIPO);
         leito.setTipo(c.getString(columnId));
 
+        columnId = c.getColumnIndex(Leito.COLUMN_QUANTIDADE);
+        leito.setQuantidade(c.getInt(columnId));
+
+        columnId = c.getColumnIndex(Leito.COLUMN_CHEFE);
+        leito.setChefe(c.getString(columnId));
+
+        columnId = c.getColumnIndex(Leito.COLUMN_ANDAR);
+        leito.setAndar(c.getInt(columnId));
+
+        columnId = c.getColumnIndex(Leito.COLUMN_ID_HOSPIAL);
+        leito.setId_Hospital(c.getInt(columnId));
+
         return leito;
     }
 
     private String[] getColumns() {
-        return new String[]{Leito.COLUMN_ID, Leito.COLUMN_TIPO};
+        return new String[]{Leito.COLUMN_ID, Leito.COLUMN_TIPO, Leito.COLUMN_QUANTIDADE,
+                Leito.COLUMN_CHEFE, Leito.COLUMN_ANDAR, Leito.COLUMN_ID_HOSPIAL};
     }
 
 
@@ -72,6 +85,10 @@ public class LeitoController {
         ContentValues values = new ContentValues();
 
         values.put(Leito.COLUMN_TIPO, leito.getTipo());
+        values.put(Leito.COLUMN_QUANTIDADE, leito.getQuantidade());
+        values.put(Leito.COLUMN_CHEFE, leito.getChefe());
+        values.put(Leito.COLUMN_ANDAR, leito.getAndar());
+        values.put(Leito.COLUMN_ID_HOSPIAL, leito.getId_Hospital());
 
         return values;
     }

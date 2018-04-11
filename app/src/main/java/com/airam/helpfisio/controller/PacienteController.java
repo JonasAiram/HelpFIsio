@@ -62,19 +62,28 @@ public class PacienteController {
         paciente.setNome(c.getString(columnId));
 
         columnId = c.getColumnIndex(Paciente.COLUMN_RG);
-        paciente.setRG(c.getString(columnId));
+        paciente.setRg(c.getInt(columnId));
 
         columnId = c.getColumnIndex(Paciente.COLUMN_CPF);
-        paciente.setCPF(c.getString(columnId));
+        paciente.setCpf(c.getString(columnId));
 
         columnId = c.getColumnIndex(Paciente.COLUMN_PESO);
-        paciente.setPeso(c.getString(columnId));
+        paciente.setPeso(c.getDouble(columnId));
 
         columnId = c.getColumnIndex(Paciente.COLUMN_ALTURA);
-        paciente.setAltura(c.getString(columnId));
+        paciente.setAltura(c.getDouble(columnId));
 
         columnId = c.getColumnIndex(Paciente.COLUMN_DATA);
         paciente.setData(c.getString(columnId));
+
+        columnId = c.getColumnIndex(Paciente.COLUMN_SOBRENOME);
+        paciente.setSobrenome(c.getString(columnId));
+
+        columnId = c.getColumnIndex(Paciente.COLUMN_TELEFONE);
+        paciente.setTelefone(c.getInt(columnId));
+
+        columnId = c.getColumnIndex(Paciente.COLUMN_ID_LEITO);
+        paciente.setId_leito(c.getInt(columnId));
 
         return paciente;
     }
@@ -89,11 +98,14 @@ public class PacienteController {
         ContentValues values = new ContentValues();
 
         values.put(Paciente.COLUMN_NOME, paciente.getNome());
-        values.put(Paciente.COLUMN_RG, paciente.getRG());
-        values.put(Paciente.COLUMN_CPF, paciente.getCPF());
+        values.put(Paciente.COLUMN_RG, paciente.getRg());
+        values.put(Paciente.COLUMN_CPF, paciente.getCpf());
         values.put(Paciente.COLUMN_PESO, paciente.getPeso());
         values.put(Paciente.COLUMN_ALTURA, paciente.getAltura());
         values.put(Paciente.COLUMN_DATA, paciente.getData());
+        values.put(Paciente.COLUMN_SOBRENOME, paciente.getSobrenome());
+        values.put(Paciente.COLUMN_TELEFONE, paciente.getTelefone());
+        values.put(Paciente.COLUMN_ID_LEITO, paciente.getId_leito());
 
         return values;
     }

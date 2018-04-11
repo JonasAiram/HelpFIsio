@@ -82,16 +82,18 @@ public class PacienteCadastro implements DialogInterface.OnShowListener, View.On
             Context context = v.getContext();
 
             String pacienteNome = editTextNome.getText().toString();
-            String pacienteRG = editTextRG.getText().toString();
+            //String pacienteRG = editTextRG.getText().toString();
+            int pacienteRG = Integer.parseInt(editTextRG.getText().toString());
             String pacienteCPF = editTextCPF.getText().toString();
-            String pacienteAltura = editTextAltura.getText().toString();
-            String pacientePeso = editTextPeso.getText().toString();
+            //String pacienteAltura = editTextAltura.getText().toString();
+            double pacienteAltura = Double.parseDouble(editTextAltura.getText().toString());
+            double pacientePeso = Double.parseDouble(editTextPeso.getText().toString());
             String pacienteData = editTextData.getText().toString();
 
             Paciente paciente= new Paciente();
             paciente.setNome(pacienteNome);
-            paciente.setRG(pacienteRG);
-            paciente.setCPF(pacienteCPF);
+            paciente.setRg(pacienteRG);
+            paciente.setCpf(pacienteCPF);
             paciente.setAltura(pacienteAltura);
             paciente.setPeso(pacientePeso);
             paciente.setData(pacienteData);
