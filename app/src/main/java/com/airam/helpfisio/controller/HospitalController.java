@@ -73,13 +73,16 @@ public class HospitalController {
         columnId = c.getColumnIndex(Hospital.COLUMN_DIRETOR);
         hospital.setDiretor(c.getString(columnId));
 
+        columnId = c.getColumnIndex(Hospital.COLUMN_NUMENRO);
+        hospital.setNumero(c.getInt(columnId));
+
         return hospital;
     }
 
     private String[] getColumns() {
         return new String[]{Hospital.COLUMN_ID, Hospital.COLUMN_NOME, Hospital.COLUMN_RUA,
                 Hospital.COLUMN_BAIRRO, Hospital.COLUMN_CIDADE, Hospital.COLUMN_UF,
-                Hospital.COLUMN_TELEFONE, Hospital.COLUMN_DIRETOR};
+                Hospital.COLUMN_TELEFONE, Hospital.COLUMN_DIRETOR, Hospital.COLUMN_NUMENRO};
     }
 
     private ContentValues convertToContentValue(Hospital hospital) {
@@ -92,6 +95,8 @@ public class HospitalController {
         values.put(Hospital.COLUMN_UF, hospital.getUF());
         values.put(Hospital.COLUMN_TELEFONE, hospital.getTelefone());
         values.put(Hospital.COLUMN_DIRETOR, hospital.getDiretor());
+        values.put(Hospital.COLUMN_NUMENRO, hospital.getNumero());
+
 
         return values;
     }

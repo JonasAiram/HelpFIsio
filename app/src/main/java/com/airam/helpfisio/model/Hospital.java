@@ -18,6 +18,7 @@ public class Hospital {
     public static final String COLUMN_UF = "uf";
     public static final String COLUMN_DIRETOR = "diretor";
     public static final String COLUMN_TELEFONE = "telefone";
+    public static final String COLUMN_NUMENRO = "numero";
 
 
     // Criando Tabela
@@ -29,10 +30,14 @@ public class Hospital {
             + COLUMN_CIDADE     +   " TEXT,"
             + COLUMN_UF         +   " TEXT,"
             + COLUMN_DIRETOR    +   " TEXT,"
+            + COLUMN_NUMENRO    +   " INTEGER,"
             + COLUMN_TELEFONE   +   " INTEGER)";
 
     //DECLARANDO VARIAVEIS
-    private int id, telefone;
+    private int id;
+    private int telefone;
+    private int numero;
+
     private String nome;
     private String rua;
     private String bairro;
@@ -40,6 +45,13 @@ public class Hospital {
     private String UF;
     private String diretor;
 
+    public int getNumero() {
+        return numero;
+    }
+
+    public void setNumero(int numero) {
+        this.numero = numero;
+    }
 
     public int getId() {
         return id;
