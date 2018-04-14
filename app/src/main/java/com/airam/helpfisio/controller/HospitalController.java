@@ -3,24 +3,13 @@ package com.airam.helpfisio.controller;
 import android.content.ContentValues;
 import android.content.Context;
 import android.database.Cursor;
-import android.database.sqlite.SQLiteDatabase;
 
-import com.airam.helpfisio.adapter.DataBaseAdapter;
 import com.airam.helpfisio.model.Hospital;
 
-import java.util.ArrayList;
-import java.util.List;
-
-public class HospitalController {
-
-    private DataBaseAdapter adapter;
-    protected SQLiteDatabase db;
+public class HospitalController extends BaseController<Hospital>{
 
     public HospitalController(Context context){
-
-        //INTEGRAÇÃO COM O BANCO
-        adapter = new DataBaseAdapter(context);
-        db = adapter.getWritableDatabase();
+        super(context);
     }
 
     //INSERT
@@ -29,24 +18,8 @@ public class HospitalController {
         return isCreate;
     }
 
-    //LISTAR
-    public List<Hospital> get(){
-        Cursor c = db.query(Hospital.TABLE, getColumns(), null, null, null, null, null);
-
-        List<Hospital> objctlis = new ArrayList<Hospital>();
-
-        if (c.moveToFirst()){
-            do {
-                Hospital hospital = convertToObject(c);
-                objctlis.add(hospital);
-            } while (c.moveToFirst());
-        }
-        c.close();
-
-        return objctlis;
-    }
-
-    private Hospital convertToObject(Cursor c) {
+    @Override
+    protected Hospital convertToObject(Cursor c) {
         Hospital hospital = new Hospital();
 
         int columnId = c.getColumnIndex(Hospital.COLUMN_ID);
@@ -79,7 +52,8 @@ public class HospitalController {
         return hospital;
     }
 
-    private String[] getColumns() {
+    @Override
+    protected String[] getColumns() {
         return new String[]{Hospital.COLUMN_ID, Hospital.COLUMN_NOME, Hospital.COLUMN_RUA,
                 Hospital.COLUMN_BAIRRO, Hospital.COLUMN_CIDADE, Hospital.COLUMN_UF,
                 Hospital.COLUMN_TELEFONE, Hospital.COLUMN_DIRETOR, Hospital.COLUMN_NUMENRO};
@@ -97,8 +71,11 @@ public class HospitalController {
         values.put(Hospital.COLUMN_DIRETOR, hospital.getDiretor());
         values.put(Hospital.COLUMN_NUMENRO, hospital.getNumero());
 
-
         return values;
     }
 
+    @Override
+    protected String getTable() {
+        return Hospital.TABLE;
+    }
 }

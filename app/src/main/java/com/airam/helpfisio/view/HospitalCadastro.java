@@ -13,7 +13,7 @@ import com.airam.helpfisio.R;
 import com.airam.helpfisio.controller.HospitalController;
 import com.airam.helpfisio.model.Hospital;
 
-public class HospitalCadastro implements DialogInterface.OnShowListener, View.OnClickListener {
+public class HospitalCadastro implements DialogInterface.OnShowListener, View.OnClickListener, DialogInterface.OnDismissListener {
 
     private HospitalController hospitalController;
     private AlertDialog dialog;
@@ -123,6 +123,14 @@ public class HospitalCadastro implements DialogInterface.OnShowListener, View.On
 
             dialog.dismiss();
 
+
         }
+    }
+
+    @Override
+    public void onDismiss(DialogInterface dialogInterface) {
+
+        hospitalController.closeDb();
+
     }
 }

@@ -9,6 +9,7 @@ import android.widget.EditText;
 import android.widget.Toast;
 
 import com.airam.helpfisio.R;
+import com.airam.helpfisio.controller.HospitalController;
 import com.airam.helpfisio.controller.LeitoController;
 import com.airam.helpfisio.model.Leito;
 import com.airam.helpfisio.model.Paciente;

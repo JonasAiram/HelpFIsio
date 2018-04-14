@@ -18,7 +18,6 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
 
         btnCadastro = (Button) findViewById(R.id.btnCadastro);
         btnCadastro.setOnClickListener(this);
-
         btnCalculos = (Button) findViewById(R.id.btnCalculos);
         btnCalculos.setOnClickListener(this);
 
@@ -39,5 +38,10 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
                 startActivity(intent);
                 break;
         }
+    }
+
+    @Override
+    protected void onDestroy() {
+        super.onDestroy();
     }
 }
