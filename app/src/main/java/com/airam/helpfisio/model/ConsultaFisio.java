@@ -4,7 +4,8 @@ package com.airam.helpfisio.model;
  * Created by jonas on 01/11/2017.
  */
 
-public class Calculos {
+public class ConsultaFisio {
+
 
 
     //NOME DA TABELA
@@ -15,5 +16,4 @@ public class Calculos {
     public static final String COLUMN_ID = "_id";
 
     //CRIANDO TABELAS
-
 }
