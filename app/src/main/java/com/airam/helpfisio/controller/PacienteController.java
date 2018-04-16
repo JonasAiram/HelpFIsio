@@ -15,16 +15,12 @@ import java.util.List;
  * Created by jonas on 10/11/2017.
  */
 
-public class PacienteController {
-
-    private DataBaseAdapter adapter;
-    protected SQLiteDatabase db;
+public class PacienteController extends BaseController<Paciente>{
 
     public PacienteController(Context context){
         //Integração com o Banco de Dados
+        super(context);
 
-        adapter = new DataBaseAdapter(context);
-        db = adapter.getWritableDatabase();
     }
 
     //INSERT
@@ -34,25 +30,9 @@ public class PacienteController {
         return isCreate;
     }
 
-    //LISTAR Pacientes
 
-    public List<Paciente> get(){
-        Cursor c = db.query(Paciente.TABLE, getColumns(), null, null, null, null, null);
-
-        List<Paciente> objctlis = new ArrayList<Paciente>();
-
-        if (c.moveToFirst()){
-            do {
-                Paciente paciente = convertToObject(c);
-                objctlis.add(paciente);
-            } while (c.moveToFirst());
-        }
-        c.close();
-
-        return objctlis;
-    }
-
-    private Paciente convertToObject(Cursor c) {
+    @Override
+    protected Paciente convertToObject(Cursor c) {
         Paciente paciente = new Paciente();
 
         int columnId = c.getColumnIndex(Paciente.COLUMN_ID);
@@ -88,7 +68,8 @@ public class PacienteController {
         return paciente;
     }
 
-    private String[] getColumns(){
+    @Override
+    protected String[] getColumns(){
         return new String[]{Paciente.COLUMN_ID, Paciente.COLUMN_NOME, Paciente.COLUMN_RG,
                 Paciente.COLUMN_CPF, Paciente.COLUMN_PESO, Paciente.COLUMN_ALTURA,
                 Paciente.COLUMN_DATA};
@@ -110,4 +91,8 @@ public class PacienteController {
         return values;
     }
 
+    @Override
+    protected String getTable() {
+        return Paciente.TABLE;
+    }
 }
