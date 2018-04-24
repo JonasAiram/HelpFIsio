@@ -65,12 +65,12 @@ public class ConsultaMedicoController extends BaseController<ConsultaMedico>{
 
         values.put(ConsultaMedico.COLUMN_IDPACIENTE, consultaMedico.getIdPaciente());
         values.put(ConsultaMedico.COLUMN_IDMEDICO, consultaMedico.getIdMedico());
-        values.put(ConsultaMedico.COLUMN_IDPACIENTE, consultaMedico.getDescricao());
-        values.put(ConsultaMedico.COLUMN_IDPACIENTE, consultaMedico.getMedicacao());
-        values.put(ConsultaMedico.COLUMN_IDPACIENTE, consultaMedico.getTratamento());
-        values.put(ConsultaMedico.COLUMN_IDPACIENTE, consultaMedico.getEspecialidadeConsulta());
-        values.put(ConsultaMedico.COLUMN_IDPACIENTE, consultaMedico.getHora());
-        values.put(ConsultaMedico.COLUMN_IDPACIENTE, consultaMedico.getData());
+        values.put(ConsultaMedico.COLUMN_DESC, consultaMedico.getDescricao());
+        values.put(ConsultaMedico.COLUMN_MEDICACAO, consultaMedico.getMedicacao());
+        values.put(ConsultaMedico.COLUMN_TRATAMENTO, consultaMedico.getTratamento());
+        values.put(ConsultaMedico.COLUMN_ESPECIALIDADE, consultaMedico.getEspecialidadeConsulta());
+        values.put(ConsultaMedico.COLUMN_HORA, consultaMedico.getHora());
+        values.put(ConsultaMedico.COLUMN_DATA, consultaMedico.getData());
 
         return values;
     }
