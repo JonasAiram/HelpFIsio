@@ -15,6 +15,7 @@
         <item>Leito</item>
         <item>Médico</item>
         <item>Hospital</item>
+        <item>Consulta com Médico</item>
     </string-array>
 
     <string name="erro_intent">Ação Não Suportada</string>

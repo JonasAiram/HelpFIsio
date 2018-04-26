@@ -156,7 +156,7 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_weight="1"
-            android:inputType="date"/>
+            android:inputType="text"/>
 
     </LinearLayout>
 
@@ -179,7 +179,7 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_weight="1"
-            android:inputType="datetime"/>
+            android:inputType="text"/>
 
     </LinearLayout>
 
@@ -202,7 +202,7 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_weight="1"
-            android:inputType="datetime"
+            android:inputType="text"
             android:hint="Especialidade do Atendimento"/>
 
     </LinearLayout>
