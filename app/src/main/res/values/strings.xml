@@ -16,8 +16,8 @@
         <item>Médico</item>
         <item>Hospital</item>
         <item>Consulta com Médico</item>
+        <item>Fisioterapeuta</item>
     </string-array>
-
     <string name="erro_intent">Ação Não Suportada</string>
     <string name="title_activity_medico_cadastro">MedicoCadastro</string>
 </resources>

@@ -11,6 +11,7 @@ import android.widget.Toast;
 
 import com.airam.helpfisio.model.ConsultaMedico;
 import com.airam.helpfisio.view.ConsultaMedicoCadastro;
+import com.airam.helpfisio.view.FisioterapeutaCadastro;
 import com.airam.helpfisio.view.HospitalCadastro;
 import com.airam.helpfisio.view.LeitoCadastro;
 import com.airam.helpfisio.view.MedicoCadastro;
@@ -58,6 +59,11 @@ public class ListaCadastros extends ListActivity{
 
             case 4:
                 ConsultaMedicoCadastro consultaMedicoCadastro= new ConsultaMedicoCadastro(v);
+
+                break;
+
+            case 5:
+                FisioterapeutaCadastro fisioterapeutaCadastro= new FisioterapeutaCadastro(v);
 
                 break;
 
