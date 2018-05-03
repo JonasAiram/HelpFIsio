@@ -29,7 +29,10 @@ public class ConsultaMedico {
             + COLUMN_TRATAMENTO     +   " TEXT,"
             + COLUMN_DATA           +   " TEXT,"
             + COLUMN_HORA           +   " TEXT,"
-            + COLUMN_ESPECIALIDADE  +   " TEXT)";
+            + COLUMN_ESPECIALIDADE  +   " TEXT,"
+            + "PRIMARY KEY("+ COLUMN_IDPACIENTE + "," + COLUMN_IDMEDICO + "),"
+            + "FOREIGN KEY("+ COLUMN_IDMEDICO +") REFERENCES " + Medico.TABLE + "(" +Medico.COLUMN_ID + "),"
+            + "FOREIGN KEY("+ COLUMN_IDPACIENTE +") REFERENCES " + Paciente.TABLE + "(" +Paciente.COLUMN_ID + "))";
 
     private int idMedico, idPaciente;
     private String descricao, medicacao, tratamento, data, hora, especialidadeConsulta;

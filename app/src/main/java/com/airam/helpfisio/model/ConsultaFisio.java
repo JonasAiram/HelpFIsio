@@ -20,6 +20,7 @@ public class ConsultaFisio {
     public static final String COLUMN_DATA = "data";
     public static final String COLUMN_HORA = "hora";
 
+
     //CRIANDO TABELAS
     public static final String SQL_CREATE = "CREATE TABLE " + TABLE + "( "
             + COLUMN_IDFISIO        +   " INTEGER,"
@@ -28,7 +29,10 @@ public class ConsultaFisio {
             + COLUMN_PATOLOGIA      +   " TEXT,"
             + COLUMN_TRATAMENTO     +   " TEXT,"
             + COLUMN_DATA           +   " TEXT,"
-            + COLUMN_HORA           +   " TEXT)";
+            + COLUMN_HORA           +   " TEXT,"
+            + "PRIMARY KEY("+ COLUMN_IDPACIENTE + "," + COLUMN_IDFISIO+ "),"
+            + "FOREIGN KEY("+ COLUMN_IDFISIO +") REFERENCES " + Fisioterapeuta.TABLE + "(" +Fisioterapeuta.COLUMN_ID + "),"
+            + "FOREIGN KEY("+ COLUMN_IDPACIENTE +") REFERENCES " + Paciente.TABLE + "(" +Paciente.COLUMN_ID + "))";
 
     private int idFisio, idPaciente;
     private String descricao, patologia, tratamento, data, hora;
