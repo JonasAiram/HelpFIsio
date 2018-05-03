@@ -105,8 +105,8 @@ public class MedicoCadastro implements DialogInterface.OnShowListener, View.OnCl
                 && sobrenome.length() != 0 && salario.length() != 0){
 
             int rgInt = Integer.parseInt(rg);
-            int cpfInt = Integer.parseInt(cpf);
             int crmInt = Integer.parseInt(crm);
+            int intTelefone = Integer.parseInt(telefone);
             double salarioDouble = Double.parseDouble(salario);
 
             //REGRAS PARA ARMAZENAR NO BANCO DE DADOS
@@ -115,11 +115,11 @@ public class MedicoCadastro implements DialogInterface.OnShowListener, View.OnCl
             Medico medico = new Medico();
             medico.setNome(nome);
             medico.setRg(rgInt);
-            medico.setCpf(cpfInt);
+            medico.setCpf(cpf);
             medico.setData(data);
             medico.setCrm(crmInt);
             medico.setCargo(cargo);
-            medico.setTelefone(telefone);
+            medico.setTelefone(intTelefone);
             medico.setSobrenome(sobrenome);
             medico.setSalario(salarioDouble);
 

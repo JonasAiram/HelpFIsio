@@ -33,7 +33,7 @@ public class MedicoController extends BaseController<Medico>{
         medico.setRg(c.getInt(columnId));
 
         columnId = c.getColumnIndex(Medico.COLUMN_CPF);
-        medico.setCpf(c.getInt(columnId));
+        medico.setCpf(c.getString(columnId));
 
         columnId = c.getColumnIndex(Medico.COLUMN_DATA);
         medico.setData(c.getString(columnId));
@@ -45,7 +45,7 @@ public class MedicoController extends BaseController<Medico>{
         medico.setCargo(c.getString(columnId));
 
         columnId = c.getColumnIndex(Medico.COLUMN_TELEFONE);
-        medico.setTelefone(c.getString(columnId));
+        medico.setTelefone(c.getInt(columnId));
 
         columnId = c.getColumnIndex(Medico.COLUMN_SOBRENOME);
         medico.setSobrenome(c.getString(columnId));
