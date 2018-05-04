@@ -20,6 +20,7 @@
         <activity android:name=".ListaCalculos" />
         <activity android:name=".ListaCadastros" />
         <activity android:name=".calculos.PesoIdeal" />
+        <activity android:name=".PacienteView"/>
     </application>
 
 </manifest>

@@ -24,12 +24,10 @@ public class PacienteController extends BaseController<Paciente>{
     }
 
     //INSERT
-
     public boolean insert(Paciente paciente){
         boolean isCreate = db.insert(Paciente.TABLE, null, convertToContentValue(paciente)) > 0;
         return isCreate;
     }
-
 
     @Override
     protected Paciente convertToObject(Cursor c) {
@@ -72,7 +70,8 @@ public class PacienteController extends BaseController<Paciente>{
     protected String[] getColumns(){
         return new String[]{Paciente.COLUMN_ID, Paciente.COLUMN_NOME, Paciente.COLUMN_RG,
                 Paciente.COLUMN_CPF, Paciente.COLUMN_PESO, Paciente.COLUMN_ALTURA,
-                Paciente.COLUMN_DATA};
+                Paciente.COLUMN_DATA, Paciente.COLUMN_SOBRENOME, Paciente.COLUMN_TELEFONE,
+                Paciente.COLUMN_ID_LEITO};
     }
 
     private ContentValues convertToContentValue(Paciente paciente) {
