@@ -1,4 +1,4 @@
-package com.airam.helpfisio.view;
+package com.airam.helpfisio.view.cadastro;
 
 import android.app.AlertDialog;
 import android.content.Context;
@@ -10,40 +10,43 @@ import android.widget.EditText;
 import android.widget.Toast;
 
 import com.airam.helpfisio.R;
-import com.airam.helpfisio.controller.FisioterapeutaController;
-import com.airam.helpfisio.model.Fisioterapeuta;
+import com.airam.helpfisio.controller.MedicoController;
+import com.airam.helpfisio.model.Medico;
+import com.airam.helpfisio.view.MedicoView;
 
-public class FisioterapeutaCadastro implements DialogInterface.OnShowListener, View.OnClickListener, DialogInterface.OnDismissListener{
 
+public class MedicoCadastro implements DialogInterface.OnShowListener, View.OnClickListener, DialogInterface.OnDismissListener {
 
-    private FisioterapeutaController fisioterapeutaController;
+    private MedicoController medicoController;
     private AlertDialog dialog;
 
-    private EditText editTextNome, editTextRG, editTextCPF, editTextData, editTextCrefito;
-    private EditText editTextTelefone, editTextSobrenome, editTextSalario, editTextCargo;
+    private EditText editTextNome, editTextRG, editTextCPF, editTextData, editTextCRM, editTextCargo;
+    private EditText editTextTelefone, editTextSobrenome, editTextSalario;
 
-    public FisioterapeutaCadastro(View v){
+    Context context;
+
+    public MedicoCadastro(View v) {
 
         //CRIA O CONTEXT
-        final Context context = v.getContext();
+        context = v.getContext();
 
-        fisioterapeutaController = new FisioterapeutaController(context);
+        medicoController = new MedicoController(context);
 
         //CRIA O LAYOUT COMO ALERTDIALOG
         AlertDialog.Builder builder = new AlertDialog.Builder(context);
-        View view = LayoutInflater.from(context).inflate(R.layout.fisiocadastro, null);
+        View view = LayoutInflater.from(context).inflate(R.layout.medicocadastro, null);
         builder.setView(view);
 
-        //ATRIBUI AS VARIAVEIS AOS ITENS DO LAYOUT
-        editTextNome = (EditText) view.findViewById(R.id.edtFisioNome);
-        editTextRG = (EditText) view.findViewById(R.id.edtFisioRG);
-        editTextCPF = (EditText) view.findViewById(R.id.edtFisioCPF);
-        editTextData = (EditText) view.findViewById(R.id.edtFisioData);
-        editTextCrefito = (EditText) view.findViewById(R.id.edtFisioCrefito);
-        editTextCargo = (EditText) view.findViewById(R.id.edtFisioCargo);
-        editTextTelefone = (EditText) view.findViewById(R.id.edtFisioTelefone);
-        editTextSobrenome = (EditText) view.findViewById(R.id.edtFisioSobrenome);
-        editTextSalario = (EditText) view.findViewById(R.id.edtFisioSalario);
+        //ATRIBUI AS VARIVEIS AOS ITENS DO LAYOUT
+        editTextNome = (EditText) view.findViewById(R.id.edtMedicoNome);
+        editTextRG = (EditText) view.findViewById(R.id.edtMedicoRG);
+        editTextCPF = (EditText) view.findViewById(R.id.edtMedicoCPF);
+        editTextData = (EditText) view.findViewById(R.id.edtMedicoData);
+        editTextCRM = (EditText) view.findViewById(R.id.edtMedicoCRM);
+        editTextCargo = (EditText) view.findViewById(R.id.edtMedicoCargo);
+        editTextTelefone = (EditText) view.findViewById(R.id.edtMedicoTelefone);
+        editTextSobrenome = (EditText) view.findViewById(R.id.edtMedicoSobrenome);
+        editTextSalario = (EditText) view.findViewById(R.id.edtMedicoSalario);
 
         //CRIA OS BUTTONS DO ALERTDIALOG
         builder.setPositiveButton("Salvar", null);
@@ -53,7 +56,6 @@ public class FisioterapeutaCadastro implements DialogInterface.OnShowListener, V
         dialog = builder.create();
         dialog.setOnShowListener(this);
         dialog.show();
-
     }
 
     @Override
@@ -62,6 +64,7 @@ public class FisioterapeutaCadastro implements DialogInterface.OnShowListener, V
         Button b = dialog.getButton(DialogInterface.BUTTON_POSITIVE);
         b.setId(DialogInterface.BUTTON_POSITIVE);
         b.setOnClickListener(this);
+
     }
 
     @Override
@@ -72,7 +75,7 @@ public class FisioterapeutaCadastro implements DialogInterface.OnShowListener, V
         String rg = editTextRG.getText().toString();
         String cpf = editTextCPF.getText().toString();
         String data = editTextData.getText().toString();
-        String crefito = editTextCrefito.getText().toString();
+        String crm = editTextCRM.getText().toString();
         String cargo = editTextCargo.getText().toString();
         String telefone = editTextTelefone.getText().toString();
         String sobrenome = editTextSobrenome.getText().toString();
@@ -88,45 +91,48 @@ public class FisioterapeutaCadastro implements DialogInterface.OnShowListener, V
             editTextCPF.setError("Digite o CPF!");
         if (data.length() == 0)
             editTextData.setError("Digite a Data de Nascimento!");
-        if (crefito.length() == 0)
-            editTextCrefito.setError("Digite o Crefito!");
+        if (crm.length() == 0)
+            editTextCRM.setError("Digite o CRM!");
         if (cargo.length() == 0)
-            editTextCargo.setError("Digite o Cargo do Fisioterapeuta!");
+            editTextCargo.setError("Digite o Cargo do Médico!");
         if (telefone.length() == 0)
             editTextTelefone.setError("Digite o Telefone!");
         if (sobrenome.length() == 0)
             editTextSobrenome.setError("Digite o Sobrenome!");
         if (salario.length() == 0)
-            editTextSalario.setError("Digite o Salário do Fisioterapeuta!");
+            editTextSalario.setError("Digite o Salário do Médico!");
 
         //SE TODOS OS CAMPOS FOREM PREENCHIDOS SERÁ EXECUTADA ESTÁ AÇÃO
         if (nome.length() != 0 && rg.length() != 0 && cpf.length() != 0 && data.length() != 0
-                && crefito.length() != 0 && cargo.length() != 0 && telefone.length() != 0
-                && sobrenome.length() != 0 && salario.length() != 0) {
+                && crm.length() != 0 && cargo.length() != 0 && telefone.length() != 0
+                && sobrenome.length() != 0 && salario.length() != 0){
 
             int rgInt = Integer.parseInt(rg);
-            int crefitoInt = Integer.parseInt(crefito);
-            int telefoneInt = Integer.parseInt(telefone);
+            int crmInt = Integer.parseInt(crm);
+            int intTelefone = Integer.parseInt(telefone);
             double salarioDouble = Double.parseDouble(salario);
 
             //REGRAS PARA ARMAZENAR NO BANCO DE DADOS
-            Context context = v.getContext();
+            //Context context = v.getContext();
 
-            Fisioterapeuta fisioterapeuta = new Fisioterapeuta();
-            fisioterapeuta.setNome(nome);
-            fisioterapeuta.setRg(rgInt);
-            fisioterapeuta.setCpf(cpf);
-            fisioterapeuta.setData(data);
-            fisioterapeuta.setCrefito(crefitoInt);
-            fisioterapeuta.setCargo(cargo);
-            fisioterapeuta.setTelefone(telefoneInt);
-            fisioterapeuta.setSobrenome(sobrenome);
-            fisioterapeuta.setSalario(salarioDouble);
+            Medico medico = new Medico();
+            medico.setNome(nome);
+            medico.setRg(rgInt);
+            medico.setCpf(cpf);
+            medico.setData(data);
+            medico.setCrm(crmInt);
+            medico.setCargo(cargo);
+            medico.setTelefone(intTelefone);
+            medico.setSobrenome(sobrenome);
+            medico.setSalario(salarioDouble);
 
-            boolean criadoComSucesso = fisioterapeutaController.insert(fisioterapeuta);
+            boolean criadoComSucesso = medicoController.insert(medico);
 
-            if (criadoComSucesso)
+            if (criadoComSucesso) {
                 Toast.makeText(context, "Médico Cadastrado Com Sucesso.", Toast.LENGTH_SHORT).show();
+
+                ((MedicoView) context).atualizarRegistros();
+            }
             else
                 Toast.makeText(context, "Não Foi Possivel Cadastrar o Médico.", Toast.LENGTH_SHORT).show();
 
@@ -135,8 +141,9 @@ public class FisioterapeutaCadastro implements DialogInterface.OnShowListener, V
         }
     }
 
-        @Override
-        public void onDismiss(DialogInterface dialogInterface) {
-            fisioterapeutaController.closeDb();
-        }
+    @Override
+    public void onDismiss(DialogInterface dialogInterface) {
+
+        medicoController.closeDb();
+    }
 }

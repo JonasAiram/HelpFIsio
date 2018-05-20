@@ -1,4 +1,4 @@
-package com.airam.helpfisio.view;
+package com.airam.helpfisio.view.cadastro;
 
 import android.app.AlertDialog;
 import android.content.Context;
@@ -9,6 +9,7 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.Toast;
 
+import com.airam.helpfisio.view.PacienteView;
 import com.airam.helpfisio.R;
 import com.airam.helpfisio.controller.PacienteController;
 import com.airam.helpfisio.model.Paciente;
@@ -25,10 +26,12 @@ public class PacienteCadastro implements DialogInterface.OnShowListener, View.On
     private EditText editTextNome, editTextRG, editTextCPF, editTextAltura, editTextPeso;
     private EditText editTextData, editTextIdLeito, editTextTelefone, editTextSobrenome;
 
+    Context context;
+
     public PacienteCadastro(View v) {
 
         //CRIA O CONTEXT
-        Context context = v.getContext();
+        context = v.getContext();
 
         pacienteController = new PacienteController(context);
 
@@ -110,8 +113,6 @@ public class PacienteCadastro implements DialogInterface.OnShowListener, View.On
             double altura = Double.parseDouble(editTextAltura.getText().toString());
             double peso = Double.parseDouble(editTextPeso.getText().toString());
 
-            Context context = v.getContext();
-
             Paciente paciente = new Paciente();
             paciente.setNome(pacienteNome);
             paciente.setRg(Rg);
@@ -125,8 +126,12 @@ public class PacienteCadastro implements DialogInterface.OnShowListener, View.On
 
             boolean criadoComSucesso = pacienteController.insert(paciente);
 
-            if (criadoComSucesso)
+            if (criadoComSucesso) {
                 Toast.makeText(context, "Paciente Cadastrado Com Sucesso.", Toast.LENGTH_SHORT).show();
+
+                ((PacienteView) context).atualizarRegistros();
+
+            }
             else
                 Toast.makeText(context, "Não Foi Possivel Cadastrar o Paciente.", Toast.LENGTH_SHORT).show();
 

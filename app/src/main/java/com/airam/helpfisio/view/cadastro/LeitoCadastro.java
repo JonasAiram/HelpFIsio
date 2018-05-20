@@ -1,4 +1,4 @@
-package com.airam.helpfisio.view;
+package com.airam.helpfisio.view.cadastro;
 
 import android.app.AlertDialog;
 import android.content.Context;
@@ -12,6 +12,7 @@ import android.widget.Toast;
 import com.airam.helpfisio.R;
 import com.airam.helpfisio.controller.LeitoController;
 import com.airam.helpfisio.model.Leito;
+import com.airam.helpfisio.view.LeitoView;
 
 /**
  * Created by Jonas on 18/11/2017.
@@ -24,11 +25,12 @@ public class LeitoCadastro implements DialogInterface.OnShowListener, View.OnCli
 
     private EditText editTextTipo, editTextQtd, editTextChefe, editTextAndar, editTextIdHospital;
 
+    Context context;
 
     public LeitoCadastro(View v) {
 
         //CRIA O CONTEXT
-        final Context context = v.getContext();
+        context = v.getContext();
 
         leitoController = new LeitoController(context);
 
@@ -88,8 +90,6 @@ public class LeitoCadastro implements DialogInterface.OnShowListener, View.OnCli
             int andarLeito = Integer.parseInt(andar);
 
             //REGRAS PARA ARMAZENAR NO BANCO DE DADOS
-            Context context = v.getContext();
-
             Leito leito = new Leito();
             leito.setTipo(tipo);
             leito.setQuantidade(qtdLeito);
@@ -98,8 +98,11 @@ public class LeitoCadastro implements DialogInterface.OnShowListener, View.OnCli
 
             boolean criadoComSucesso = leitoController.insert(leito);
 
-            if (criadoComSucesso)
+            if (criadoComSucesso) {
                 Toast.makeText(context, "Hospital Cadastrado Com Sucesso.", Toast.LENGTH_SHORT).show();
+
+                ((LeitoView) context).atualizarRegistros();
+            }
             else
                 Toast.makeText(context, "Não Foi Possivel Cadastrar o Hospital.", Toast.LENGTH_SHORT).show();
 

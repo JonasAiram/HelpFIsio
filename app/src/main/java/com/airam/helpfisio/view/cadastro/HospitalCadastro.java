@@ -1,4 +1,4 @@
-package com.airam.helpfisio.view;
+package com.airam.helpfisio.view.cadastro;
 
 import android.content.Context;
 import android.content.DialogInterface;

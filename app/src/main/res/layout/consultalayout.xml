@@ -13,20 +13,28 @@
         android:layout_height="wrap_content"
         android:orientation="horizontal">
 
+
         <ImageView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:src="@mipmap/ic_search"
-            android:layout_weight="1"/>
+            android:layout_weight="2"/>
 
         <EditText
             android:id="@+id/editTextPesquisar"
             android:hint="Pesquisar"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_alignParentTop="true"
-            android:layout_weight="1"/>
+            android:layout_weight="4"
+            android:completionHint="Pesquisar"
+            android:completionThreshold="1"/>
 
+        <ImageView
+            android:id="@+id/imgViewAdd"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:src="@mipmap/ic_launcher_mais"
+            android:layout_weight="1"/>
 
     </LinearLayout>
 
@@ -35,10 +43,10 @@
         android:layout_height="wrap_content"
         android:orientation="horizontal">
 
-    <ListView
-        android:id="@+id/listView"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content" />
+        <ListView
+            android:id="@+id/listView"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content" />
 
     </LinearLayout>
 

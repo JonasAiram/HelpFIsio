@@ -1,4 +1,4 @@
-package com.airam.helpfisio.view;
+package com.airam.helpfisio.view.cadastro;
 
 import android.app.AlertDialog;
 import android.content.Context;
@@ -10,39 +10,34 @@ import android.widget.EditText;
 import android.widget.Toast;
 
 import com.airam.helpfisio.R;
-import com.airam.helpfisio.controller.ConsultaMedicoController;
-import com.airam.helpfisio.model.ConsultaMedico;
+import com.airam.helpfisio.controller.ConsultaFisioController;
+import com.airam.helpfisio.model.ConsultaFisio;
 
-/**
- * Created by Jonas on 19/04/2018.
- */
+public class ConsultaFisioCadastro implements DialogInterface.OnShowListener, View.OnClickListener, DialogInterface.OnDismissListener{
 
-public class ConsultaMedicoCadastro implements DialogInterface.OnShowListener, View.OnClickListener, DialogInterface.OnDismissListener {
-
-    private ConsultaMedicoController consultaMedicoController;
+    private ConsultaFisioController consultaFisioController;
     private AlertDialog dialog;
 
-    private EditText editTextDescricao, editTextMedicacao, editTextTratamento, editTextData, editTextHora, editTextEspecialidade;
+    private EditText editTextDescricao, editTextPatologia, editTextTratamento, editTextData, editTextHora;
 
-    public ConsultaMedicoCadastro(View v){
+    public ConsultaFisioCadastro(View v){
 
-        //CRIA CONTEXT
+        //CRIA O CONTEXT
         final Context context = v.getContext();
 
-        consultaMedicoController = new ConsultaMedicoController(context);
+        consultaFisioController = new ConsultaFisioController(context);
 
-        //CRIA O LAYOUT COMO ALERT DIALOG
+        //CRIA O LAYOUT COMO ALERTDIALOG
         AlertDialog.Builder builder = new AlertDialog.Builder(context);
-        View view = LayoutInflater.from(context).inflate(R.layout.consultamedico, null);
+        View view = LayoutInflater.from(context).inflate(R.layout.consultafisio, null);
         builder.setView(view);
 
         //ATRIBUI AS VARIAVEIS AOS ITENS DO LAYOUT
-        editTextDescricao = (EditText) view.findViewById(R.id.edtConsMedicoDesc);
-        editTextMedicacao = (EditText) view.findViewById(R.id.edtConsMedicoMedicamento);
-        editTextTratamento = (EditText) view.findViewById(R.id.edtConsMedicoTratamento);
-        editTextData = (EditText) view.findViewById(R.id.edtConsMedicoData);
-        editTextHora= (EditText) view.findViewById(R.id.edtConsMedicoHora);
-        editTextEspecialidade = (EditText) view.findViewById(R.id.edtConsMedicoEspecialidade);
+        editTextDescricao = (EditText) view.findViewById(R.id.edtConsFisioDesc);
+        editTextPatologia= (EditText) view.findViewById(R.id.edtConsFisioPatologia);
+        editTextTratamento = (EditText) view.findViewById(R.id.edtConsFisioTratamento);
+        editTextData = (EditText) view.findViewById(R.id.edtConsFisioData);
+        editTextHora= (EditText) view.findViewById(R.id.edtConsFisioHora);
 
         //CRIA OS BUTTONS DO ALERTDIALOG
         builder.setPositiveButton("Salvar", null);
@@ -65,11 +60,11 @@ public class ConsultaMedicoCadastro implements DialogInterface.OnShowListener, V
     }
 
     @Override
-    public void onClick(View v) {
+    public void onClick(View v){
 
         //ATRIBUIÇÃO DAS VARIAVEIS PARA STRINGS PARA FACILITAR NA ESTRUTURA DE CONDIÇÃO IF
         String descricao = editTextDescricao.getText().toString();
-        String medicamento = editTextMedicacao.getText().toString();
+        String patologia = editTextPatologia.getText().toString();
         String tratamento = editTextTratamento.getText().toString();
         String data = editTextData.getText().toString();
         String hora = editTextHora.getText().toString();
@@ -77,8 +72,8 @@ public class ConsultaMedicoCadastro implements DialogInterface.OnShowListener, V
         //APRESENTA OS ERROS AO DEIXAR ALGUM ATRIBUTO EM BRANCO
         if (descricao.length() == 0)
             editTextDescricao.setError("Digite a Descrição!");
-        if (medicamento.length() == 0)
-            editTextMedicacao.setError("Digite a Medicação Preescrita!");
+        if (patologia.length() == 0)
+            editTextPatologia.setError("Digite a Patologia do Paciente!");
         if (tratamento.length() == 0)
             editTextTratamento.setError("Digite o Tratamento!");
         if (data.length() == 0)
@@ -87,20 +82,20 @@ public class ConsultaMedicoCadastro implements DialogInterface.OnShowListener, V
             editTextHora.setError("Digite a Hora da Comsulta!");
 
         //SE TODOS OS CAMPOS FOREM PREENCHIDOS SERÁ EXECUTADA ESTÁ AÇÃO
-        if (descricao.length() != 0 && medicamento.length() != 0 && tratamento.length() != 0 &&
+        if (descricao.length() != 0 && patologia.length() != 0 && tratamento.length() != 0 &&
                 data.length() != 0 && hora.length() != 0){
 
             //REGRAS PARA ARMAZENAR NO BANCO DE DADOS
             Context context = v.getContext();
 
-            ConsultaMedico consultaMedico = new ConsultaMedico();
-            consultaMedico.setDescricao(descricao);
-            consultaMedico.setMedicacao(medicamento);
-            consultaMedico.setTratamento(tratamento);
-            consultaMedico.setData(data);
-            consultaMedico.setHora(hora);
+            ConsultaFisio consultaFisio = new ConsultaFisio();
+            consultaFisio.setDescricao(descricao);
+            consultaFisio.setPatologia(patologia);
+            consultaFisio.setTratamento(tratamento);
+            consultaFisio.setData(data);
+            consultaFisio.setHora(hora);
 
-            boolean criadoComSucesso = consultaMedicoController.insert(consultaMedico);
+            boolean criadoComSucesso = consultaFisioController.insert(consultaFisio);
 
             if (criadoComSucesso)
                 Toast.makeText(context, "Consulta Cadastrada Com Sucesso.", Toast.LENGTH_SHORT).show();
@@ -114,7 +109,6 @@ public class ConsultaMedicoCadastro implements DialogInterface.OnShowListener, V
 
     @Override
     public void onDismiss(DialogInterface dialogInterface) {
-        consultaMedicoController.closeDb();
-
+        consultaFisioController.closeDb();
     }
 }

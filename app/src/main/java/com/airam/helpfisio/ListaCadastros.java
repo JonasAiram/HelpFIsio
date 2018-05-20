@@ -9,16 +9,16 @@ import android.widget.ListView;
 import android.widget.Toast;
 
 
-import com.airam.helpfisio.model.ConsultaFisio;
-import com.airam.helpfisio.model.ConsultaMedico;
-import com.airam.helpfisio.view.CalculosCadastro;
-import com.airam.helpfisio.view.ConsultaFisioCadastro;
-import com.airam.helpfisio.view.ConsultaMedicoCadastro;
-import com.airam.helpfisio.view.FisioterapeutaCadastro;
-import com.airam.helpfisio.view.HospitalCadastro;
-import com.airam.helpfisio.view.LeitoCadastro;
-import com.airam.helpfisio.view.MedicoCadastro;
-import com.airam.helpfisio.view.PacienteCadastro;
+import com.airam.helpfisio.view.LeitoView;
+import com.airam.helpfisio.view.MedicoView;
+import com.airam.helpfisio.view.cadastro.CalculosCadastro;
+import com.airam.helpfisio.view.cadastro.ConsultaFisioCadastro;
+import com.airam.helpfisio.view.cadastro.ConsultaMedicoCadastro;
+import com.airam.helpfisio.view.cadastro.FisioterapeutaCadastro;
+import com.airam.helpfisio.view.cadastro.HospitalCadastro;
+import com.airam.helpfisio.view.cadastro.LeitoCadastro;
+import com.airam.helpfisio.view.cadastro.MedicoCadastro;
+import com.airam.helpfisio.view.PacienteView;
 
 
 /**
@@ -41,17 +41,22 @@ public class ListaCadastros extends ListActivity{
 
         switch (position) {
             case 0:
-                PacienteCadastro pacienteCadastro = new PacienteCadastro(v);
-
+                intent = new Intent(ListaCadastros.this, PacienteView.class);
+                startActivity(intent);
                 break;
 
             case 1:
-                LeitoCadastro leitoCadastro = new LeitoCadastro(v);
+                intent = new Intent(ListaCadastros.this, LeitoView.class);
+                startActivity(intent);
+                // LeitoCadastro leitoCadastro = new LeitoCadastro(v);
 
                 break;
 
             case 2:
-                MedicoCadastro medicoCadastro= new MedicoCadastro(v);
+                intent = new Intent(ListaCadastros.this, MedicoView.class);
+                startActivity(intent);
+
+                //MedicoCadastro medicoCadastro= new MedicoCadastro(v);
 
                 break;
 

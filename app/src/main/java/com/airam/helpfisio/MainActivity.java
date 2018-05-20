@@ -40,10 +40,8 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
                 startActivity(intent);
                 break;
 
-            case R.id.btnListar:
-                intent = new Intent(MainActivity.this, PacienteView.class);
-                startActivity(intent);
-
+            default:
+                finish();
         }
     }
 
