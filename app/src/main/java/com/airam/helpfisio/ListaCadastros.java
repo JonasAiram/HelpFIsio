@@ -9,6 +9,7 @@ import android.widget.ListView;
 import android.widget.Toast;
 
 
+import com.airam.helpfisio.view.HospitalView;
 import com.airam.helpfisio.view.LeitoView;
 import com.airam.helpfisio.view.MedicoView;
 import com.airam.helpfisio.view.cadastro.CalculosCadastro;
@@ -61,7 +62,10 @@ public class ListaCadastros extends ListActivity{
                 break;
 
             case 3:
-                HospitalCadastro hospitalCadastro = new HospitalCadastro(v);
+                intent = new Intent(ListaCadastros.this, HospitalView.class);
+                startActivity(intent);
+
+                //HospitalCadastro hospitalCadastro = new HospitalCadastro(v);
 
                 break;
 

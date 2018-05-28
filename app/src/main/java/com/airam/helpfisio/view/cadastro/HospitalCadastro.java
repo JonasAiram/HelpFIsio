@@ -12,6 +12,7 @@ import android.widget.Toast;
 import com.airam.helpfisio.R;
 import com.airam.helpfisio.controller.HospitalController;
 import com.airam.helpfisio.model.Hospital;
+import com.airam.helpfisio.view.HospitalView;
 
 public class HospitalCadastro implements DialogInterface.OnShowListener, View.OnClickListener, DialogInterface.OnDismissListener {
 
@@ -21,10 +22,12 @@ public class HospitalCadastro implements DialogInterface.OnShowListener, View.On
     private EditText editTextNome, editTextRua, editTextNumero, editTextBairro;
     private EditText editTextCidade, editTextUF, editTextTelefone, editTextDiretor;
 
+    Context context;
+
     public HospitalCadastro (View v){
 
         //CRIA O CONTEXT
-        Context context = v.getContext();
+        context = v.getContext();
 
         hospitalController = new HospitalController(context);
 
@@ -101,9 +104,6 @@ public class HospitalCadastro implements DialogInterface.OnShowListener, View.On
             int telefoneHospital = Integer.parseInt(telefone);
 
             //REGRAS PARA ARMAZENAR NO BANCO DE DADOS
-
-            Context context = v.getContext();
-
             Hospital hospital = new Hospital();
             hospital.setNome(nome);
             hospital.setRua(rua);
@@ -116,8 +116,11 @@ public class HospitalCadastro implements DialogInterface.OnShowListener, View.On
 
             boolean criadoComSucesso = hospitalController.insert(hospital);
 
-            if (criadoComSucesso)
+            if (criadoComSucesso) {
                 Toast.makeText(context, "Hospital Cadastrado Com Sucesso.", Toast.LENGTH_SHORT).show();
+
+                ((HospitalView) context).atualizarRegistros();
+            }
             else
                 Toast.makeText(context, "Não Foi Possivel Cadastrar o Hospital.", Toast.LENGTH_SHORT).show();
 
