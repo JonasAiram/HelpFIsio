@@ -12,6 +12,7 @@ import android.widget.Toast;
 import com.airam.helpfisio.R;
 import com.airam.helpfisio.controller.ConsultaMedicoController;
 import com.airam.helpfisio.model.ConsultaMedico;
+import com.airam.helpfisio.view.ConsultaMedicoView;
 
 /**
  * Created by Jonas on 19/04/2018.
@@ -24,10 +25,12 @@ public class ConsultaMedicoCadastro implements DialogInterface.OnShowListener, V
 
     private EditText editTextDescricao, editTextMedicacao, editTextTratamento, editTextData, editTextHora, editTextEspecialidade;
 
+    Context context;
+
     public ConsultaMedicoCadastro(View v){
 
         //CRIA CONTEXT
-        final Context context = v.getContext();
+        context = v.getContext();
 
         consultaMedicoController = new ConsultaMedicoController(context);
 
@@ -91,8 +94,6 @@ public class ConsultaMedicoCadastro implements DialogInterface.OnShowListener, V
                 data.length() != 0 && hora.length() != 0){
 
             //REGRAS PARA ARMAZENAR NO BANCO DE DADOS
-            Context context = v.getContext();
-
             ConsultaMedico consultaMedico = new ConsultaMedico();
             consultaMedico.setDescricao(descricao);
             consultaMedico.setMedicacao(medicamento);
@@ -102,8 +103,10 @@ public class ConsultaMedicoCadastro implements DialogInterface.OnShowListener, V
 
             boolean criadoComSucesso = consultaMedicoController.insert(consultaMedico);
 
-            if (criadoComSucesso)
+            if (criadoComSucesso) {
                 Toast.makeText(context, "Consulta Cadastrada Com Sucesso.", Toast.LENGTH_SHORT).show();
+                ((ConsultaMedicoView) context).atualizarRegistros();
+            }
             else
                 Toast.makeText(context, "Não Foi Possivel Cadastrar a Consulta.", Toast.LENGTH_SHORT).show();
 

@@ -11,20 +11,24 @@ import android.widget.ImageView;
 import android.widget.ListView;
 
 import com.airam.helpfisio.R;
-import com.airam.helpfisio.controller.FisioterapeutaController;
-import com.airam.helpfisio.model.Fisioterapeuta;
-import com.airam.helpfisio.view.cadastro.FisioterapeutaCadastro;
+import com.airam.helpfisio.controller.ConsultaFisioController;
+import com.airam.helpfisio.model.ConsultaFisio;
+import com.airam.helpfisio.view.cadastro.ConsultaFisioCadastro;
 
 import java.util.ArrayList;
 import java.util.List;
 
-public class FisioterapeutaView extends Activity implements View.OnClickListener {
+/**
+ * Created by Jonas on 31/05/2018.
+ */
+
+public class ConsultaFisioView extends Activity implements View.OnClickListener {
 
     private ListView listView;
     private EditText editText;
     ArrayAdapter<String> adapter;
-    List<Fisioterapeuta> fisioterapeutaList;
-    private List<String> fisioListNome = new ArrayList<String>();
+    List<ConsultaFisio> consultaFisioList;
+    private List<String> consListNome = new ArrayList<String>();
     private ImageView imageView;
 
     @Override
@@ -47,7 +51,7 @@ public class FisioterapeutaView extends Activity implements View.OnClickListener
 
             @Override
             public void onTextChanged(CharSequence charSequence, int i, int i1, int i2) {
-                FisioterapeutaView.this.adapter.getFilter().filter(charSequence);
+                ConsultaFisioView.this.adapter.getFilter().filter(charSequence);
             }
 
             @Override
@@ -60,20 +64,20 @@ public class FisioterapeutaView extends Activity implements View.OnClickListener
     @Override
     public void onClick(View view) {
 
-        FisioterapeutaCadastro fisioterapeutaCadastro = new FisioterapeutaCadastro(view);
+        ConsultaFisioCadastro consultaFisioCadastro= new ConsultaFisioCadastro(view);
     }
 
     public void atualizarRegistros() {
 
-        fisioListNome.clear();
+        consListNome.clear();
 
-        fisioterapeutaList = new FisioterapeutaController(this).getAll();
+        consultaFisioList = new ConsultaFisioController(this).getAll();
 
-        for (Fisioterapeuta fisioterapeuta : fisioterapeutaList)
+        for (ConsultaFisio consultaFisio : consultaFisioList)
 
-            fisioListNome.add("Nome: " + fisioterapeuta.getNome() + " - Crefito: " + fisioterapeuta.getCrefito());
+            consListNome.add("Data: " + consultaFisio.getData() + " - Descrição: " + consultaFisio.getDescricao());
 
-        adapter = new ArrayAdapter<String>(this, android.R.layout.simple_list_item_1, fisioListNome);
+        adapter = new ArrayAdapter<String>(this, android.R.layout.simple_list_item_1, consListNome);
         listView.setAdapter(adapter);
     }
 

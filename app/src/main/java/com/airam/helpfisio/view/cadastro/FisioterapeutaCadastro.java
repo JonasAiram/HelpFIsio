@@ -12,6 +12,7 @@ import android.widget.Toast;
 import com.airam.helpfisio.R;
 import com.airam.helpfisio.controller.FisioterapeutaController;
 import com.airam.helpfisio.model.Fisioterapeuta;
+import com.airam.helpfisio.view.FisioterapeutaView;
 
 public class FisioterapeutaCadastro implements DialogInterface.OnShowListener, View.OnClickListener, DialogInterface.OnDismissListener{
 
@@ -22,10 +23,12 @@ public class FisioterapeutaCadastro implements DialogInterface.OnShowListener, V
     private EditText editTextNome, editTextRG, editTextCPF, editTextData, editTextCrefito;
     private EditText editTextTelefone, editTextSobrenome, editTextSalario, editTextCargo;
 
+    Context context;
+
     public FisioterapeutaCadastro(View v){
 
         //CRIA O CONTEXT
-        final Context context = v.getContext();
+        context = v.getContext();
 
         fisioterapeutaController = new FisioterapeutaController(context);
 
@@ -110,8 +113,6 @@ public class FisioterapeutaCadastro implements DialogInterface.OnShowListener, V
             double salarioDouble = Double.parseDouble(salario);
 
             //REGRAS PARA ARMAZENAR NO BANCO DE DADOS
-            Context context = v.getContext();
-
             Fisioterapeuta fisioterapeuta = new Fisioterapeuta();
             fisioterapeuta.setNome(nome);
             fisioterapeuta.setRg(rgInt);
@@ -125,8 +126,10 @@ public class FisioterapeutaCadastro implements DialogInterface.OnShowListener, V
 
             boolean criadoComSucesso = fisioterapeutaController.insert(fisioterapeuta);
 
-            if (criadoComSucesso)
+            if (criadoComSucesso) {
                 Toast.makeText(context, "Médico Cadastrado Com Sucesso.", Toast.LENGTH_SHORT).show();
+                ((FisioterapeutaView) context).atualizarRegistros();
+            }
             else
                 Toast.makeText(context, "Não Foi Possivel Cadastrar o Médico.", Toast.LENGTH_SHORT).show();
 

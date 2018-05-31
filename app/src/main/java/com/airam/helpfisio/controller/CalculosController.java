@@ -70,4 +70,10 @@ public class CalculosController extends  BaseController<Calculos>{
     protected String getTable() {
         return Calculos.TABLE;
     }
+
+    public boolean delete(int id) {
+        boolean isDelete = false;
+        isDelete = db.delete("calculos", "id ='" + id + "'", null) > 0;
+        return isDelete;
+    }
 }

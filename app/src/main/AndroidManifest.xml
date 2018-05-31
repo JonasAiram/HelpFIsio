@@ -24,6 +24,10 @@
         <activity android:name=".view.MedicoView"/>
         <activity android:name=".view.LeitoView"/>
         <activity android:name=".view.HospitalView"/>
+        <activity android:name=".view.FisioterapeutaView"/>
+        <activity android:name=".view.ConsultaMedicoView"/>
+        <activity android:name=".view.ConsultaFisioView"/>
+        <activity android:name=".view.CalculosView"/>
     </application>
 
 </manifest>

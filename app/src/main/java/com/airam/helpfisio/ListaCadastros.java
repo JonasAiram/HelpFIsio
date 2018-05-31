@@ -9,6 +9,10 @@ import android.widget.ListView;
 import android.widget.Toast;
 
 
+import com.airam.helpfisio.view.CalculosView;
+import com.airam.helpfisio.view.ConsultaFisioView;
+import com.airam.helpfisio.view.ConsultaMedicoView;
+import com.airam.helpfisio.view.FisioterapeutaView;
 import com.airam.helpfisio.view.HospitalView;
 import com.airam.helpfisio.view.LeitoView;
 import com.airam.helpfisio.view.MedicoView;
@@ -70,22 +74,31 @@ public class ListaCadastros extends ListActivity{
                 break;
 
             case 4:
-                ConsultaMedicoCadastro consultaMedicoCadastro= new ConsultaMedicoCadastro(v);
+                intent = new Intent(ListaCadastros.this, ConsultaMedicoView.class);
+                startActivity(intent);
+                //ConsultaMedicoCadastro consultaMedicoCadastro= new ConsultaMedicoCadastro(v);
 
                 break;
 
             case 5:
-                FisioterapeutaCadastro fisioterapeutaCadastro= new FisioterapeutaCadastro(v);
+                intent = new Intent(ListaCadastros.this, FisioterapeutaView.class);
+                startActivity(intent);
+
+                //FisioterapeutaCadastro fisioterapeutaCadastro= new FisioterapeutaCadastro(v);
 
                 break;
 
             case 6:
-                ConsultaFisioCadastro consultaFisioCadastro= new ConsultaFisioCadastro(v);
+                intent = new Intent(ListaCadastros.this, ConsultaFisioView.class);
+                startActivity(intent);
+                //ConsultaFisioCadastro consultaFisioCadastro= new ConsultaFisioCadastro(v);
 
                 break;
 
             case 7:
-                CalculosCadastro calculosCadastro= new CalculosCadastro(v);
+                intent = new Intent(ListaCadastros.this, CalculosView.class);
+                startActivity(intent);
+                //CalculosCadastro calculosCadastro= new CalculosCadastro(v);
 
                 break;
 

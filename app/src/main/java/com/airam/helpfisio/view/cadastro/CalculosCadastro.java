@@ -13,6 +13,7 @@ import android.widget.Toast;
 import com.airam.helpfisio.R;
 import com.airam.helpfisio.controller.CalculosController;
 import com.airam.helpfisio.model.Calculos;
+import com.airam.helpfisio.view.CalculosView;
 
 public class CalculosCadastro implements DialogInterface.OnShowListener, View.OnClickListener, DialogInterface.OnDismissListener {
 
@@ -23,11 +24,15 @@ public class CalculosCadastro implements DialogInterface.OnShowListener, View.On
     private EditText editTextData, editTextHora, editTextObs;
     private Spinner spnIdPaciente;
 
+    Context context;
+
+    boolean criadoComSucesso;
+
 
     public CalculosCadastro(View v){
 
         //CRIA O CONTEXT
-        final Context context = v.getContext();
+        context = v.getContext();
 
         calculosController = new CalculosController(context);
 
@@ -37,12 +42,7 @@ public class CalculosCadastro implements DialogInterface.OnShowListener, View.On
         builder.setView(view);
 
         //ATRIBUI AS VARIVEIS AOS ITENS DO LAYOUT
-        spnIdPaciente = (Spinner) view.findViewById(R.id.spnCalculosIdPaciente);
-        editTextNome = (EditText) view.findViewById(R.id.edtCalculo);
-        editTextResultado = (EditText) view.findViewById(R.id.edtCalculosResultado);
-        editTextData = (EditText) view.findViewById(R.id.edtCalculosData);
-        editTextHora = (EditText) view.findViewById(R.id.edtCalculosHora);
-        editTextObs = (EditText) view.findViewById(R.id.edtCalculosObs);
+        findViewById(view);
 
         //CRIA OS BUTTONS DO ALERTDIALOG
         builder.setPositiveButton("Salvar", null);
@@ -65,6 +65,26 @@ public class CalculosCadastro implements DialogInterface.OnShowListener, View.On
 
     @Override
     public void onClick(View v) {
+
+        insertCalculo();
+
+            if (criadoComSucesso) {
+                Toast.makeText(context, "Cálculo Armazenado Com Sucesso.", Toast.LENGTH_SHORT).show();
+                ((CalculosView) context).atualizarRegistros();
+            }
+            else
+                Toast.makeText(context, "Não Foi Possivel Armazenar o Cálculo.", Toast.LENGTH_SHORT).show();
+
+            dialog.dismiss();
+
+        }
+
+    @Override
+    public void onDismiss(DialogInterface dialogInterface) {
+        calculosController.closeDb();
+    }
+
+    public void insertCalculo() {
 
         //ATRIBUIÇÃO DAS VARIAVEIS PARA STRINGS PARA FACILITAR NA ESTRUTURA DE CONDIÇÃO IF
         String nome = editTextNome.getText().toString();
@@ -90,29 +110,22 @@ public class CalculosCadastro implements DialogInterface.OnShowListener, View.On
             double dbResultado = Double.parseDouble(resultado);
 
             //REGRAS PARA ARMAZENAR NO BANCO DE DADOS
-            Context context = v.getContext();
-
             Calculos calculos = new Calculos();
-
             calculos.setNome(nome);
             calculos.setResultado(dbResultado);
             calculos.setData(data);
             calculos.setHora(hora);
-
-            boolean criadoComSucesso = calculosController.insert(calculos);
-
-            if (criadoComSucesso)
-                Toast.makeText(context, "Cálculo Armazenado Com Sucesso.", Toast.LENGTH_SHORT).show();
-            else
-                Toast.makeText(context, "Não Foi Possivel Armazenar o Cálculo.", Toast.LENGTH_SHORT).show();
-
-            dialog.dismiss();
-
+            criadoComSucesso = calculosController.insert(calculos);
         }
     }
 
-    @Override
-    public void onDismiss(DialogInterface dialogInterface) {
-        calculosController.closeDb();
+    public void findViewById(View view){
+        //ATRIBUI AS VARIVEIS AOS ITENS DO LAYOUT
+        spnIdPaciente = (Spinner) view.findViewById(R.id.spnCalculosIdPaciente);
+        editTextNome = (EditText) view.findViewById(R.id.edtCalculo);
+        editTextResultado = (EditText) view.findViewById(R.id.edtCalculosResultado);
+        editTextData = (EditText) view.findViewById(R.id.edtCalculosData);
+        editTextHora = (EditText) view.findViewById(R.id.edtCalculosHora);
+        editTextObs = (EditText) view.findViewById(R.id.edtCalculosObs);
     }
 }
