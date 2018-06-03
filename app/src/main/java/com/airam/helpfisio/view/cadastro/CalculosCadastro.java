@@ -23,16 +23,16 @@ public class CalculosCadastro implements DialogInterface.OnShowListener, View.On
     private EditText editTextNome, editTextResultado;
     private EditText editTextData, editTextHora, editTextObs;
     private Spinner spnIdPaciente;
+    private Calculos calculos;
 
     Context context;
 
     boolean criadoComSucesso;
 
-
-    public CalculosCadastro(View v){
+    public CalculosCadastro(Context context){
 
         //CRIA O CONTEXT
-        context = v.getContext();
+        this.context= context;
 
         calculosController = new CalculosController(context);
 
@@ -52,6 +52,17 @@ public class CalculosCadastro implements DialogInterface.OnShowListener, View.On
         dialog = builder.create();
         dialog.setOnShowListener(this);
         dialog.show();
+
+    }
+
+    public void loadCalculo(Calculos calculos){
+
+        this.calculos = calculos;
+        editTextNome.setText(calculos.getNome());
+        editTextData.setText(calculos.getData());
+        editTextHora.setText(calculos.getHora());
+        editTextObs.setText(calculos.getObservacoes());
+        editTextResultado.setText(String.valueOf(calculos.getResultado()));
 
     }
 
@@ -103,19 +114,31 @@ public class CalculosCadastro implements DialogInterface.OnShowListener, View.On
         if (hora.length() == 0)
             editTextHora.setError("Digite a Hora!");
 
-
         //SE TODOS OS CAMPOS FOREM PREENCHIDOS SERÁ EXECUTADA ESTÁ AÇÃO
         if (nome.length() != 0 && resultado.length() != 0 && data.length() != 0 && hora.length() != 0) {
 
-            double dbResultado = Double.parseDouble(resultado);
+            if (calculos == null) {
+                double dbResultado = Double.parseDouble(resultado);
 
-            //REGRAS PARA ARMAZENAR NO BANCO DE DADOS
-            Calculos calculos = new Calculos();
-            calculos.setNome(nome);
-            calculos.setResultado(dbResultado);
-            calculos.setData(data);
-            calculos.setHora(hora);
-            criadoComSucesso = calculosController.insert(calculos);
+                //REGRAS PARA ARMAZENAR NO BANCO DE DADOS
+                Calculos calculos = new Calculos();
+                calculos.setNome(nome);
+                calculos.setResultado(dbResultado);
+                calculos.setData(data);
+                calculos.setHora(hora);
+                calculos.setObservacoes(obs);
+                criadoComSucesso = calculosController.insert(calculos);
+            }else {
+                double dbResultado = Double.parseDouble(resultado);
+
+                calculos.setNome(nome);
+                calculos.setResultado(dbResultado);
+                calculos.setData(data);
+                calculos.setHora(hora);
+                calculos.setObservacoes(obs);
+                calculosController.edit(calculos, calculos.getId());
+                criadoComSucesso = true;
+            }
         }
     }
 

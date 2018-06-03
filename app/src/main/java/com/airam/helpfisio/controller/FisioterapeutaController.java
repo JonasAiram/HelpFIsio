@@ -63,7 +63,7 @@ public class FisioterapeutaController extends BaseController<Fisioterapeuta>{
                 Fisioterapeuta.COLUMN_SALARIO};
     }
 
-    private ContentValues convertToContentValue(Fisioterapeuta fisioterapeuta){
+    protected ContentValues convertToContentValue(Fisioterapeuta fisioterapeuta){
         ContentValues values = new ContentValues();
 
         values.put(Fisioterapeuta.COLUMN_NOME, fisioterapeuta.getNome());
@@ -83,5 +83,11 @@ public class FisioterapeutaController extends BaseController<Fisioterapeuta>{
     protected String getTable() {
         return Fisioterapeuta.TABLE;
     }
+
+    @Override
+    protected String getColumnId(){
+        return Fisioterapeuta.COLUMN_ID;
+    }
+
 
 }

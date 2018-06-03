@@ -59,7 +59,7 @@ public class HospitalController extends BaseController<Hospital>{
                 Hospital.COLUMN_TELEFONE, Hospital.COLUMN_DIRETOR, Hospital.COLUMN_NUMENRO};
     }
 
-    private ContentValues convertToContentValue(Hospital hospital) {
+    protected ContentValues convertToContentValue(Hospital hospital) {
         ContentValues values = new ContentValues();
 
         values.put(Hospital.COLUMN_NOME, hospital.getNome());
@@ -78,4 +78,10 @@ public class HospitalController extends BaseController<Hospital>{
     protected String getTable() {
         return Hospital.TABLE;
     }
+
+    @Override
+    protected String getColumnId(){
+        return Hospital.COLUMN_ID;
+    }
+
 }

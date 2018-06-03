@@ -54,7 +54,8 @@ public class CalculosController extends  BaseController<Calculos>{
                     Calculos.COLUMN_OBSERVACOES};
     }
 
-    private ContentValues convertToContentValue(Calculos calculos) {
+    @Override
+    protected ContentValues convertToContentValue(Calculos calculos) {
         ContentValues values = new ContentValues();
 
         values.put(Calculos.COLUMN_NOME, calculos.getNome());
@@ -71,9 +72,9 @@ public class CalculosController extends  BaseController<Calculos>{
         return Calculos.TABLE;
     }
 
-    public boolean delete(int id) {
-        boolean isDelete = false;
-        isDelete = db.delete("calculos", "id ='" + id + "'", null) > 0;
-        return isDelete;
+    @Override
+    protected String getColumnId(){
+        return Calculos.COLUMN_ID;
     }
+
 }

@@ -60,7 +60,7 @@ public class ConsultaMedicoController extends BaseController<ConsultaMedico>{
                 ConsultaMedico.COLUMN_DATA, ConsultaMedico.COLUMN_HORA, ConsultaMedico.COLUMN_ESPECIALIDADE};
     }
 
-    private ContentValues convertToContentValue(ConsultaMedico consultaMedico){
+    protected ContentValues convertToContentValue(ConsultaMedico consultaMedico){
         ContentValues values = new ContentValues();
 
         values.put(ConsultaMedico.COLUMN_IDPACIENTE, consultaMedico.getIdPaciente());
@@ -79,4 +79,10 @@ public class ConsultaMedicoController extends BaseController<ConsultaMedico>{
     protected String getTable() {
         return ConsultaMedico.TABLE;
     }
+
+    @Override
+    protected String getColumnId(){
+        return ConsultaMedico.COLUMN_IDMEDICO;
+    }
+
 }

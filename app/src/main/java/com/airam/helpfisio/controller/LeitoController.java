@@ -56,7 +56,7 @@ public class LeitoController extends BaseController<Leito>{
                 Leito.COLUMN_CHEFE, Leito.COLUMN_ANDAR, Leito.COLUMN_ID_HOSPIAL};
     }
 
-    private ContentValues convertToContentValue(Leito leito) {
+    protected ContentValues convertToContentValue(Leito leito) {
         ContentValues values = new ContentValues();
 
         values.put(Leito.COLUMN_TIPO, leito.getTipo());
@@ -72,4 +72,10 @@ public class LeitoController extends BaseController<Leito>{
     protected String getTable() {
         return Leito.TABLE;
     }
+
+    @Override
+    protected String getColumnId(){
+        return Leito.COLUMN_ID;
+    }
+
 }

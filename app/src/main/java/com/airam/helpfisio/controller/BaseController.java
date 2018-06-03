@@ -1,10 +1,12 @@
 package com.airam.helpfisio.controller;
 
+import android.content.ContentValues;
 import android.content.Context;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 
 import com.airam.helpfisio.adapter.DataBaseAdapter;
+import com.airam.helpfisio.model.Calculos;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -47,10 +49,25 @@ public abstract class BaseController<T> {
 
     protected abstract String getTable();
 
+    protected abstract String getColumnId();
+
+    protected abstract ContentValues convertToContentValue(T obj);
+
     protected abstract T convertToObject(Cursor c);
 
     public void closeDb(){
         db.close();
+    }
+
+    public boolean delete(int id) {
+        boolean isDelete = false;
+        isDelete = db.delete(getTable(), getColumnId() +" ='" + id + "'", null) > 0;
+        return isDelete;
+    }
+
+    public void edit(T obj, int id){
+        ContentValues contentValues = convertToContentValue(obj);
+        db.update(getTable(), contentValues, getColumnId() + " =' " + id + "'",null);
     }
 
 }

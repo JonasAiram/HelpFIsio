@@ -63,7 +63,7 @@ public class MedicoController extends BaseController<Medico>{
                 Medico.COLUMN_SOBRENOME, Medico.COLUMN_SALARIO};
     }
 
-    private ContentValues convertToContentValue(Medico medico) {
+    protected ContentValues convertToContentValue(Medico medico) {
         ContentValues values = new ContentValues();
 
         values.put(Medico.COLUMN_NOME, medico.getNome());
@@ -83,4 +83,10 @@ public class MedicoController extends BaseController<Medico>{
     protected String getTable() {
         return Medico.TABLE;
     }
+
+    @Override
+    protected String getColumnId(){
+        return Medico.COLUMN_ID;
+    }
+
 }

@@ -74,7 +74,7 @@ public class PacienteController extends BaseController<Paciente>{
                 Paciente.COLUMN_ID_LEITO};
     }
 
-    private ContentValues convertToContentValue(Paciente paciente) {
+    protected ContentValues convertToContentValue(Paciente paciente) {
         ContentValues values = new ContentValues();
 
         values.put(Paciente.COLUMN_NOME, paciente.getNome());
@@ -94,4 +94,10 @@ public class PacienteController extends BaseController<Paciente>{
     protected String getTable() {
         return Paciente.TABLE;
     }
+
+    @Override
+    protected String getColumnId(){
+        return Paciente.COLUMN_ID;
+    }
+
 }

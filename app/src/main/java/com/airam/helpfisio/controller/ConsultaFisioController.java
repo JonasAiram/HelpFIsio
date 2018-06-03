@@ -53,7 +53,7 @@ public class ConsultaFisioController extends BaseController<ConsultaFisio>{
                 ConsultaFisio.COLUMN_DATA, ConsultaFisio.COLUMN_HORA};
     }
 
-    private ContentValues convertToContentValue(ConsultaFisio consultaFisio) {
+    protected ContentValues convertToContentValue(ConsultaFisio consultaFisio) {
         ContentValues values = new ContentValues();
 
         values.put(ConsultaFisio.COLUMN_IDPACIENTE, consultaFisio.getIdPaciente());
@@ -71,4 +71,10 @@ public class ConsultaFisioController extends BaseController<ConsultaFisio>{
     protected String getTable() {
         return ConsultaFisio.TABLE;
     }
+
+    @Override
+    protected String getColumnId(){
+        return ConsultaFisio.COLUMN_IDPACIENTE;
+    }
+
 }
