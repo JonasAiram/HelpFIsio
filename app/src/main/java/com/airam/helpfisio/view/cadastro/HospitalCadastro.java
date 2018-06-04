@@ -22,12 +22,16 @@ public class HospitalCadastro implements DialogInterface.OnShowListener, View.On
     private EditText editTextNome, editTextRua, editTextNumero, editTextBairro;
     private EditText editTextCidade, editTextUF, editTextTelefone, editTextDiretor;
 
+    private Hospital hospital;
+
     Context context;
 
-    public HospitalCadastro (View v){
+    boolean criadoComSucesso;
+
+    public HospitalCadastro (Context context){
 
         //CRIA O CONTEXT
-        context = v.getContext();
+        this.context = context;
 
         hospitalController = new HospitalController(context);
 
@@ -56,6 +60,20 @@ public class HospitalCadastro implements DialogInterface.OnShowListener, View.On
         dialog.show();
     }
 
+    public void loadHospital(Hospital hospital){
+
+        this.hospital = hospital;
+        editTextNome.setText(hospital.getNome());
+        editTextRua.setText(hospital.getRua());
+        editTextNumero.setText(String.valueOf(hospital.getNumero()));
+        editTextBairro.setText(hospital.getBairro());
+        editTextCidade.setText(hospital.getCidade());
+        editTextUF.setText(hospital.getUF());
+        editTextTelefone.setText(String.valueOf(hospital.getTelefone()));
+        editTextDiretor.setText(hospital.getDiretor());
+
+    }
+
     @Override
     public void onShow(DialogInterface dialogInterface) {
 
@@ -67,6 +85,19 @@ public class HospitalCadastro implements DialogInterface.OnShowListener, View.On
     @Override
     public void onClick(View v) {
 
+        insertHospital();
+
+        if (criadoComSucesso) {
+            Toast.makeText(context, "Paciente Armazenado Com Sucesso.", Toast.LENGTH_SHORT).show();
+            ((HospitalView) context).atualizarRegistros();
+        } else
+            Toast.makeText(context, "Não Foi Possivel Armazenar o Paciente.", Toast.LENGTH_SHORT).show();
+
+        dialog.dismiss();
+
+    }
+
+    public void insertHospital(){
         //ATRIBUIÇÃO DAS VARIAVEIS PARA STRINGS PARA FACILITAR NA ESTRUTURA DE CONDIÇÃO IF
         String nome = editTextNome.getText().toString();
         String rua = editTextRua.getText().toString();
@@ -100,33 +131,41 @@ public class HospitalCadastro implements DialogInterface.OnShowListener, View.On
                 && cidade.length() != 0 && uf.length() != 0 && telefone.length() != 0
                 && diretor.length() != 0){
 
-            int numeroHospital = Integer.parseInt(numero);
-            int telefoneHospital = Integer.parseInt(telefone);
+            if (hospital == null){
 
-            //REGRAS PARA ARMAZENAR NO BANCO DE DADOS
-            Hospital hospital = new Hospital();
-            hospital.setNome(nome);
-            hospital.setRua(rua);
-            hospital.setNumero(numeroHospital);
-            hospital.setBairro(bairro);
-            hospital.setCidade(cidade);
-            hospital.setUF(uf);
-            hospital.setTelefone(telefoneHospital);
-            hospital.setDiretor(diretor);
 
-            boolean criadoComSucesso = hospitalController.insert(hospital);
+                int numeroHospital = Integer.parseInt(numero);
+                int telefoneHospital = Integer.parseInt(telefone);
 
-            if (criadoComSucesso) {
-                Toast.makeText(context, "Hospital Cadastrado Com Sucesso.", Toast.LENGTH_SHORT).show();
+                //REGRAS PARA ARMAZENAR NO BANCO DE DADOS
+                Hospital hospital = new Hospital();
+                hospital.setNome(nome);
+                hospital.setRua(rua);
+                hospital.setNumero(numeroHospital);
+                hospital.setBairro(bairro);
+                hospital.setCidade(cidade);
+                hospital.setUF(uf);
+                hospital.setTelefone(telefoneHospital);
+                hospital.setDiretor(diretor);
 
-                ((HospitalView) context).atualizarRegistros();
+                criadoComSucesso = hospitalController.insert(hospital);
+            }else{
+
+                int numeroHospital = Integer.parseInt(numero);
+                int telefoneHospital = Integer.parseInt(telefone);
+
+                hospital.setNome(nome);
+                hospital.setRua(rua);
+                hospital.setNumero(numeroHospital);
+                hospital.setBairro(bairro);
+                hospital.setCidade(cidade);
+                hospital.setUF(uf);
+                hospital.setTelefone(telefoneHospital);
+                hospital.setDiretor(diretor);
+                hospitalController.edit(hospital, hospital.getId());
+                criadoComSucesso = true;
+
             }
-            else
-                Toast.makeText(context, "Não Foi Possivel Cadastrar o Hospital.", Toast.LENGTH_SHORT).show();
-
-            dialog.dismiss();
-
-
         }
     }
 

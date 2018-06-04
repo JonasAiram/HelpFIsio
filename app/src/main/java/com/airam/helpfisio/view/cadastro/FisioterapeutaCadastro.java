@@ -23,12 +23,16 @@ public class FisioterapeutaCadastro implements DialogInterface.OnShowListener, V
     private EditText editTextNome, editTextRG, editTextCPF, editTextData, editTextCrefito;
     private EditText editTextTelefone, editTextSobrenome, editTextSalario, editTextCargo;
 
+    private Fisioterapeuta fisioterapeuta;
+
     Context context;
 
-    public FisioterapeutaCadastro(View v){
+    boolean criadoComSucesso;
+
+    public FisioterapeutaCadastro(Context context){
 
         //CRIA O CONTEXT
-        context = v.getContext();
+        this.context = context;
 
         fisioterapeutaController = new FisioterapeutaController(context);
 
@@ -59,6 +63,21 @@ public class FisioterapeutaCadastro implements DialogInterface.OnShowListener, V
 
     }
 
+    public void loadFisio(Fisioterapeuta fisioterapeuta){
+
+        this.fisioterapeuta = fisioterapeuta;
+        editTextNome.setText(fisioterapeuta.getNome());
+        editTextRG.setText(String.valueOf(fisioterapeuta.getRg()));
+        editTextCPF.setText(fisioterapeuta.getCpf());
+        editTextData.setText(fisioterapeuta.getData());
+        editTextCrefito.setText(String.valueOf(fisioterapeuta.getCrefito()));
+        editTextCargo.setText(fisioterapeuta.getCargo());
+        editTextTelefone.setText(String.valueOf(fisioterapeuta.getTelefone()));
+        editTextSobrenome.setText(fisioterapeuta.getSobrenome());
+        editTextSalario.setText(String.valueOf(fisioterapeuta.getSalario()));
+
+    }
+
     @Override
     public void onShow(DialogInterface dialogInterface) {
 
@@ -69,6 +88,20 @@ public class FisioterapeutaCadastro implements DialogInterface.OnShowListener, V
 
     @Override
     public void onClick(View v) {
+
+        insertfisio();
+
+        if (criadoComSucesso) {
+            Toast.makeText(context, "Fisioterapeuta Armazenado Com Sucesso.", Toast.LENGTH_SHORT).show();
+            ((FisioterapeutaView) context).atualizarRegistros();
+        } else
+            Toast.makeText(context, "Não Foi Possivel Armazenar o Fisioterapeuta.", Toast.LENGTH_SHORT).show();
+
+        dialog.dismiss();
+
+    }
+
+    public void insertfisio(){
 
         //ATRIBUIÇÃO DAS VARIAVEIS PARA STRINGS PARA FACILITAR NA ESTRUTURA DE CONDIÇÃO IF
         String nome = editTextNome.getText().toString();
@@ -107,34 +140,48 @@ public class FisioterapeutaCadastro implements DialogInterface.OnShowListener, V
                 && crefito.length() != 0 && cargo.length() != 0 && telefone.length() != 0
                 && sobrenome.length() != 0 && salario.length() != 0) {
 
-            int rgInt = Integer.parseInt(rg);
-            int crefitoInt = Integer.parseInt(crefito);
-            int telefoneInt = Integer.parseInt(telefone);
-            double salarioDouble = Double.parseDouble(salario);
+            if (fisioterapeuta == null){
 
-            //REGRAS PARA ARMAZENAR NO BANCO DE DADOS
-            Fisioterapeuta fisioterapeuta = new Fisioterapeuta();
-            fisioterapeuta.setNome(nome);
-            fisioterapeuta.setRg(rgInt);
-            fisioterapeuta.setCpf(cpf);
-            fisioterapeuta.setData(data);
-            fisioterapeuta.setCrefito(crefitoInt);
-            fisioterapeuta.setCargo(cargo);
-            fisioterapeuta.setTelefone(telefoneInt);
-            fisioterapeuta.setSobrenome(sobrenome);
-            fisioterapeuta.setSalario(salarioDouble);
+                int rgInt = Integer.parseInt(rg);
+                int crefitoInt = Integer.parseInt(crefito);
+                int telefoneInt = Integer.parseInt(telefone);
+                double salarioDouble = Double.parseDouble(salario);
 
-            boolean criadoComSucesso = fisioterapeutaController.insert(fisioterapeuta);
+                //REGRAS PARA ARMAZENAR NO BANCO DE DADOS
+                Fisioterapeuta fisioterapeuta = new Fisioterapeuta();
+                fisioterapeuta.setNome(nome);
+                fisioterapeuta.setRg(rgInt);
+                fisioterapeuta.setCpf(cpf);
+                fisioterapeuta.setData(data);
+                fisioterapeuta.setCrefito(crefitoInt);
+                fisioterapeuta.setCargo(cargo);
+                fisioterapeuta.setTelefone(telefoneInt);
+                fisioterapeuta.setSobrenome(sobrenome);
+                fisioterapeuta.setSalario(salarioDouble);
 
-            if (criadoComSucesso) {
-                Toast.makeText(context, "Médico Cadastrado Com Sucesso.", Toast.LENGTH_SHORT).show();
-                ((FisioterapeutaView) context).atualizarRegistros();
+                criadoComSucesso = fisioterapeutaController.insert(fisioterapeuta);
+
+            }else {
+
+                int rgInt = Integer.parseInt(rg);
+                int crefitoInt = Integer.parseInt(crefito);
+                int telefoneInt = Integer.parseInt(telefone);
+                double salarioDouble = Double.parseDouble(salario);
+
+                fisioterapeuta.setNome(nome);
+                fisioterapeuta.setRg(rgInt);
+                fisioterapeuta.setCpf(cpf);
+                fisioterapeuta.setData(data);
+                fisioterapeuta.setCrefito(crefitoInt);
+                fisioterapeuta.setCargo(cargo);
+                fisioterapeuta.setTelefone(telefoneInt);
+                fisioterapeuta.setSobrenome(sobrenome);
+                fisioterapeuta.setSalario(salarioDouble);
+
+                fisioterapeutaController.edit(fisioterapeuta, fisioterapeuta.getId());
+
+                criadoComSucesso = true;
             }
-            else
-                Toast.makeText(context, "Não Foi Possivel Cadastrar o Médico.", Toast.LENGTH_SHORT).show();
-
-            dialog.dismiss();
-
         }
     }
 

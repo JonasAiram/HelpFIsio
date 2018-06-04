@@ -112,11 +112,11 @@ public class CalculosView extends Activity implements View.OnClickListener, Adap
                             boolean isDeletouComSucesso = calculosController.delete(calculos.getId());
 
                             if (isDeletouComSucesso){
-                                Toast.makeText(CalculosView.this, "Contato deletado.", Toast.LENGTH_SHORT).show();
+                                Toast.makeText(CalculosView.this, "Calculo Deletado.", Toast.LENGTH_SHORT).show();
                                 atualizarRegistros();
 
                             }else{
-                                Toast.makeText(CalculosView.this, "Erro ao deletar o contato.", Toast.LENGTH_SHORT).show();
+                                Toast.makeText(CalculosView.this, "Erro ao Deletar o Calculo.", Toast.LENGTH_SHORT).show();
                             }
                         }
                         dialogInterface.dismiss();

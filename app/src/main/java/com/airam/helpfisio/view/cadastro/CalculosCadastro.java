@@ -23,6 +23,7 @@ public class CalculosCadastro implements DialogInterface.OnShowListener, View.On
     private EditText editTextNome, editTextResultado;
     private EditText editTextData, editTextHora, editTextObs;
     private Spinner spnIdPaciente;
+
     private Calculos calculos;
 
     Context context;

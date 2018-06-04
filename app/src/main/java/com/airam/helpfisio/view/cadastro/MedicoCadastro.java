@@ -23,12 +23,16 @@ public class MedicoCadastro implements DialogInterface.OnShowListener, View.OnCl
     private EditText editTextNome, editTextRG, editTextCPF, editTextData, editTextCRM, editTextCargo;
     private EditText editTextTelefone, editTextSobrenome, editTextSalario;
 
+    private Medico medico;
+
     Context context;
 
-    public MedicoCadastro(View v) {
+    boolean criadoComSucesso;
+
+    public MedicoCadastro(Context context) {
 
         //CRIA O CONTEXT
-        context = v.getContext();
+        this.context = context;
 
         medicoController = new MedicoController(context);
 
@@ -58,6 +62,21 @@ public class MedicoCadastro implements DialogInterface.OnShowListener, View.OnCl
         dialog.show();
     }
 
+    public void loadMedico(Medico medico){
+
+        this.medico = medico;
+        editTextNome.setText(medico.getNome());
+        editTextRG.setText(String.valueOf(medico.getRg()));
+        editTextCPF.setText(medico.getCpf());
+        editTextData.setText(medico.getData());
+        editTextCRM.setText(String.valueOf(medico.getCrm()));
+        editTextCargo.setText(medico.getCargo());
+        editTextTelefone.setText(String.valueOf(medico.getTelefone()));
+        editTextSobrenome.setText(medico.getSobrenome());
+        editTextSalario.setText(String.valueOf(medico.getSalario()));
+
+    }
+
     @Override
     public void onShow(DialogInterface dialogInterface) {
 
@@ -69,6 +88,20 @@ public class MedicoCadastro implements DialogInterface.OnShowListener, View.OnCl
 
     @Override
     public void onClick(View v) {
+
+        insertMedico();
+
+        if (criadoComSucesso) {
+            Toast.makeText(context, "Paciente Armazenado Com Sucesso.", Toast.LENGTH_SHORT).show();
+            ((MedicoView) context).atualizarRegistros();
+        } else
+            Toast.makeText(context, "Não Foi Possivel Armazenar o Paciente.", Toast.LENGTH_SHORT).show();
+
+        dialog.dismiss();
+
+    }
+
+    public void insertMedico(){
 
         //ATRIBUIÇÃO DAS VARIAVEIS PARA STRINGS PARA FACILITAR NA ESTRUTURA DE CONDIÇÃO IF
         String nome = editTextNome.getText().toString();
@@ -107,37 +140,49 @@ public class MedicoCadastro implements DialogInterface.OnShowListener, View.OnCl
                 && crm.length() != 0 && cargo.length() != 0 && telefone.length() != 0
                 && sobrenome.length() != 0 && salario.length() != 0){
 
-            int rgInt = Integer.parseInt(rg);
-            int crmInt = Integer.parseInt(crm);
-            int intTelefone = Integer.parseInt(telefone);
-            double salarioDouble = Double.parseDouble(salario);
+            if (medico == null) {
 
-            //REGRAS PARA ARMAZENAR NO BANCO DE DADOS
-            //Context context = v.getContext();
 
-            Medico medico = new Medico();
-            medico.setNome(nome);
-            medico.setRg(rgInt);
-            medico.setCpf(cpf);
-            medico.setData(data);
-            medico.setCrm(crmInt);
-            medico.setCargo(cargo);
-            medico.setTelefone(intTelefone);
-            medico.setSobrenome(sobrenome);
-            medico.setSalario(salarioDouble);
+                int rgInt = Integer.parseInt(rg);
+                int crmInt = Integer.parseInt(crm);
+                int intTelefone = Integer.parseInt(telefone);
+                double salarioDouble = Double.parseDouble(salario);
 
-            boolean criadoComSucesso = medicoController.insert(medico);
+                //REGRAS PARA ARMAZENAR NO BANCO DE DADOS
+                //Context context = v.getContext();
 
-            if (criadoComSucesso) {
-                Toast.makeText(context, "Médico Cadastrado Com Sucesso.", Toast.LENGTH_SHORT).show();
+                Medico medico = new Medico();
+                medico.setNome(nome);
+                medico.setRg(rgInt);
+                medico.setCpf(cpf);
+                medico.setData(data);
+                medico.setCrm(crmInt);
+                medico.setCargo(cargo);
+                medico.setTelefone(intTelefone);
+                medico.setSobrenome(sobrenome);
+                medico.setSalario(salarioDouble);
 
-                ((MedicoView) context).atualizarRegistros();
+                criadoComSucesso = medicoController.insert(medico);
+
+            }else {
+                int rgInt = Integer.parseInt(rg);
+                int crmInt = Integer.parseInt(crm);
+                int intTelefone = Integer.parseInt(telefone);
+                double salarioDouble = Double.parseDouble(salario);
+
+                medico.setNome(nome);
+                medico.setRg(rgInt);
+                medico.setCpf(cpf);
+                medico.setData(data);
+                medico.setCrm(crmInt);
+                medico.setCargo(cargo);
+                medico.setTelefone(intTelefone);
+                medico.setSobrenome(sobrenome);
+                medico.setSalario(salarioDouble);
+                medicoController.edit(medico, medico.getId());
+                criadoComSucesso = true;
+
             }
-            else
-                Toast.makeText(context, "Não Foi Possivel Cadastrar o Médico.", Toast.LENGTH_SHORT).show();
-
-            dialog.dismiss();
-
         }
     }
 

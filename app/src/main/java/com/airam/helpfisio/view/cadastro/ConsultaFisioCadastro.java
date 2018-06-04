@@ -21,12 +21,16 @@ public class ConsultaFisioCadastro implements DialogInterface.OnShowListener, Vi
 
     private EditText editTextDescricao, editTextPatologia, editTextTratamento, editTextData, editTextHora;
 
+    private ConsultaFisio consultaFisio;
+
     Context context;
 
-    public ConsultaFisioCadastro(View v){
+    boolean criadoComSucesso;
+
+    public ConsultaFisioCadastro(Context context){
 
         //CRIA O CONTEXT
-        context = v.getContext();
+        this.context = context;
 
         consultaFisioController = new ConsultaFisioController(context);
 
@@ -53,6 +57,16 @@ public class ConsultaFisioCadastro implements DialogInterface.OnShowListener, Vi
 
     }
 
+    public void loadConsulta(ConsultaFisio consultaFisio){
+
+        this.consultaFisio = consultaFisio;
+        editTextDescricao.setText(consultaFisio.getDescricao());
+        editTextPatologia.setText(consultaFisio.getPatologia());
+        editTextTratamento.setText(consultaFisio.getTratamento());
+        editTextData.setText(consultaFisio.getData());
+        editTextHora.setText(consultaFisio.getHora());
+    }
+
     @Override
     public void onShow(DialogInterface dialogInterface) {
 
@@ -63,7 +77,20 @@ public class ConsultaFisioCadastro implements DialogInterface.OnShowListener, Vi
     }
 
     @Override
-    public void onClick(View v){
+    public void onClick(View v) {
+
+        insertConsulta();
+
+        if (criadoComSucesso) {
+            Toast.makeText(context, "Consulta Armazenada Com Sucesso.", Toast.LENGTH_SHORT).show();
+            ((ConsultaFisioView) context).atualizarRegistros();
+        } else
+            Toast.makeText(context, "Não Foi Possivel Armazenar a Consulta.", Toast.LENGTH_SHORT).show();
+
+        dialog.dismiss();
+    }
+
+    public void insertConsulta(){
 
         //ATRIBUIÇÃO DAS VARIAVEIS PARA STRINGS PARA FACILITAR NA ESTRUTURA DE CONDIÇÃO IF
         String descricao = editTextDescricao.getText().toString();
@@ -88,25 +115,28 @@ public class ConsultaFisioCadastro implements DialogInterface.OnShowListener, Vi
         if (descricao.length() != 0 && patologia.length() != 0 && tratamento.length() != 0 &&
                 data.length() != 0 && hora.length() != 0){
 
-            //REGRAS PARA ARMAZENAR NO BANCO DE DADOS
-            ConsultaFisio consultaFisio = new ConsultaFisio();
-            consultaFisio.setDescricao(descricao);
-            consultaFisio.setPatologia(patologia);
-            consultaFisio.setTratamento(tratamento);
-            consultaFisio.setData(data);
-            consultaFisio.setHora(hora);
+            if (consultaFisio == null) {
 
-            boolean criadoComSucesso = consultaFisioController.insert(consultaFisio);
 
-            if (criadoComSucesso) {
-                Toast.makeText(context, "Consulta Cadastrada Com Sucesso.", Toast.LENGTH_SHORT).show();
-                ((ConsultaFisioView) context).atualizarRegistros();
+                //REGRAS PARA ARMAZENAR NO BANCO DE DADOS
+                ConsultaFisio consultaFisio = new ConsultaFisio();
+                consultaFisio.setDescricao(descricao);
+                consultaFisio.setPatologia(patologia);
+                consultaFisio.setTratamento(tratamento);
+                consultaFisio.setData(data);
+                consultaFisio.setHora(hora);
+
+                criadoComSucesso = consultaFisioController.insert(consultaFisio);
+            }else {
+
+                consultaFisio.setDescricao(descricao);
+                consultaFisio.setPatologia(patologia);
+                consultaFisio.setTratamento(tratamento);
+                consultaFisio.setData(data);
+                consultaFisio.setHora(hora);
+                consultaFisioController.edit(consultaFisio, consultaFisio.getIdFisio());
+                criadoComSucesso = true;
             }
-            else
-                Toast.makeText(context, "Não Foi Possivel Cadastrar a Consulta.", Toast.LENGTH_SHORT).show();
-
-            dialog.dismiss();
-
         }
     }
 

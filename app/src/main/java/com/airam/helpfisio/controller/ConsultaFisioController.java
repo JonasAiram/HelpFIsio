@@ -74,7 +74,7 @@ public class ConsultaFisioController extends BaseController<ConsultaFisio>{
 
     @Override
     protected String getColumnId(){
-        return ConsultaFisio.COLUMN_IDPACIENTE;
+        return ConsultaFisio.COLUMN_IDFISIO;
     }
 
 }

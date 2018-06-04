@@ -26,7 +26,7 @@ public class PacienteCadastro implements DialogInterface.OnShowListener, View.On
     private EditText editTextNome, editTextRG, editTextCPF, editTextAltura, editTextPeso;
     private EditText editTextData, editTextIdLeito, editTextTelefone, editTextSobrenome;
 
-    Paciente paciente;
+    private Paciente paciente;
 
     Context context;
 
@@ -64,7 +64,7 @@ public class PacienteCadastro implements DialogInterface.OnShowListener, View.On
         dialog.show();
     }
 
-    public void loadCalculo(Paciente paciente){
+    public void loadPaciente(Paciente paciente){
 
         this.paciente = paciente;
         editTextNome.setText(paciente.getNome());
@@ -177,6 +177,7 @@ public class PacienteCadastro implements DialogInterface.OnShowListener, View.On
                 //paciente.setId_leito(leito);
                 paciente.setTelefone(telefone);
                 paciente.setSobrenome(pacienteSobrenome);
+                pacienteController.edit(paciente, paciente.getId());
                 criadoComSucesso = true;
             }
         }

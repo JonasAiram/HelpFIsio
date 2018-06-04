@@ -25,12 +25,16 @@ public class ConsultaMedicoCadastro implements DialogInterface.OnShowListener, V
 
     private EditText editTextDescricao, editTextMedicacao, editTextTratamento, editTextData, editTextHora, editTextEspecialidade;
 
+    private ConsultaMedico consultaMedico;
+
     Context context;
 
-    public ConsultaMedicoCadastro(View v){
+    boolean criadoComSucesso;
+
+    public ConsultaMedicoCadastro(Context context){
 
         //CRIA CONTEXT
-        context = v.getContext();
+        this.context = context;
 
         consultaMedicoController = new ConsultaMedicoController(context);
 
@@ -58,6 +62,18 @@ public class ConsultaMedicoCadastro implements DialogInterface.OnShowListener, V
 
     }
 
+    public void loadConsulta(ConsultaMedico consultaMedico){
+
+        this.consultaMedico = consultaMedico;
+        editTextDescricao.setText(consultaMedico.getDescricao());
+        editTextMedicacao.setText(consultaMedico.getMedicacao());
+        editTextTratamento.setText(consultaMedico.getTratamento());
+        editTextData.setText(consultaMedico.getData());
+        editTextHora.setText(consultaMedico.getHora());
+        editTextEspecialidade.setText(consultaMedico.getEspecialidadeConsulta());
+
+    }
+
     @Override
     public void onShow(DialogInterface dialogInterface) {
 
@@ -70,12 +86,26 @@ public class ConsultaMedicoCadastro implements DialogInterface.OnShowListener, V
     @Override
     public void onClick(View v) {
 
+        insertConsulta();
+
+        if (criadoComSucesso) {
+            Toast.makeText(context, "Consulta Armazenada Com Sucesso.", Toast.LENGTH_SHORT).show();
+            ((ConsultaMedicoView) context).atualizarRegistros();
+        } else
+            Toast.makeText(context, "Não Foi Possivel Armazenar a Consulta.", Toast.LENGTH_SHORT).show();
+
+        dialog.dismiss();
+    }
+
+    public void insertConsulta(){
+
         //ATRIBUIÇÃO DAS VARIAVEIS PARA STRINGS PARA FACILITAR NA ESTRUTURA DE CONDIÇÃO IF
         String descricao = editTextDescricao.getText().toString();
         String medicamento = editTextMedicacao.getText().toString();
         String tratamento = editTextTratamento.getText().toString();
         String data = editTextData.getText().toString();
         String hora = editTextHora.getText().toString();
+        String especialidade = editTextEspecialidade.getText().toString();
 
         //APRESENTA OS ERROS AO DEIXAR ALGUM ATRIBUTO EM BRANCO
         if (descricao.length() == 0)
@@ -93,25 +123,32 @@ public class ConsultaMedicoCadastro implements DialogInterface.OnShowListener, V
         if (descricao.length() != 0 && medicamento.length() != 0 && tratamento.length() != 0 &&
                 data.length() != 0 && hora.length() != 0){
 
-            //REGRAS PARA ARMAZENAR NO BANCO DE DADOS
-            ConsultaMedico consultaMedico = new ConsultaMedico();
-            consultaMedico.setDescricao(descricao);
-            consultaMedico.setMedicacao(medicamento);
-            consultaMedico.setTratamento(tratamento);
-            consultaMedico.setData(data);
-            consultaMedico.setHora(hora);
+            if (consultaMedico == null){
 
-            boolean criadoComSucesso = consultaMedicoController.insert(consultaMedico);
 
-            if (criadoComSucesso) {
-                Toast.makeText(context, "Consulta Cadastrada Com Sucesso.", Toast.LENGTH_SHORT).show();
-                ((ConsultaMedicoView) context).atualizarRegistros();
+                //REGRAS PARA ARMAZENAR NO BANCO DE DADOS
+                ConsultaMedico consultaMedico = new ConsultaMedico();
+                consultaMedico.setDescricao(descricao);
+                consultaMedico.setMedicacao(medicamento);
+                consultaMedico.setTratamento(tratamento);
+                consultaMedico.setData(data);
+                consultaMedico.setHora(hora);
+                consultaMedico.setEspecialidadeConsulta(especialidade);
+
+                criadoComSucesso = consultaMedicoController.insert(consultaMedico);
+            }else{
+
+                consultaMedico.setDescricao(descricao);
+                consultaMedico.setMedicacao(medicamento);
+                consultaMedico.setTratamento(tratamento);
+                consultaMedico.setData(data);
+                consultaMedico.setHora(hora);
+                consultaMedico.setEspecialidadeConsulta(especialidade);
+
+                consultaMedicoController.edit(consultaMedico, consultaMedico.getIdMedico());
+                criadoComSucesso = true;
+
             }
-            else
-                Toast.makeText(context, "Não Foi Possivel Cadastrar a Consulta.", Toast.LENGTH_SHORT).show();
-
-            dialog.dismiss();
-
         }
     }
 

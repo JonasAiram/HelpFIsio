@@ -25,12 +25,16 @@ public class LeitoCadastro implements DialogInterface.OnShowListener, View.OnCli
 
     private EditText editTextTipo, editTextQtd, editTextChefe, editTextAndar, editTextIdHospital;
 
+    private Leito leito;
+
     Context context;
 
-    public LeitoCadastro(View v) {
+    boolean criadoComSucesso;
+
+    public LeitoCadastro(Context context) {
 
         //CRIA O CONTEXT
-        context = v.getContext();
+        this.context = context;
 
         leitoController = new LeitoController(context);
 
@@ -56,6 +60,16 @@ public class LeitoCadastro implements DialogInterface.OnShowListener, View.OnCli
 
     }
 
+    public void loadLeito(Leito leito){
+
+        this.leito = leito;
+        editTextTipo.setText(leito.getTipo());
+        editTextQtd.setText(String.valueOf(leito.getQuantidade()));
+        editTextChefe.setText(leito.getChefe());
+        editTextAndar.setText(String.valueOf(leito.getAndar()));
+
+    }
+
     @Override
     public void onShow(DialogInterface dialogInterface) {
 
@@ -65,7 +79,21 @@ public class LeitoCadastro implements DialogInterface.OnShowListener, View.OnCli
     }
 
     @Override
-    public void onClick(View v){
+    public void onClick(View v) {
+
+        insertLeito();
+
+        if (criadoComSucesso) {
+            Toast.makeText(context, "Paciente Armazenado Com Sucesso.", Toast.LENGTH_SHORT).show();
+            ((LeitoView) context).atualizarRegistros();
+        } else
+            Toast.makeText(context, "Não Foi Possivel Armazenar o Paciente.", Toast.LENGTH_SHORT).show();
+
+        dialog.dismiss();
+
+    }
+
+    public  void insertLeito(){
 
         //ATRIBUIÇÃO DAS VARIAVEIS PARA STRINGS PARA FACILITAR NA ESTRUTURA DE CONDIÇÃO IF
         String tipo = editTextTipo.getText().toString();
@@ -86,28 +114,34 @@ public class LeitoCadastro implements DialogInterface.OnShowListener, View.OnCli
         //SE TODOS OS CAMPOS FOREM PREENCHIDOS SERÁ EXECUTADA ESTÁ AÇÃO
         if (tipo.length() != 0 && qtd.length() != 0 && chefe.length() != 0 && andar.length() != 0){
 
-            int qtdLeito = Integer.parseInt(qtd);
-            int andarLeito = Integer.parseInt(andar);
+            if (leito == null) {
 
-            //REGRAS PARA ARMAZENAR NO BANCO DE DADOS
-            Leito leito = new Leito();
-            leito.setTipo(tipo);
-            leito.setQuantidade(qtdLeito);
-            leito.setChefe(chefe);
-            leito.setAndar(andarLeito);
 
-            boolean criadoComSucesso = leitoController.insert(leito);
+                int qtdLeito = Integer.parseInt(qtd);
+                int andarLeito = Integer.parseInt(andar);
 
-            if (criadoComSucesso) {
-                Toast.makeText(context, "Hospital Cadastrado Com Sucesso.", Toast.LENGTH_SHORT).show();
+                //REGRAS PARA ARMAZENAR NO BANCO DE DADOS
+                Leito leito = new Leito();
+                leito.setTipo(tipo);
+                leito.setQuantidade(qtdLeito);
+                leito.setChefe(chefe);
+                leito.setAndar(andarLeito);
 
-                ((LeitoView) context).atualizarRegistros();
+                criadoComSucesso = leitoController.insert(leito);
+            }else {
+
+                int qtdLeito = Integer.parseInt(qtd);
+                int andarLeito = Integer.parseInt(andar);
+
+                //REGRAS PARA ARMAZENAR NO BANCO DE DADOS
+                leito.setTipo(tipo);
+                leito.setQuantidade(qtdLeito);
+                leito.setChefe(chefe);
+                leito.setAndar(andarLeito);
+                leitoController.edit(leito, leito.getId());
+                criadoComSucesso = true;
+
             }
-            else
-                Toast.makeText(context, "Não Foi Possivel Cadastrar o Hospital.", Toast.LENGTH_SHORT).show();
-
-            dialog.dismiss();
-
         }
     }
 

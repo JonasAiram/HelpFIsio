@@ -98,7 +98,7 @@ public class PacienteView extends Activity implements View.OnClickListener, Adap
                             //EDITAR
 
                             PacienteCadastro pacienteCadastro = new PacienteCadastro(PacienteView.this);
-                            pacienteCadastro.loadCalculo(paciente);
+                            pacienteCadastro.loadPaciente(paciente);
 
                         }else if (item == 1) {
                             //DELETAR
