@@ -23,7 +23,7 @@ public class Hospital {
 
     // Criando Tabela
     public static final String SQL_CREATE = "CREATE TABLE " + TABLE + "( "
-            + COLUMN_ID         +   " INTEGER PRIMARY KEY,"
+            + COLUMN_ID         +   " INTEGER PRIMARY KEY AUTOINCREMENT,"
             + COLUMN_NOME       +   " TEXT,"
             + COLUMN_RUA        +   " TEXT,"
             + COLUMN_BAIRRO     +   " TEXT,"

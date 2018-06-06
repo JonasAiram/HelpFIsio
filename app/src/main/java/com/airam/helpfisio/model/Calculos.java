@@ -22,7 +22,7 @@ public class Calculos {
 
     //CRIANDO TABELAS
     public static final String SQL_CREATE = "CREATE TABLE " + TABLE + "( "
-            + COLUMN_ID             +   " INTEGER PRIMARY KEY,"
+            + COLUMN_ID             +   " INTEGER PRIMARY KEY AUTOINCREMENT,"
             + COLUMN_IDPACIENTE     +   " INTEGER,"
             + COLUMN_NOME           +   " TEXT,"
             + COLUMN_RESULTADO      +   " REAL,"

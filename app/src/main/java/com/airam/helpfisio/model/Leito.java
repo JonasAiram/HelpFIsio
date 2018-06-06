@@ -19,7 +19,7 @@ public class Leito {
 
     //Criando a tabela
     public static final String SQL_CREATE = "CREATE TABLE " + TABLE + "( "
-            + COLUMN_ID         +   " INTEGER PRIMARY KEY,"
+            + COLUMN_ID         +   " INTEGER PRIMARY KEY AUTOINCREMENT,"
             + COLUMN_TIPO       +   " TEXT,"
             + COLUMN_QUANTIDADE +   " INTEGER,"
             + COLUMN_CHEFE      +   " TEXT,"

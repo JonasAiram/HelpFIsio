@@ -12,7 +12,7 @@ public class Pessoa {
     public static final String COLUMN_SOBRENOME = "sobrenome";
 
     // Criando Tabela
-    public static final String SQL_PESSOA = COLUMN_ID         +   " INTEGER PRIMARY KEY,"
+    public static final String SQL_PESSOA = COLUMN_ID         +   " INTEGER PRIMARY KEY AUTOINCREMENT,"
             + COLUMN_NOME       +   " TEXT,"
             + COLUMN_RG         +   " INTEGER,"
             + COLUMN_CPF        +   " TEXT,"

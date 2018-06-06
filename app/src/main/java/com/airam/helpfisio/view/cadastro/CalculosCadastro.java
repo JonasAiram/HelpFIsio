@@ -5,6 +5,8 @@ import android.content.Context;
 import android.content.DialogInterface;
 import android.view.LayoutInflater;
 import android.view.View;
+import android.widget.AdapterView;
+import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.Spinner;
@@ -12,10 +14,15 @@ import android.widget.Toast;
 
 import com.airam.helpfisio.R;
 import com.airam.helpfisio.controller.CalculosController;
+import com.airam.helpfisio.controller.PacienteController;
 import com.airam.helpfisio.model.Calculos;
+import com.airam.helpfisio.model.Paciente;
 import com.airam.helpfisio.view.CalculosView;
 
-public class CalculosCadastro implements DialogInterface.OnShowListener, View.OnClickListener, DialogInterface.OnDismissListener {
+import java.util.ArrayList;
+import java.util.List;
+
+public class CalculosCadastro implements DialogInterface.OnShowListener, View.OnClickListener, DialogInterface.OnDismissListener, AdapterView.OnItemSelectedListener{
 
     private CalculosController calculosController;
     private AlertDialog dialog;
@@ -23,6 +30,14 @@ public class CalculosCadastro implements DialogInterface.OnShowListener, View.On
     private EditText editTextNome, editTextResultado;
     private EditText editTextData, editTextHora, editTextObs;
     private Spinner spnIdPaciente;
+
+    private List<String> listaNomePaciente = new ArrayList<String>();
+    private List<String>listId = new ArrayList<String>();
+
+    private int pacienteId;
+
+    List<Paciente> listPaciente;
+    private PacienteController pacienteController;
 
     private Calculos calculos;
 
@@ -45,6 +60,19 @@ public class CalculosCadastro implements DialogInterface.OnShowListener, View.On
         //ATRIBUI AS VARIVEIS AOS ITENS DO LAYOUT
         findViewById(view);
 
+        //SPINNER
+        pacienteController = new PacienteController(context);
+        arrayIdPaciente();
+        ArrayAdapter<String> adapter = new ArrayAdapter<String>(context, android.R.layout.simple_spinner_item, listaNomePaciente);
+        adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+        spnIdPaciente.setAdapter(adapter);
+
+        spnIdPaciente.setOnItemSelectedListener(this);
+
+        /*int i = spnIdPaciente.getSelectedItemPosition();
+        Paciente paciente = listPaciente.get(i);
+        pacienteId = paciente.getId();*/
+
         //CRIA OS BUTTONS DO ALERTDIALOG
         builder.setPositiveButton("Salvar", null);
         builder.setNegativeButton("Voltar", null);
@@ -54,6 +82,17 @@ public class CalculosCadastro implements DialogInterface.OnShowListener, View.On
         dialog.setOnShowListener(this);
         dialog.show();
 
+    }
+
+    private void arrayIdPaciente() {
+
+        listPaciente = pacienteController.getAll();
+        for (Paciente paciente : listPaciente){
+
+            listaNomePaciente.add(paciente.getNome() + " CPF: " + paciente.getCpf());
+            listId.add(String.valueOf(paciente.getId()));
+
+        }
     }
 
     public void loadCalculo(Calculos calculos){
@@ -123,7 +162,9 @@ public class CalculosCadastro implements DialogInterface.OnShowListener, View.On
 
                 //REGRAS PARA ARMAZENAR NO BANCO DE DADOS
                 Calculos calculos = new Calculos();
-                calculos.setNome(nome);
+
+                calculos.setIdPaciente(pacienteId);
+                calculos.setNome(String.valueOf(pacienteId));
                 calculos.setResultado(dbResultado);
                 calculos.setData(data);
                 calculos.setHora(hora);
@@ -132,6 +173,7 @@ public class CalculosCadastro implements DialogInterface.OnShowListener, View.On
             }else {
                 double dbResultado = Double.parseDouble(resultado);
 
+                calculos.setIdPaciente(pacienteId);
                 calculos.setNome(nome);
                 calculos.setResultado(dbResultado);
                 calculos.setData(data);
@@ -151,5 +193,18 @@ public class CalculosCadastro implements DialogInterface.OnShowListener, View.On
         editTextData = (EditText) view.findViewById(R.id.edtCalculosData);
         editTextHora = (EditText) view.findViewById(R.id.edtCalculosHora);
         editTextObs = (EditText) view.findViewById(R.id.edtCalculosObs);
+    }
+
+    @Override
+    public void onItemSelected(AdapterView<?> adapterView, View view, int i, long l) {
+
+        Paciente paciente = listPaciente.get(i);
+        pacienteId = paciente.getId();
+
+    }
+
+    @Override
+    public void onNothingSelected(AdapterView<?> adapterView) {
+
     }
 }
