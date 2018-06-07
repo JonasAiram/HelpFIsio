@@ -31,8 +31,9 @@ public class CalculosCadastro implements DialogInterface.OnShowListener, View.On
     private EditText editTextData, editTextHora, editTextObs;
     private Spinner spnIdPaciente;
 
+    ArrayAdapter<String> adapter;
+
     private List<String> listaNomePaciente = new ArrayList<String>();
-    private List<String>listId = new ArrayList<String>();
 
     private int pacienteId;
 
@@ -47,7 +48,7 @@ public class CalculosCadastro implements DialogInterface.OnShowListener, View.On
 
     public CalculosCadastro(Context context){
 
-        //CRIA O CONTEXT
+        //PEGA O CONTEXT
         this.context= context;
 
         calculosController = new CalculosController(context);
@@ -63,7 +64,8 @@ public class CalculosCadastro implements DialogInterface.OnShowListener, View.On
         //SPINNER
         pacienteController = new PacienteController(context);
         arrayIdPaciente();
-        ArrayAdapter<String> adapter = new ArrayAdapter<String>(context, android.R.layout.simple_spinner_item, listaNomePaciente);
+
+        adapter = new ArrayAdapter<String>(context, android.R.layout.simple_spinner_item, listaNomePaciente);
         adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
         spnIdPaciente.setAdapter(adapter);
 
@@ -90,7 +92,6 @@ public class CalculosCadastro implements DialogInterface.OnShowListener, View.On
         for (Paciente paciente : listPaciente){
 
             listaNomePaciente.add(paciente.getNome() + " CPF: " + paciente.getCpf());
-            listId.add(String.valueOf(paciente.getId()));
 
         }
     }
@@ -98,6 +99,8 @@ public class CalculosCadastro implements DialogInterface.OnShowListener, View.On
     public void loadCalculo(Calculos calculos){
 
         this.calculos = calculos;
+
+        spnIdPaciente.setSelection(calculos.getIdPaciente());
         editTextNome.setText(calculos.getNome());
         editTextData.setText(calculos.getData());
         editTextHora.setText(calculos.getHora());
@@ -164,7 +167,7 @@ public class CalculosCadastro implements DialogInterface.OnShowListener, View.On
                 Calculos calculos = new Calculos();
 
                 calculos.setIdPaciente(pacienteId);
-                calculos.setNome(String.valueOf(pacienteId));
+                calculos.setNome(nome);
                 calculos.setResultado(dbResultado);
                 calculos.setData(data);
                 calculos.setHora(hora);
