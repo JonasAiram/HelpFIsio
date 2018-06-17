@@ -100,7 +100,8 @@ public class CalculosCadastro implements DialogInterface.OnShowListener, View.On
 
         this.calculos = calculos;
 
-        spnIdPaciente.setSelection(calculos.getIdPaciente());
+        spnIdPaciente.setSelection(getIndexPacienteId(calculos.getIdPaciente()));
+
         editTextNome.setText(calculos.getNome());
         editTextData.setText(calculos.getData());
         editTextHora.setText(calculos.getHora());
@@ -115,6 +116,15 @@ public class CalculosCadastro implements DialogInterface.OnShowListener, View.On
         Button b = dialog.getButton(DialogInterface.BUTTON_POSITIVE);
         b.setId(DialogInterface.BUTTON_POSITIVE);
         b.setOnClickListener(this);
+    }
+
+    private int getIndexPacienteId(int pacienteId){
+        for (int index = 0; index < listPaciente.size(); index++){
+            Paciente paciente = listPaciente.get(index);
+            if (pacienteId == paciente.getId())
+                return index;
+        }
+        return 0;
     }
 
     @Override
