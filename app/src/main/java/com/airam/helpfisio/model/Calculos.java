@@ -19,6 +19,7 @@ public class Calculos {
     public static final String COLUMN_DATA = "data";
     public static final String COLUMN_HORA = "hora";
     public static final String COLUMN_OBSERVACOES = "observacoes";
+    public static final String COLUMN_IDINDEX = "idindex";
 
     //CRIANDO TABELAS
     public static final String SQL_CREATE = "CREATE TABLE " + TABLE + "( "
@@ -29,9 +30,19 @@ public class Calculos {
             + COLUMN_DATA           +   " TEXT,"
             + COLUMN_HORA           +   " TEXT,"
             + COLUMN_OBSERVACOES    +   " TEXT,"
+            + COLUMN_IDINDEX        +   " INTEGER,"
             + "FOREIGN KEY("+ COLUMN_IDPACIENTE +") REFERENCES " + Paciente.TABLE + "(" +Paciente.COLUMN_ID+ "))";
 
-    private int id, idPaciente;
+    private int id, idPaciente, idIndex;
+
+    public int getIdIndex() {
+        return idIndex;
+    }
+
+    public void setIdIndex(int idIndex) {
+        this.idIndex = idIndex;
+    }
+
     private String nome, data, hora, observacoes;
     private double resultado;
 

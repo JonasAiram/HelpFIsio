@@ -44,6 +44,9 @@ public class CalculosController extends  BaseController<Calculos>{
         columnId = c.getColumnIndex(Calculos.COLUMN_OBSERVACOES);
         calculos.setObservacoes(c.getString(columnId));
 
+        columnId = c.getColumnIndex(Calculos.COLUMN_IDINDEX);
+        calculos.setIdIndex(c.getInt(columnId));
+
         return calculos;
     }
 
@@ -51,7 +54,7 @@ public class CalculosController extends  BaseController<Calculos>{
     protected String[] getColumns() {
         return new String[]{Calculos.COLUMN_ID, Calculos.COLUMN_IDPACIENTE, Calculos.COLUMN_NOME,
                     Calculos.COLUMN_RESULTADO, Calculos.COLUMN_DATA, Calculos.COLUMN_HORA,
-                    Calculos.COLUMN_OBSERVACOES};
+                    Calculos.COLUMN_OBSERVACOES, Calculos.COLUMN_IDINDEX};
     }
 
     @Override
@@ -63,6 +66,8 @@ public class CalculosController extends  BaseController<Calculos>{
         values.put(Calculos.COLUMN_DATA, calculos.getData());
         values.put(Calculos.COLUMN_HORA, calculos.getHora());
         values.put(Calculos.COLUMN_OBSERVACOES, calculos.getObservacoes());
+        values.put(Calculos.COLUMN_IDPACIENTE, calculos.getIdPaciente());
+        values.put(Calculos.COLUMN_IDINDEX, calculos.getIdIndex());
 
         return values;
     }
