@@ -1,5 +1,7 @@
 package com.airam.helpfisio.model;
 
+import java.util.Date;
+
 public class Pessoa {
 
     // Nome das colunas
@@ -24,6 +26,15 @@ public class Pessoa {
     private int rg;
     private int telefone;
     private String nome, cpf, sobrenome, data;
+    private Date dtData;
+
+    public Date getDtDate() {
+        return dtData;
+    }
+
+    public void setDtDate(Date dtDate) {
+        this.dtData = dtDate;
+    }
 
     public int getId() {
         return id;

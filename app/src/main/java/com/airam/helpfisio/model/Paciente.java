@@ -13,16 +13,28 @@ public class Paciente extends Pessoa{
     public static final String COLUMN_PESO = "peso";
     public static final String COLUMN_ALTURA = "altura";
     public static final String COLUMN_ID_LEITO = "id_leito";
+    public static final String COLUMN_IDHOSPITAL = "id_hospital";
 
     // Criando Tabela
     public final static String SQL_CREATE = "CREATE TABLE " + TABLE + "( " + SQL_PESSOA
             + COLUMN_PESO       +   " REAL,"
             + COLUMN_ALTURA     +   " REAL,"
             + COLUMN_ID_LEITO   +   " INTEGER,"
+            + COLUMN_IDHOSPITAL +   " INTEGER,"
+            + "FOREIGN KEY("+ COLUMN_IDHOSPITAL +") REFERENCES " + Hospital.TABLE + "(" +Hospital.COLUMN_ID + "),"
             + "FOREIGN KEY("+ COLUMN_ID_LEITO +") REFERENCES " + Leito.TABLE + "(" +Leito.COLUMN_ID + "))";
 
     private int id_leito;
+    private int idHospital;
     private double peso, altura;
+
+    public int getIdHospital() {
+        return idHospital;
+    }
+
+    public void setIdHospital(int idHospital) {
+        this.idHospital = idHospital;
+    }
 
     public int getId_leito() {
         return id_leito;

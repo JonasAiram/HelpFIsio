@@ -10,12 +10,14 @@ public class Medico extends Pessoa{
     public static final String TABLE = "medico";
 
     //NOME DAS COLUNAS
+    public static final String COLUMN_PESO = "peso";
     public static final String COLUMN_CRM = "CRM";
     public static final String COLUMN_CARGO= "cargo";
     public static final String COLUMN_SALARIO = "salario";
 
     //CRIANDO TABELAS
     public static final String SQL_CREATE = "CREATE TABLE " + TABLE + "( " + SQL_PESSOA
+            + COLUMN_PESO       +   " REAL,"
             + COLUMN_CRM        +   " TEXT,"
             + COLUMN_CARGO      +   " TEXT,"
             + COLUMN_SALARIO    +   " REAL)";

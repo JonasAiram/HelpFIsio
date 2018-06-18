@@ -5,14 +5,24 @@ import android.content.Context;
 import android.content.DialogInterface;
 import android.view.LayoutInflater;
 import android.view.View;
+import android.widget.AdapterView;
+import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.Spinner;
 import android.widget.Toast;
 
+import com.airam.helpfisio.controller.HospitalController;
+import com.airam.helpfisio.controller.LeitoController;
+import com.airam.helpfisio.model.Hospital;
+import com.airam.helpfisio.model.Leito;
 import com.airam.helpfisio.view.PacienteView;
 import com.airam.helpfisio.R;
 import com.airam.helpfisio.controller.PacienteController;
 import com.airam.helpfisio.model.Paciente;
+
+import java.util.ArrayList;
+import java.util.List;
 
 /**
  * Created by jonas on 10/11/2017.
@@ -21,12 +31,23 @@ import com.airam.helpfisio.model.Paciente;
 public class PacienteCadastro implements DialogInterface.OnShowListener, View.OnClickListener, DialogInterface.OnDismissListener{
 
     private PacienteController pacienteController;
-    private AlertDialog dialog;
-
-    private EditText editTextNome, editTextRG, editTextCPF, editTextAltura, editTextPeso;
-    private EditText editTextData, editTextIdLeito, editTextTelefone, editTextSobrenome;
+    private HospitalController hospitalController;
+    private LeitoController leitoController;
 
     private Paciente paciente;
+
+    private AlertDialog dialog;
+    private EditText editTextNome, editTextRG, editTextCPF, editTextAltura, editTextPeso;
+    private EditText editTextData, editTextTelefone, editTextSobrenome;
+
+    private Spinner spnIdHospital, spnIdLeito;
+
+    private int idHospital, idLeito;
+
+    private List<String> listaNomeHospital = new ArrayList<String>();
+    private List<String> listaNomeLeito = new ArrayList<String>();
+    List<Hospital> listHospital;
+    List<Leito> listLeito;
 
     Context context;
 
@@ -39,7 +60,7 @@ public class PacienteCadastro implements DialogInterface.OnShowListener, View.On
 
         pacienteController = new PacienteController(context);
 
-        //ATRIBUI AS VARIVEIS AOS ITENS DO LAYOUT
+        //CRIA O LAYOUT COMO ALERTDIALOG
         AlertDialog.Builder builder = new AlertDialog.Builder(context);
         View view = LayoutInflater.from(context).inflate(R.layout.pacientecadastro, null);
         builder.setView(view);
@@ -51,9 +72,27 @@ public class PacienteCadastro implements DialogInterface.OnShowListener, View.On
         editTextAltura = (EditText) view.findViewById(R.id.edtAlturaPaciente);
         editTextPeso = (EditText) view.findViewById(R.id.edtPacientePeso);
         editTextData = (EditText) view.findViewById(R.id.edtPacienteData);
-        //editTextIdLeito = (EditText) view.findViewById(R.id.spnLeito);
         editTextTelefone = (EditText) view.findViewById(R.id.edtPacienteTelefone);
         editTextSobrenome = (EditText) view.findViewById(R.id.edtPacienteSobrenome);
+
+        spnIdHospital = (Spinner) view.findViewById(R.id.spnPacienteHospital);
+        spnIdLeito = (Spinner) view.findViewById(R.id.spnPacienteLeito);
+
+        //SPINNER HOSPITAL
+        hospitalController = new HospitalController(context);
+        arrayIdHospital();
+        ArrayAdapter<String> adapter = new ArrayAdapter<String>(context, android.R.layout.simple_spinner_item, listaNomeHospital);
+        adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+        spnIdHospital.setAdapter(adapter);
+        spnHospItemSelected(adapter);
+
+        //SPINNER LEITO
+        leitoController = new LeitoController(context);
+        arrayIdLeito();
+        ArrayAdapter<String> adapter2 = new ArrayAdapter<String>(context, android.R.layout.simple_spinner_item, listaNomeLeito);
+        adapter2.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+        spnIdLeito.setAdapter(adapter2);
+        spnLeitoItemSelected(adapter2);
 
         //CRIA OS BUTTONS DO ALERTDIALOG
         builder.setPositiveButton("Salvar", null);
@@ -64,9 +103,28 @@ public class PacienteCadastro implements DialogInterface.OnShowListener, View.On
         dialog.show();
     }
 
+    private void arrayIdHospital() {
+        listHospital = hospitalController.getAll();
+        for (Hospital hospital : listHospital){
+            listaNomeHospital.add(hospital.getNome() + " Cidade: " + hospital.getCidade());
+        }
+    }
+
+    private void arrayIdLeito() {
+
+        listLeito = leitoController.getAll();
+        for (Leito leito : listLeito){
+            listaNomeLeito.add(leito.getTipo() + " Quantidade: " + leito.getQuantidade());
+        }
+    }
+
     public void loadPaciente(Paciente paciente){
 
         this.paciente = paciente;
+
+        spnIdHospital.setSelection(getIndexHospitalId(paciente.getIdHospital()));
+        spnIdLeito.setSelection(getIndexLeitoId(paciente.getId_leito()));
+
         editTextNome.setText(paciente.getNome());
         editTextRG.setText(String.valueOf(paciente.getRg()));
         editTextCPF.setText(paciente.getCpf());
@@ -75,6 +133,24 @@ public class PacienteCadastro implements DialogInterface.OnShowListener, View.On
         editTextData.setText(paciente.getData());
         editTextTelefone.setText(String.valueOf(paciente.getTelefone()));
         editTextSobrenome.setText(paciente.getSobrenome());
+    }
+
+    private int getIndexHospitalId(int idHospital){
+        for (int index = 0; index < listHospital.size(); index++){
+            Hospital hospital = listHospital.get(index);
+            if (idHospital == hospital.getId())
+                return index;
+        }
+        return 0;
+    }
+
+    private int getIndexLeitoId(int idLeito){
+        for (int index = 0; index < listLeito.size(); index++){
+            Leito leito = listLeito.get(index);
+            if (idLeito == leito.getId())
+                return index;
+        }
+        return 0;
     }
 
     @Override
@@ -86,7 +162,6 @@ public class PacienteCadastro implements DialogInterface.OnShowListener, View.On
 
     @Override
     public void onClick(View v){
-
 
         insertPacient();
 
@@ -110,7 +185,6 @@ public class PacienteCadastro implements DialogInterface.OnShowListener, View.On
         String pacienteAltura = editTextAltura.getText().toString();
         String pacientePeso = editTextPeso.getText().toString();
         String pacienteData = editTextData.getText().toString();
-        //String pacienteIdLeito = editTextIdLeito.getText().toString();
         String pacienteTelefone = editTextTelefone.getText().toString();
         String pacienteSobrenome = editTextSobrenome.getText().toString();
 
@@ -127,8 +201,6 @@ public class PacienteCadastro implements DialogInterface.OnShowListener, View.On
             editTextPeso.setError("Digite o Seu Peso!");
         if (pacienteData.length() == 0)
             editTextData.setError("Digite a Sua Data de Nascimento!");
-        // if (pacienteIdLeito.length() == 0)
-        //  editTextIdLeito.setError("Selecione o Leito!");
         if (pacienteTelefone.length() == 0)
             editTextTelefone.setError("Digite o Seu Telefone!");
         if (pacienteSobrenome.length() == 0)
@@ -144,7 +216,6 @@ public class PacienteCadastro implements DialogInterface.OnShowListener, View.On
                 //CONVERTER PARA O TIPO DE DADOS QUE SERÁ ARMAZENADOS NO BANCO DE DADOS
                 int Rg = Integer.parseInt(editTextRG.getText().toString());
                 int telefone = Integer.parseInt(editTextTelefone.getText().toString());
-                // int leito = Integer.parseInt(editTextIdLeito.getText().toString());
                 double altura = Double.parseDouble(editTextAltura.getText().toString());
                 double peso = Double.parseDouble(editTextPeso.getText().toString());
 
@@ -155,16 +226,16 @@ public class PacienteCadastro implements DialogInterface.OnShowListener, View.On
                 paciente.setAltura(altura);
                 paciente.setPeso(peso);
                 paciente.setData(pacienteData);
-                //paciente.setId_leito(leito);
                 paciente.setTelefone(telefone);
                 paciente.setSobrenome(pacienteSobrenome);
+                paciente.setIdHospital(idHospital);
+                paciente.setId_leito(idLeito);
 
                 criadoComSucesso = pacienteController.insert(paciente);
             }else{
                 //CONVERTER PARA O TIPO DE DADOS QUE SERÁ ARMAZENADOS NO BANCO DE DADOS
                 int Rg = Integer.parseInt(editTextRG.getText().toString());
                 int telefone = Integer.parseInt(editTextTelefone.getText().toString());
-                // int leito = Integer.parseInt(editTextIdLeito.getText().toString());
                 double altura = Double.parseDouble(editTextAltura.getText().toString());
                 double peso = Double.parseDouble(editTextPeso.getText().toString());
 
@@ -174,16 +245,47 @@ public class PacienteCadastro implements DialogInterface.OnShowListener, View.On
                 paciente.setAltura(altura);
                 paciente.setPeso(peso);
                 paciente.setData(pacienteData);
-                //paciente.setId_leito(leito);
                 paciente.setTelefone(telefone);
                 paciente.setSobrenome(pacienteSobrenome);
+                paciente.setIdHospital(idHospital);
+                paciente.setId_leito(idLeito);
+
                 pacienteController.edit(paciente, paciente.getId());
                 criadoComSucesso = true;
             }
         }
     }
+
     @Override
     public void onDismiss(DialogInterface dialogInterface) {
         pacienteController.closeDb();
+    }
+
+    private void spnLeitoItemSelected(ArrayAdapter<String> adapter2) {
+
+        spnIdLeito.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
+            @Override
+            public void onItemSelected(AdapterView<?> adapterView, View view, int i, long l) {
+                Leito leito = listLeito.get(i);
+                idLeito = leito.getId();
+            }
+            @Override
+            public void onNothingSelected(AdapterView<?> adapterView) {
+            }
+        });
+    }
+
+    private void spnHospItemSelected(ArrayAdapter<String> adapter) {
+
+        spnIdHospital.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
+            @Override
+            public void onItemSelected(AdapterView<?> adapterView, View view, int i, long l) {
+                Hospital hospital = listHospital.get(i);
+                idHospital = hospital.getId();
+            }
+            @Override
+            public void onNothingSelected(AdapterView<?> adapterView) {
+            }
+        });
     }
 }

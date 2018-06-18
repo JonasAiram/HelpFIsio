@@ -34,7 +34,7 @@ public class LeitoCadastro implements DialogInterface.OnShowListener, View.OnCli
 
     private AlertDialog dialog;
 
-    private EditText editTextTipo, editTextQtd, editTextChefe, editTextAndar, editTextIdHospital;
+    private EditText editTextTipo, editTextQtd, editTextChefe, editTextAndar;
     private Spinner spnHospId;
 
     private int idHospital;

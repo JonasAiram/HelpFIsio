@@ -26,7 +26,10 @@ public class ConsultaMedicoController extends BaseController<ConsultaMedico>{
     protected ConsultaMedico convertToObject(Cursor c){
         ConsultaMedico consultaMedico = new ConsultaMedico();
 
-        int columnId = c.getColumnIndex(ConsultaMedico.COLUMN_IDMEDICO);
+        int columnId = c.getColumnIndex(ConsultaMedico.COLUMN_ID);
+        consultaMedico.setId(c.getInt(columnId));
+
+        columnId = c.getColumnIndex(ConsultaMedico.COLUMN_IDMEDICO);
         consultaMedico.setIdMedico(c.getInt(columnId));
 
         columnId = c.getColumnIndex(ConsultaMedico.COLUMN_IDPACIENTE);
@@ -55,7 +58,7 @@ public class ConsultaMedicoController extends BaseController<ConsultaMedico>{
 
     @Override
     protected String[] getColumns() {
-        return new String[]{ConsultaMedico.COLUMN_IDMEDICO, ConsultaMedico.COLUMN_IDPACIENTE,
+        return new String[]{ConsultaMedico.COLUMN_ID, ConsultaMedico.COLUMN_IDMEDICO, ConsultaMedico.COLUMN_IDPACIENTE,
                 ConsultaMedico.COLUMN_DESC, ConsultaMedico.COLUMN_MEDICACAO, ConsultaMedico.COLUMN_TRATAMENTO,
                 ConsultaMedico.COLUMN_DATA, ConsultaMedico.COLUMN_HORA, ConsultaMedico.COLUMN_ESPECIALIDADE};
     }

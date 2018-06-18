@@ -8,7 +8,9 @@ import android.database.sqlite.SQLiteDatabase;
 import com.airam.helpfisio.adapter.DataBaseAdapter;
 import com.airam.helpfisio.model.Paciente;
 
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 
 /**
@@ -63,6 +65,9 @@ public class PacienteController extends BaseController<Paciente>{
         columnId = c.getColumnIndex(Paciente.COLUMN_ID_LEITO);
         paciente.setId_leito(c.getInt(columnId));
 
+        columnId = c.getColumnIndex(Paciente.COLUMN_IDHOSPITAL);
+        paciente.setIdHospital(c.getInt(columnId));
+
         return paciente;
     }
 
@@ -71,7 +76,7 @@ public class PacienteController extends BaseController<Paciente>{
         return new String[]{Paciente.COLUMN_ID, Paciente.COLUMN_NOME, Paciente.COLUMN_RG,
                 Paciente.COLUMN_CPF, Paciente.COLUMN_PESO, Paciente.COLUMN_ALTURA,
                 Paciente.COLUMN_DATA, Paciente.COLUMN_SOBRENOME, Paciente.COLUMN_TELEFONE,
-                Paciente.COLUMN_ID_LEITO};
+                Paciente.COLUMN_ID_LEITO, Paciente.COLUMN_IDHOSPITAL};
     }
 
     protected ContentValues convertToContentValue(Paciente paciente) {
@@ -86,6 +91,7 @@ public class PacienteController extends BaseController<Paciente>{
         values.put(Paciente.COLUMN_SOBRENOME, paciente.getSobrenome());
         values.put(Paciente.COLUMN_TELEFONE, paciente.getTelefone());
         values.put(Paciente.COLUMN_ID_LEITO, paciente.getId_leito());
+        values.put(Paciente.COLUMN_IDHOSPITAL, paciente.getIdHospital());
 
         return values;
     }
