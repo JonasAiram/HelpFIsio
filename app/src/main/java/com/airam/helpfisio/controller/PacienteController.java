@@ -3,15 +3,9 @@ package com.airam.helpfisio.controller;
 import android.content.ContentValues;
 import android.content.Context;
 import android.database.Cursor;
-import android.database.sqlite.SQLiteDatabase;
 
-import com.airam.helpfisio.adapter.DataBaseAdapter;
+import com.airam.helpfisio.model.DateUtil;
 import com.airam.helpfisio.model.Paciente;
-
-import java.text.SimpleDateFormat;
-import java.util.ArrayList;
-import java.util.Date;
-import java.util.List;
 
 /**
  * Created by jonas on 10/11/2017.
@@ -54,7 +48,7 @@ public class PacienteController extends BaseController<Paciente>{
         paciente.setAltura(c.getDouble(columnId));
 
         columnId = c.getColumnIndex(Paciente.COLUMN_DATA);
-        paciente.setData(c.getString(columnId));
+        paciente.setData(DateUtil.stringToDate(c.getString(columnId)));
 
         columnId = c.getColumnIndex(Paciente.COLUMN_SOBRENOME);
         paciente.setSobrenome(c.getString(columnId));
@@ -87,7 +81,7 @@ public class PacienteController extends BaseController<Paciente>{
         values.put(Paciente.COLUMN_CPF, paciente.getCpf());
         values.put(Paciente.COLUMN_PESO, paciente.getPeso());
         values.put(Paciente.COLUMN_ALTURA, paciente.getAltura());
-        values.put(Paciente.COLUMN_DATA, paciente.getData());
+        values.put(Paciente.COLUMN_DATA, DateUtil.dateToString(paciente.getData()));
         values.put(Paciente.COLUMN_SOBRENOME, paciente.getSobrenome());
         values.put(Paciente.COLUMN_TELEFONE, paciente.getTelefone());
         values.put(Paciente.COLUMN_ID_LEITO, paciente.getId_leito());

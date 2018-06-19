@@ -14,6 +14,7 @@ import android.widget.Toast;
 
 import com.airam.helpfisio.controller.HospitalController;
 import com.airam.helpfisio.controller.LeitoController;
+import com.airam.helpfisio.model.DateUtil;
 import com.airam.helpfisio.model.Hospital;
 import com.airam.helpfisio.model.Leito;
 import com.airam.helpfisio.view.PacienteView;
@@ -130,7 +131,7 @@ public class PacienteCadastro implements DialogInterface.OnShowListener, View.On
         editTextCPF.setText(paciente.getCpf());
         editTextAltura.setText(String.valueOf(paciente.getAltura()));
         editTextPeso.setText(String.valueOf(paciente.getPeso()));
-        editTextData.setText(paciente.getData());
+        editTextData.setText((DateUtil.dateToString(paciente.getData())));
         editTextTelefone.setText(String.valueOf(paciente.getTelefone()));
         editTextSobrenome.setText(paciente.getSobrenome());
     }
@@ -225,7 +226,7 @@ public class PacienteCadastro implements DialogInterface.OnShowListener, View.On
                 paciente.setCpf(pacienteCpf);
                 paciente.setAltura(altura);
                 paciente.setPeso(peso);
-                paciente.setData(pacienteData);
+                paciente.setData(DateUtil.stringToDate(pacienteData));
                 paciente.setTelefone(telefone);
                 paciente.setSobrenome(pacienteSobrenome);
                 paciente.setIdHospital(idHospital);
@@ -244,7 +245,7 @@ public class PacienteCadastro implements DialogInterface.OnShowListener, View.On
                 paciente.setCpf(pacienteCpf);
                 paciente.setAltura(altura);
                 paciente.setPeso(peso);
-                paciente.setData(pacienteData);
+                paciente.setData(DateUtil.stringToDate(pacienteData));
                 paciente.setTelefone(telefone);
                 paciente.setSobrenome(pacienteSobrenome);
                 paciente.setIdHospital(idHospital);

@@ -4,6 +4,7 @@ import android.content.ContentValues;
 import android.content.Context;
 import android.database.Cursor;
 
+import com.airam.helpfisio.model.DateUtil;
 import com.airam.helpfisio.model.Medico;
 
 public class MedicoController extends BaseController<Medico>{
@@ -36,7 +37,7 @@ public class MedicoController extends BaseController<Medico>{
         medico.setCpf(c.getString(columnId));
 
         columnId = c.getColumnIndex(Medico.COLUMN_DATA);
-        medico.setData(c.getString(columnId));
+        medico.setData(DateUtil.stringToDate(c.getString(columnId)));
 
         columnId = c.getColumnIndex(Medico.COLUMN_CRM);
         medico.setCrm(c.getInt(columnId));
@@ -72,7 +73,7 @@ public class MedicoController extends BaseController<Medico>{
         values.put(Medico.COLUMN_NOME, medico.getNome());
         values.put(Medico.COLUMN_RG, medico.getRg());
         values.put(Medico.COLUMN_CPF, medico.getCpf());
-        values.put(Medico.COLUMN_DATA, medico.getData());
+        values.put(Medico.COLUMN_DATA, DateUtil.dateToString(medico.getData()));
         values.put(Medico.COLUMN_CRM, medico.getCrm());
         values.put(Medico.COLUMN_CARGO, medico.getCargo());
         values.put(Medico.COLUMN_TELEFONE, medico.getTelefone());

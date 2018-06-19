@@ -11,6 +11,7 @@ import android.widget.Toast;
 
 import com.airam.helpfisio.R;
 import com.airam.helpfisio.controller.MedicoController;
+import com.airam.helpfisio.model.DateUtil;
 import com.airam.helpfisio.model.Medico;
 import com.airam.helpfisio.view.MedicoView;
 
@@ -69,7 +70,7 @@ public class MedicoCadastro implements DialogInterface.OnShowListener, View.OnCl
         editTextNome.setText(medico.getNome());
         editTextRG.setText(String.valueOf(medico.getRg()));
         editTextCPF.setText(medico.getCpf());
-        editTextData.setText(medico.getData());
+        editTextData.setText(DateUtil.dateToString(medico.getData()));
         editTextCRM.setText(String.valueOf(medico.getCrm()));
         editTextCargo.setText(medico.getCargo());
         editTextTelefone.setText(String.valueOf(medico.getTelefone()));
@@ -161,7 +162,7 @@ public class MedicoCadastro implements DialogInterface.OnShowListener, View.OnCl
                 medico.setNome(nome);
                 medico.setRg(rgInt);
                 medico.setCpf(cpf);
-                medico.setData(data);
+                medico.setData(DateUtil.stringToDate(data));
                 medico.setCrm(crmInt);
                 medico.setCargo(cargo);
                 medico.setTelefone(intTelefone);
@@ -181,7 +182,7 @@ public class MedicoCadastro implements DialogInterface.OnShowListener, View.OnCl
                 medico.setNome(nome);
                 medico.setRg(rgInt);
                 medico.setCpf(cpf);
-                medico.setData(data);
+                medico.setData(DateUtil.stringToDate(data));
                 medico.setCrm(crmInt);
                 medico.setCargo(cargo);
                 medico.setTelefone(intTelefone);

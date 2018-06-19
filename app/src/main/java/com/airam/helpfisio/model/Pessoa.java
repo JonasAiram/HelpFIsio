@@ -25,16 +25,8 @@ public class Pessoa {
     private int id;
     private int rg;
     private int telefone;
-    private String nome, cpf, sobrenome, data;
-    private Date dtData;
-
-    public Date getDtDate() {
-        return dtData;
-    }
-
-    public void setDtDate(Date dtDate) {
-        this.dtData = dtDate;
-    }
+    private String nome, cpf, sobrenome;
+    private Date Data;
 
     public int getId() {
         return id;
@@ -84,11 +76,11 @@ public class Pessoa {
         this.sobrenome = sobrenome;
     }
 
-    public String getData() {
-        return data;
+    public Date getData() {
+        return Data;
     }
 
-    public void setData(String data) {
-        this.data = data;
+    public void setData(Date data) {
+        Data = data;
     }
 }

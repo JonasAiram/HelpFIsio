@@ -11,6 +11,7 @@ import android.widget.Toast;
 
 import com.airam.helpfisio.R;
 import com.airam.helpfisio.controller.FisioterapeutaController;
+import com.airam.helpfisio.model.DateUtil;
 import com.airam.helpfisio.model.Fisioterapeuta;
 import com.airam.helpfisio.view.FisioterapeutaView;
 
@@ -70,7 +71,7 @@ public class FisioterapeutaCadastro implements DialogInterface.OnShowListener, V
         editTextNome.setText(fisioterapeuta.getNome());
         editTextRG.setText(String.valueOf(fisioterapeuta.getRg()));
         editTextCPF.setText(fisioterapeuta.getCpf());
-        editTextData.setText(fisioterapeuta.getData());
+        editTextData.setText(DateUtil.dateToString(fisioterapeuta.getData()));
         editTextCrefito.setText(String.valueOf(fisioterapeuta.getCrefito()));
         editTextCargo.setText(fisioterapeuta.getCargo());
         editTextTelefone.setText(String.valueOf(fisioterapeuta.getTelefone()));
@@ -158,7 +159,7 @@ public class FisioterapeutaCadastro implements DialogInterface.OnShowListener, V
                 fisioterapeuta.setNome(nome);
                 fisioterapeuta.setRg(rgInt);
                 fisioterapeuta.setCpf(cpf);
-                fisioterapeuta.setData(data);
+                fisioterapeuta.setData(DateUtil.stringToDate(data));
                 fisioterapeuta.setCrefito(crefitoInt);
                 fisioterapeuta.setCargo(cargo);
                 fisioterapeuta.setTelefone(telefoneInt);
@@ -179,7 +180,7 @@ public class FisioterapeutaCadastro implements DialogInterface.OnShowListener, V
                 fisioterapeuta.setNome(nome);
                 fisioterapeuta.setRg(rgInt);
                 fisioterapeuta.setCpf(cpf);
-                fisioterapeuta.setData(data);
+                fisioterapeuta.setData(DateUtil.stringToDate(data));
                 fisioterapeuta.setCrefito(crefitoInt);
                 fisioterapeuta.setCargo(cargo);
                 fisioterapeuta.setTelefone(telefoneInt);

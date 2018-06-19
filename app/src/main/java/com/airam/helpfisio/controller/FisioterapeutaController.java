@@ -4,6 +4,7 @@ import android.content.ContentValues;
 import android.content.Context;
 import android.database.Cursor;
 
+import com.airam.helpfisio.model.DateUtil;
 import com.airam.helpfisio.model.Fisioterapeuta;
 
 public class FisioterapeutaController extends BaseController<Fisioterapeuta>{
@@ -35,7 +36,7 @@ public class FisioterapeutaController extends BaseController<Fisioterapeuta>{
         fisioterapeuta.setCpf(c.getString(columnId));
 
         columnId = c.getColumnIndex(Fisioterapeuta.COLUMN_DATA);
-        fisioterapeuta.setData(c.getString(columnId));
+        fisioterapeuta.setData(DateUtil.stringToDate(c.getString(columnId)));
 
         columnId = c.getColumnIndex(Fisioterapeuta.COLUMN_SOBRENOME);
         fisioterapeuta.setSobrenome(c.getString(columnId));
@@ -72,7 +73,7 @@ public class FisioterapeutaController extends BaseController<Fisioterapeuta>{
         values.put(Fisioterapeuta.COLUMN_NOME, fisioterapeuta.getNome());
         values.put(Fisioterapeuta.COLUMN_RG, fisioterapeuta.getRg());
         values.put(Fisioterapeuta.COLUMN_CPF, fisioterapeuta.getCpf());
-        values.put(Fisioterapeuta.COLUMN_DATA, fisioterapeuta.getData());
+        values.put(Fisioterapeuta.COLUMN_DATA, DateUtil.dateToString(fisioterapeuta.getData()));
         values.put(Fisioterapeuta.COLUMN_SOBRENOME, fisioterapeuta.getSobrenome());
         values.put(Fisioterapeuta.COLUMN_CREFITO, fisioterapeuta.getCrefito());
         values.put(Fisioterapeuta.COLUMN_CARGO, fisioterapeuta.getCargo());
