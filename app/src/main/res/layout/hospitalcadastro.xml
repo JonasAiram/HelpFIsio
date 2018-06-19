@@ -165,4 +165,50 @@
 
     </LinearLayout>
 
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:layout_marginTop="10dp">
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Data Criação:"
+            android:typeface="sans"
+            android:textSize="17sp"
+            android:layout_weight="1"/>
+
+        <EditText
+            android:id="@+id/edtHospitalDtCriacao"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:inputType="text"/>
+
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:layout_marginTop="10dp">
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Renda:"
+            android:typeface="sans"
+            android:textSize="17sp"
+            android:layout_weight="3"/>
+
+        <EditText
+            android:id="@+id/edtHospitalValor"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:inputType="text"/>
+
+    </LinearLayout>
+
 </LinearLayout>

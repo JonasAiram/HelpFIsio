@@ -53,6 +53,9 @@ public class MedicoController extends BaseController<Medico>{
         columnId = c.getColumnIndex(Medico.COLUMN_SALARIO);
         medico.setSalario(c.getDouble(columnId));
 
+        columnId = c.getColumnIndex(Medico.COLUMN_PESO);
+        medico.setPeso(c.getDouble(columnId));
+
         return medico;
     }
 
@@ -60,7 +63,7 @@ public class MedicoController extends BaseController<Medico>{
     protected String[] getColumns() {
         return new String[]{Medico.COLUMN_ID, Medico.COLUMN_NOME, Medico.COLUMN_RG, Medico.COLUMN_CPF,
                 Medico.COLUMN_DATA, Medico.COLUMN_CRM, Medico.COLUMN_CARGO, Medico.COLUMN_TELEFONE,
-                Medico.COLUMN_SOBRENOME, Medico.COLUMN_SALARIO};
+                Medico.COLUMN_SOBRENOME, Medico.COLUMN_SALARIO, Medico.COLUMN_PESO};
     }
 
     protected ContentValues convertToContentValue(Medico medico) {
@@ -75,6 +78,7 @@ public class MedicoController extends BaseController<Medico>{
         values.put(Medico.COLUMN_TELEFONE, medico.getTelefone());
         values.put(Medico.COLUMN_SOBRENOME, medico.getSobrenome());
         values.put(Medico.COLUMN_SALARIO, medico.getSalario());
+        values.put(Medico.COLUMN_PESO, medico.getPeso());
 
         return values;
     }

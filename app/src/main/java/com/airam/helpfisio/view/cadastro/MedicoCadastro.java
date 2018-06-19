@@ -21,7 +21,7 @@ public class MedicoCadastro implements DialogInterface.OnShowListener, View.OnCl
     private AlertDialog dialog;
 
     private EditText editTextNome, editTextRG, editTextCPF, editTextData, editTextCRM, editTextCargo;
-    private EditText editTextTelefone, editTextSobrenome, editTextSalario;
+    private EditText editTextTelefone, editTextSobrenome, editTextSalario, editTextPeso;
 
     private Medico medico;
 
@@ -51,6 +51,7 @@ public class MedicoCadastro implements DialogInterface.OnShowListener, View.OnCl
         editTextTelefone = (EditText) view.findViewById(R.id.edtMedicoTelefone);
         editTextSobrenome = (EditText) view.findViewById(R.id.edtMedicoSobrenome);
         editTextSalario = (EditText) view.findViewById(R.id.edtMedicoSalario);
+        editTextPeso = (EditText) view.findViewById(R.id.edtMedicoPeso);
 
         //CRIA OS BUTTONS DO ALERTDIALOG
         builder.setPositiveButton("Salvar", null);
@@ -74,6 +75,7 @@ public class MedicoCadastro implements DialogInterface.OnShowListener, View.OnCl
         editTextTelefone.setText(String.valueOf(medico.getTelefone()));
         editTextSobrenome.setText(medico.getSobrenome());
         editTextSalario.setText(String.valueOf(medico.getSalario()));
+        editTextPeso.setText(String.valueOf(medico.getPeso()));
 
     }
 
@@ -113,6 +115,7 @@ public class MedicoCadastro implements DialogInterface.OnShowListener, View.OnCl
         String telefone = editTextTelefone.getText().toString();
         String sobrenome = editTextSobrenome.getText().toString();
         String salario = editTextSalario.getText().toString();
+        String peso = editTextPeso.getText().toString();
 
         //APRESENTA OS ERROS AO DEIXAR ALGUM ATRIBUTO EM BRANCO
 
@@ -134,11 +137,13 @@ public class MedicoCadastro implements DialogInterface.OnShowListener, View.OnCl
             editTextSobrenome.setError("Digite o Sobrenome!");
         if (salario.length() == 0)
             editTextSalario.setError("Digite o Salário do Médico!");
+        if (peso.length() == 0)
+            editTextPeso.setError("Digite o Peso(Kg) do Médico");
 
         //SE TODOS OS CAMPOS FOREM PREENCHIDOS SERÁ EXECUTADA ESTÁ AÇÃO
         if (nome.length() != 0 && rg.length() != 0 && cpf.length() != 0 && data.length() != 0
                 && crm.length() != 0 && cargo.length() != 0 && telefone.length() != 0
-                && sobrenome.length() != 0 && salario.length() != 0){
+                && sobrenome.length() != 0 && salario.length() != 0 && peso.length() != 0){
 
             if (medico == null) {
 
@@ -147,6 +152,7 @@ public class MedicoCadastro implements DialogInterface.OnShowListener, View.OnCl
                 int crmInt = Integer.parseInt(crm);
                 int intTelefone = Integer.parseInt(telefone);
                 double salarioDouble = Double.parseDouble(salario);
+                double pesoDouble = Double.parseDouble(peso);
 
                 //REGRAS PARA ARMAZENAR NO BANCO DE DADOS
                 //Context context = v.getContext();
@@ -161,6 +167,7 @@ public class MedicoCadastro implements DialogInterface.OnShowListener, View.OnCl
                 medico.setTelefone(intTelefone);
                 medico.setSobrenome(sobrenome);
                 medico.setSalario(salarioDouble);
+                medico.setPeso(pesoDouble);
 
                 criadoComSucesso = medicoController.insert(medico);
 
@@ -169,6 +176,7 @@ public class MedicoCadastro implements DialogInterface.OnShowListener, View.OnCl
                 int crmInt = Integer.parseInt(crm);
                 int intTelefone = Integer.parseInt(telefone);
                 double salarioDouble = Double.parseDouble(salario);
+                double pesoDouble = Double.parseDouble(peso);
 
                 medico.setNome(nome);
                 medico.setRg(rgInt);
@@ -179,6 +187,7 @@ public class MedicoCadastro implements DialogInterface.OnShowListener, View.OnCl
                 medico.setTelefone(intTelefone);
                 medico.setSobrenome(sobrenome);
                 medico.setSalario(salarioDouble);
+                medico.setPeso(pesoDouble);
                 medicoController.edit(medico, medico.getId());
                 criadoComSucesso = true;
 

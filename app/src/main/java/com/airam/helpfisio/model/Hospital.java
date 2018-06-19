@@ -19,7 +19,8 @@ public class Hospital {
     public static final String COLUMN_DIRETOR = "diretor";
     public static final String COLUMN_TELEFONE = "telefone";
     public static final String COLUMN_NUMENRO = "numero";
-
+    public static final String COLUMN_DTCRIACAO = "dtcriacao";
+    public static final String COLUMN_VALOR = "valor";
 
     // Criando Tabela
     public static final String SQL_CREATE = "CREATE TABLE " + TABLE + "( "
@@ -31,6 +32,8 @@ public class Hospital {
             + COLUMN_UF         +   " TEXT,"
             + COLUMN_DIRETOR    +   " TEXT,"
             + COLUMN_NUMENRO    +   " INTEGER,"
+            + COLUMN_DTCRIACAO  +   " TEXT,"
+            + COLUMN_VALOR      +   " REAL,"
             + COLUMN_TELEFONE   +   " INTEGER)";
 
     //DECLARANDO VARIAVEIS
@@ -44,6 +47,25 @@ public class Hospital {
     private String cidade;
     private String UF;
     private String diretor;
+    private String dtCriacao;
+
+    private double valor;
+
+    public String getdtCriacao() {
+        return dtCriacao;
+    }
+
+    public void setdtCriacao(String data) {
+        this.dtCriacao = data;
+    }
+
+    public double getValor() {
+        return valor;
+    }
+
+    public void setValor(double valor) {
+        this.valor = valor;
+    }
 
     public int getNumero() {
         return numero;

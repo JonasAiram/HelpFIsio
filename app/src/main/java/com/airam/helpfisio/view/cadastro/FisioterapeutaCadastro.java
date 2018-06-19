@@ -21,7 +21,7 @@ public class FisioterapeutaCadastro implements DialogInterface.OnShowListener, V
     private AlertDialog dialog;
 
     private EditText editTextNome, editTextRG, editTextCPF, editTextData, editTextCrefito;
-    private EditText editTextTelefone, editTextSobrenome, editTextSalario, editTextCargo;
+    private EditText editTextTelefone, editTextSobrenome, editTextSalario, editTextCargo, editTextPeso;
 
     private Fisioterapeuta fisioterapeuta;
 
@@ -51,6 +51,7 @@ public class FisioterapeutaCadastro implements DialogInterface.OnShowListener, V
         editTextTelefone = (EditText) view.findViewById(R.id.edtFisioTelefone);
         editTextSobrenome = (EditText) view.findViewById(R.id.edtFisioSobrenome);
         editTextSalario = (EditText) view.findViewById(R.id.edtFisioSalario);
+        editTextPeso = (EditText) view.findViewById(R.id.edtFisioPeso);
 
         //CRIA OS BUTTONS DO ALERTDIALOG
         builder.setPositiveButton("Salvar", null);
@@ -75,6 +76,7 @@ public class FisioterapeutaCadastro implements DialogInterface.OnShowListener, V
         editTextTelefone.setText(String.valueOf(fisioterapeuta.getTelefone()));
         editTextSobrenome.setText(fisioterapeuta.getSobrenome());
         editTextSalario.setText(String.valueOf(fisioterapeuta.getSalario()));
+        editTextPeso.setText(String.valueOf(fisioterapeuta.getPeso()));
 
     }
 
@@ -113,6 +115,7 @@ public class FisioterapeutaCadastro implements DialogInterface.OnShowListener, V
         String telefone = editTextTelefone.getText().toString();
         String sobrenome = editTextSobrenome.getText().toString();
         String salario = editTextSalario.getText().toString();
+        String peso = editTextPeso.getText().toString();
 
         //APRESENTA OS ERROS AO DEIXAR ALGUM ATRIBUTO EM BRANCO
 
@@ -134,11 +137,13 @@ public class FisioterapeutaCadastro implements DialogInterface.OnShowListener, V
             editTextSobrenome.setError("Digite o Sobrenome!");
         if (salario.length() == 0)
             editTextSalario.setError("Digite o Salário do Fisioterapeuta!");
+        if (peso.length() == 0)
+            editTextPeso.setError("Digite o Peso(Kg) do Fisioterapeuta");
 
         //SE TODOS OS CAMPOS FOREM PREENCHIDOS SERÁ EXECUTADA ESTÁ AÇÃO
         if (nome.length() != 0 && rg.length() != 0 && cpf.length() != 0 && data.length() != 0
                 && crefito.length() != 0 && cargo.length() != 0 && telefone.length() != 0
-                && sobrenome.length() != 0 && salario.length() != 0) {
+                && sobrenome.length() != 0 && salario.length() != 0 && peso.length() != 0) {
 
             if (fisioterapeuta == null){
 
@@ -146,6 +151,7 @@ public class FisioterapeutaCadastro implements DialogInterface.OnShowListener, V
                 int crefitoInt = Integer.parseInt(crefito);
                 int telefoneInt = Integer.parseInt(telefone);
                 double salarioDouble = Double.parseDouble(salario);
+                double pesoDouble = Double.parseDouble(peso);
 
                 //REGRAS PARA ARMAZENAR NO BANCO DE DADOS
                 Fisioterapeuta fisioterapeuta = new Fisioterapeuta();
@@ -158,6 +164,7 @@ public class FisioterapeutaCadastro implements DialogInterface.OnShowListener, V
                 fisioterapeuta.setTelefone(telefoneInt);
                 fisioterapeuta.setSobrenome(sobrenome);
                 fisioterapeuta.setSalario(salarioDouble);
+                fisioterapeuta.setPeso(pesoDouble);
 
                 criadoComSucesso = fisioterapeutaController.insert(fisioterapeuta);
 
@@ -167,6 +174,7 @@ public class FisioterapeutaCadastro implements DialogInterface.OnShowListener, V
                 int crefitoInt = Integer.parseInt(crefito);
                 int telefoneInt = Integer.parseInt(telefone);
                 double salarioDouble = Double.parseDouble(salario);
+                double pesoDouble = Double.parseDouble(peso);
 
                 fisioterapeuta.setNome(nome);
                 fisioterapeuta.setRg(rgInt);
@@ -177,6 +185,8 @@ public class FisioterapeutaCadastro implements DialogInterface.OnShowListener, V
                 fisioterapeuta.setTelefone(telefoneInt);
                 fisioterapeuta.setSobrenome(sobrenome);
                 fisioterapeuta.setSalario(salarioDouble);
+                fisioterapeuta.setPeso(pesoDouble);
+
 
                 fisioterapeutaController.edit(fisioterapeuta, fisioterapeuta.getId());
 

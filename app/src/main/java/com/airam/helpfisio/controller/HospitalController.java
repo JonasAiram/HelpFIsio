@@ -49,6 +49,12 @@ public class HospitalController extends BaseController<Hospital>{
         columnId = c.getColumnIndex(Hospital.COLUMN_NUMENRO);
         hospital.setNumero(c.getInt(columnId));
 
+        columnId = c.getColumnIndex(Hospital.COLUMN_DTCRIACAO);
+        hospital.setdtCriacao(c.getString(columnId));
+
+        columnId = c.getColumnIndex(Hospital.COLUMN_VALOR);
+        hospital.setValor(c.getDouble(columnId));
+
         return hospital;
     }
 
@@ -56,7 +62,8 @@ public class HospitalController extends BaseController<Hospital>{
     protected String[] getColumns() {
         return new String[]{Hospital.COLUMN_ID, Hospital.COLUMN_NOME, Hospital.COLUMN_RUA,
                 Hospital.COLUMN_BAIRRO, Hospital.COLUMN_CIDADE, Hospital.COLUMN_UF,
-                Hospital.COLUMN_TELEFONE, Hospital.COLUMN_DIRETOR, Hospital.COLUMN_NUMENRO};
+                Hospital.COLUMN_TELEFONE, Hospital.COLUMN_DIRETOR, Hospital.COLUMN_NUMENRO,
+                Hospital.COLUMN_DTCRIACAO, Hospital.COLUMN_VALOR};
     }
 
     protected ContentValues convertToContentValue(Hospital hospital) {
@@ -70,6 +77,8 @@ public class HospitalController extends BaseController<Hospital>{
         values.put(Hospital.COLUMN_TELEFONE, hospital.getTelefone());
         values.put(Hospital.COLUMN_DIRETOR, hospital.getDiretor());
         values.put(Hospital.COLUMN_NUMENRO, hospital.getNumero());
+        values.put(Hospital.COLUMN_DTCRIACAO, hospital.getdtCriacao());
+        values.put(Hospital.COLUMN_VALOR, hospital.getValor());
 
         return values;
     }

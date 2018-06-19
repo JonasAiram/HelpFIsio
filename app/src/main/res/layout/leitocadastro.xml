@@ -1,4 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content">
 
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
@@ -82,7 +85,7 @@
             android:text="Chefe do Leito:"
             android:typeface="sans"
             android:textSize="17sp"
-            android:layout_weight="2"/>
+            android:layout_weight="1"/>
 
         <EditText
             android:id="@+id/edtLeitoChefe"
@@ -105,7 +108,7 @@
             android:text="Andar do Leito:"
             android:typeface="sans"
             android:textSize="17sp"
-            android:layout_weight="2"/>
+            android:layout_weight="1"/>
 
         <EditText
             android:id="@+id/edtLeitoAndar"
@@ -116,6 +119,120 @@
 
     </LinearLayout>
 
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:layout_marginTop="8dp">
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Data do Cadastro:"
+            android:typeface="sans"
+            android:textSize="17sp"
+            android:layout_weight="1"/>
+
+        <EditText
+            android:id="@+id/edtLeitoData"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:inputType="date"/>
+
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:layout_marginTop="8dp">
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Mèdico Resp:"
+            android:typeface="sans"
+            android:textSize="17sp"
+            android:layout_weight="2"/>
+
+        <EditText
+            android:id="@+id/edtLeitoMedico"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:inputType="text"/>
+
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:layout_marginTop="8dp">
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Fisio. Resp:"
+            android:typeface="sans"
+            android:textSize="17sp"
+            android:layout_weight="2"/>
+
+        <EditText
+            android:id="@+id/edtLeitoFisio"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:inputType="text"/>
+
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:layout_marginTop="8dp">
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Custo Semanal:"
+            android:typeface="sans"
+            android:textSize="17sp"
+            android:layout_weight="1"/>
+
+        <EditText
+            android:id="@+id/edtLeitoCusto"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:inputType="numberDecimal"/>
+
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:layout_marginTop="8dp">
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Custo Mensal:"
+            android:typeface="sans"
+            android:textSize="17sp"
+            android:layout_weight="2"/>
+
+        <EditText
+            android:id="@+id/edtLeitoOrcamento"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:inputType="numberDecimal"/>
+
+    </LinearLayout>
 
     <LinearLayout
         android:layout_width="match_parent"
@@ -142,3 +259,4 @@
     <requestFocus/>
 
 </LinearLayout>
+</ScrollView>

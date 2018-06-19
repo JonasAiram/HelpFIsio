@@ -16,22 +16,75 @@ public class Leito {
     public static final String COLUMN_CHEFE = "chefe";
     public static final String COLUMN_ANDAR = "andar";
     public static final String COLUMN_ID_HOSPIAL = "id_hospital";
+    public static final String COLUMN_DATA = "data";
+    public static final String COLUMN_MEDICORESP = "medicoresp";
+    public static final String COLUMN_FISIORESP = "fisioresp";
+    public static final String COLUMN_ORCAMENTOMENSAL = "orcamentomensal";
+    public static final String COLUMN_CUSTOSEMANAL = "custosemanal";
 
     //Criando a tabela
     public static final String SQL_CREATE = "CREATE TABLE " + TABLE + "( "
-            + COLUMN_ID         +   " INTEGER PRIMARY KEY AUTOINCREMENT,"
-            + COLUMN_TIPO       +   " TEXT,"
-            + COLUMN_QUANTIDADE +   " INTEGER,"
-            + COLUMN_CHEFE      +   " TEXT,"
-            + COLUMN_ANDAR      +   " INTEGER,"
-            + COLUMN_ID_HOSPIAL +   " INTEGER,"
+            + COLUMN_ID             +   " INTEGER PRIMARY KEY AUTOINCREMENT,"
+            + COLUMN_TIPO           +   " TEXT,"
+            + COLUMN_QUANTIDADE     +   " INTEGER,"
+            + COLUMN_CHEFE          +   " TEXT,"
+            + COLUMN_ANDAR          +   " INTEGER,"
+            + COLUMN_ID_HOSPIAL     +   " INTEGER,"
+            + COLUMN_DATA           +   " TEXT,"
+            + COLUMN_MEDICORESP     +   " TEXT,"
+            + COLUMN_FISIORESP      +   " TEXT,"
+            + COLUMN_ORCAMENTOMENSAL+   " REAL,"
+            + COLUMN_CUSTOSEMANAL   +   " REAL,"
             + " FOREIGN KEY("+ COLUMN_ID_HOSPIAL +") REFERENCES " + Hospital.TABLE + "(" + Hospital.COLUMN_ID + "))";
 
     private int id;
     private int quantidade;
     private int andar;
     private int id_Hospital;
-    private String tipo, chefe;
+    private String tipo, chefe, medicoResp, fisioResp, data;
+    private Double orcamentoMesal;
+
+    public String getMedicoResp() {
+        return medicoResp;
+    }
+
+    public void setMedicoResp(String medicoResp) {
+        this.medicoResp = medicoResp;
+    }
+
+    public String getFisioResp() {
+        return fisioResp;
+    }
+
+    public void setFisioResp(String fisioResp) {
+        this.fisioResp = fisioResp;
+    }
+
+    public String getData() {
+        return data;
+    }
+
+    public void setData(String data) {
+        this.data = data;
+    }
+
+    public Double getOrcamentoMesal() {
+        return orcamentoMesal;
+    }
+
+    public void setOrcamentoMesal(Double orcamentoMesal) {
+        this.orcamentoMesal = orcamentoMesal;
+    }
+
+    public Double getCustoSemanal() {
+        return custoSemanal;
+    }
+
+    public void setCustoSemanal(Double custoSemanal) {
+        this.custoSemanal = custoSemanal;
+    }
+
+    private Double custoSemanal;
 
 
     public int getQuantidade() {
@@ -65,7 +118,6 @@ public class Leito {
     public void setChefe(String chefe) {
         this.chefe = chefe;
     }
-
 
     public int getId() {
         return id;

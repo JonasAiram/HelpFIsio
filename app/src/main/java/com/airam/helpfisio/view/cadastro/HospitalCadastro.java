@@ -19,8 +19,8 @@ public class HospitalCadastro implements DialogInterface.OnShowListener, View.On
     private HospitalController hospitalController;
     private AlertDialog dialog;
 
-    private EditText editTextNome, editTextRua, editTextNumero, editTextBairro;
-    private EditText editTextCidade, editTextUF, editTextTelefone, editTextDiretor;
+    private EditText editTextNome, editTextRua, editTextNumero, editTextBairro, editTextdtCriacao;
+    private EditText editTextCidade, editTextUF, editTextTelefone, editTextDiretor, editTextvalor;
 
     private Hospital hospital;
 
@@ -49,6 +49,8 @@ public class HospitalCadastro implements DialogInterface.OnShowListener, View.On
         editTextUF = (EditText)view.findViewById(R.id.edtUFHospital);
         editTextTelefone = (EditText)view.findViewById(R.id.edtTelefoneHospital);
         editTextDiretor = (EditText)view.findViewById(R.id.edtDiretorHospital);
+        editTextdtCriacao = (EditText) view.findViewById(R.id.edtHospitalDtCriacao);
+        editTextvalor = (EditText) view.findViewById(R.id.edtHospitalValor);
 
         //CRIA OS BUTTONS DO ALERTDIALOG
         builder.setPositiveButton("Salvar",null);
@@ -71,6 +73,8 @@ public class HospitalCadastro implements DialogInterface.OnShowListener, View.On
         editTextUF.setText(hospital.getUF());
         editTextTelefone.setText(String.valueOf(hospital.getTelefone()));
         editTextDiretor.setText(hospital.getDiretor());
+        editTextdtCriacao.setText(hospital.getdtCriacao());
+        editTextvalor.setText(String.valueOf(hospital.getValor()));
 
     }
 
@@ -107,6 +111,8 @@ public class HospitalCadastro implements DialogInterface.OnShowListener, View.On
         String uf = editTextUF.getText().toString();
         String telefone = editTextTelefone.getText().toString();
         String diretor = editTextDiretor.getText().toString();
+        String dtCriacao = editTextdtCriacao.getText().toString();
+        String valor = editTextvalor.getText().toString();
 
         //APRESENTA OS ERROS AO DEIXAR ALGUM ATRIBUTO EM BRANCO
         if (nome.length() == 0)
@@ -125,17 +131,22 @@ public class HospitalCadastro implements DialogInterface.OnShowListener, View.On
             editTextTelefone.setError("Digite o Numero Telefone!");
         if (diretor.length() == 0)
             editTextDiretor.setError("Digite o Nome do Diretor!");
+        if (dtCriacao.length() == 0)
+            editTextdtCriacao.setError("Digite a Data!");
+        if (valor.length() == 0)
+            editTextvalor.setError("Digite a Renda do Hospital!");
 
         //SE TODOS OS CAMPOS FOREM PREENCHIDOS SERÁ EXECUTADA ESTÁ AÇÃO
         if (nome.length() != 0 && rua.length() != 0 && numero.length() != 0 && bairro.length() != 0
                 && cidade.length() != 0 && uf.length() != 0 && telefone.length() != 0
-                && diretor.length() != 0){
+                && diretor.length() != 0 && dtCriacao.length() != 0 && valor.length() != 0){
 
             if (hospital == null){
 
 
                 int numeroHospital = Integer.parseInt(numero);
                 int telefoneHospital = Integer.parseInt(telefone);
+                double valorDouble = Double.parseDouble(valor);
 
                 //REGRAS PARA ARMAZENAR NO BANCO DE DADOS
                 Hospital hospital = new Hospital();
@@ -147,12 +158,16 @@ public class HospitalCadastro implements DialogInterface.OnShowListener, View.On
                 hospital.setUF(uf);
                 hospital.setTelefone(telefoneHospital);
                 hospital.setDiretor(diretor);
+                hospital.setdtCriacao(dtCriacao);
+                hospital.setValor(valorDouble);
 
                 criadoComSucesso = hospitalController.insert(hospital);
             }else{
 
                 int numeroHospital = Integer.parseInt(numero);
                 int telefoneHospital = Integer.parseInt(telefone);
+                double valorDouble = Double.parseDouble(valor);
+
 
                 hospital.setNome(nome);
                 hospital.setRua(rua);
@@ -162,6 +177,8 @@ public class HospitalCadastro implements DialogInterface.OnShowListener, View.On
                 hospital.setUF(uf);
                 hospital.setTelefone(telefoneHospital);
                 hospital.setDiretor(diretor);
+                hospital.setdtCriacao(dtCriacao);
+                hospital.setValor(valorDouble);
                 hospitalController.edit(hospital, hospital.getId());
                 criadoComSucesso = true;
 

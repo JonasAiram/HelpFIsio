@@ -24,7 +24,15 @@ public class Medico extends Pessoa{
 
     private int crm;
     private String cargo;
-    private double salario;
+    private double salario, peso;
+
+    public double getPeso() {
+        return peso;
+    }
+
+    public void setPeso(double peso) {
+        this.peso = peso;
+    }
 
     public int getCrm() {
         return crm;

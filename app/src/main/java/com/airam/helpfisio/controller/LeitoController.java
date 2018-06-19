@@ -19,7 +19,6 @@ public class LeitoController extends BaseController<Leito>{
     }
     
     //INSERT
-    
     public boolean insert(Leito leito){
         boolean IsCreate = db.insert(Leito.TABLE, null, convertToContentValue(leito)) > 0;
         return IsCreate;
@@ -47,13 +46,29 @@ public class LeitoController extends BaseController<Leito>{
         columnId = c.getColumnIndex(Leito.COLUMN_ID_HOSPIAL);
         leito.setId_Hospital(c.getInt(columnId));
 
+        columnId = c.getColumnIndex(Leito.COLUMN_DATA);
+        leito.setData(c.getString(columnId));
+
+        columnId = c.getColumnIndex(Leito.COLUMN_MEDICORESP);
+        leito.setMedicoResp(c.getString(columnId));
+
+        columnId = c.getColumnIndex(Leito.COLUMN_FISIORESP);
+        leito.setFisioResp(c.getString(columnId));
+
+        columnId = c.getColumnIndex(Leito.COLUMN_CUSTOSEMANAL);
+        leito.setCustoSemanal(c.getDouble(columnId));
+
+        columnId = c.getColumnIndex(Leito.COLUMN_ORCAMENTOMENSAL);
+        leito.setOrcamentoMesal(c.getDouble(columnId));
+
         return leito;
     }
 
     @Override
     protected String[] getColumns() {
         return new String[]{Leito.COLUMN_ID, Leito.COLUMN_TIPO, Leito.COLUMN_QUANTIDADE,
-                Leito.COLUMN_CHEFE, Leito.COLUMN_ANDAR, Leito.COLUMN_ID_HOSPIAL};
+                Leito.COLUMN_CHEFE, Leito.COLUMN_ANDAR, Leito.COLUMN_ID_HOSPIAL, Leito.COLUMN_DATA, Leito.COLUMN_MEDICORESP,
+                Leito.COLUMN_FISIORESP, Leito.COLUMN_CUSTOSEMANAL, Leito.COLUMN_ORCAMENTOMENSAL};
     }
 
     protected ContentValues convertToContentValue(Leito leito) {
@@ -64,6 +79,11 @@ public class LeitoController extends BaseController<Leito>{
         values.put(Leito.COLUMN_CHEFE, leito.getChefe());
         values.put(Leito.COLUMN_ANDAR, leito.getAndar());
         values.put(Leito.COLUMN_ID_HOSPIAL, leito.getId_Hospital());
+        values.put(Leito.COLUMN_DATA, leito.getData());
+        values.put(Leito.COLUMN_MEDICORESP, leito.getMedicoResp());
+        values.put(Leito.COLUMN_FISIORESP, leito.getFisioResp());
+        values.put(Leito.COLUMN_CUSTOSEMANAL, leito.getCustoSemanal());
+        values.put(Leito.COLUMN_ORCAMENTOMENSAL, leito.getOrcamentoMesal());
 
         return values;
     }

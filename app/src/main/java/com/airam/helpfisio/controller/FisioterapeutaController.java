@@ -52,6 +52,9 @@ public class FisioterapeutaController extends BaseController<Fisioterapeuta>{
         columnId = c.getColumnIndex(Fisioterapeuta.COLUMN_SALARIO);
         fisioterapeuta.setSalario(c.getDouble(columnId));
 
+        columnId = c.getColumnIndex(Fisioterapeuta.COLUMN_PESO);
+        fisioterapeuta.setPeso(c.getDouble(columnId));
+
         return fisioterapeuta;
     }
 
@@ -60,7 +63,7 @@ public class FisioterapeutaController extends BaseController<Fisioterapeuta>{
         return new String[]{Fisioterapeuta.COLUMN_ID, Fisioterapeuta.COLUMN_NOME, Fisioterapeuta.COLUMN_RG,
                 Fisioterapeuta.COLUMN_CPF, Fisioterapeuta.COLUMN_DATA, Fisioterapeuta.COLUMN_SOBRENOME,
                 Fisioterapeuta.COLUMN_CREFITO, Fisioterapeuta.COLUMN_CARGO, Fisioterapeuta.COLUMN_TELEFONE,
-                Fisioterapeuta.COLUMN_SALARIO};
+                Fisioterapeuta.COLUMN_SALARIO, Fisioterapeuta.COLUMN_PESO};
     }
 
     protected ContentValues convertToContentValue(Fisioterapeuta fisioterapeuta){
@@ -75,6 +78,7 @@ public class FisioterapeutaController extends BaseController<Fisioterapeuta>{
         values.put(Fisioterapeuta.COLUMN_CARGO, fisioterapeuta.getCargo());
         values.put(Fisioterapeuta.COLUMN_TELEFONE, fisioterapeuta.getTelefone());
         values.put(Fisioterapeuta.COLUMN_SALARIO, fisioterapeuta.getSalario());
+        values.put(Fisioterapeuta.COLUMN_PESO, fisioterapeuta.getPeso());
 
         return values;
     }

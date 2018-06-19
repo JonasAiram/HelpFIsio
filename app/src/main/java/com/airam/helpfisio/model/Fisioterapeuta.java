@@ -12,6 +12,7 @@ public class Fisioterapeuta extends Pessoa{
 
 
     //NOME DAS COLUNAS
+    public static final String COLUMN_PESO = "peso";
     public static final String COLUMN_CREFITO = "crefito";
     public static final String COLUMN_CARGO = "cargo";
     public static final String COLUMN_SALARIO = "salario";
@@ -19,6 +20,7 @@ public class Fisioterapeuta extends Pessoa{
     //CRIANDO TABELAS
 
     public static final String SQL_CREATE = "CREATE TABLE " + TABLE + "( " + SQL_PESSOA
+            + COLUMN_PESO       +   " REAL,"
             + COLUMN_CREFITO    +   " INTEGER,"
             + COLUMN_CARGO      +   " TEXT,"
             + COLUMN_SALARIO    +   " REAL)";
@@ -26,6 +28,15 @@ public class Fisioterapeuta extends Pessoa{
     private int crefito;
     private String cargo;
     private double salario;
+    private double peso;
+
+    public double getPeso() {
+        return peso;
+    }
+
+    public void setPeso(double peso) {
+        this.peso = peso;
+    }
 
     public int getCrefito() {
         return crefito;
