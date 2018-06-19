@@ -1,4 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content">
 
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
@@ -50,6 +53,54 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:orientation="horizontal"
+        android:layout_marginTop="10dp">
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Fisioterapeuta:"
+            android:typeface="sans"
+            android:textSize="17sp"
+            android:layout_weight="2"/>
+
+        <AutoCompleteTextView
+            android:id="@+id/autoTextViewCalculosFisio"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:hint="Responsável"
+            android:gravity="center"/>
+
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:layout_marginTop="10dp">
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Médico:"
+            android:typeface="sans"
+            android:textSize="17sp"
+            android:layout_weight="2"/>
+
+        <AutoCompleteTextView
+            android:id="@+id/autoTextViewCalculosMedico"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:hint="Responsável"
+            android:gravity="center"/>
+
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
         android:layout_marginTop="8dp">
 
         <TextView
@@ -81,13 +132,22 @@
             android:text="Resultado:"
             android:typeface="sans"
             android:textSize="17sp"
-            android:layout_weight="2"/>
+            android:layout_weight="3"/>
 
         <EditText
             android:id="@+id/edtCalculosResultado"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_weight="1"
+            android:layout_weight="3"
+            android:inputType="text"/>
+
+        <EditText
+            android:id="@+id/edtCalculosUnidade"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_weight="3"
+            android:hint="Unidade(Kg, Ml)"
+            android:gravity="center"
             android:inputType="text"/>
 
     </LinearLayout>
@@ -161,4 +221,28 @@
 
     </LinearLayout>
 
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:layout_marginTop="8dp">
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Descrição:"
+            android:typeface="sans"
+            android:textSize="17sp"
+            android:layout_weight="1"/>
+
+        <EditText
+            android:id="@+id/edtCalculosDesc"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:inputType="text"/>
+
+    </LinearLayout>
+
 </LinearLayout>
+</ScrollView>

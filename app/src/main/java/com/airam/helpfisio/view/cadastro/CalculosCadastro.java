@@ -7,6 +7,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
+import android.widget.AutoCompleteTextView;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.Spinner;
@@ -14,8 +15,11 @@ import android.widget.Toast;
 
 import com.airam.helpfisio.R;
 import com.airam.helpfisio.controller.CalculosController;
+import com.airam.helpfisio.controller.FisioterapeutaController;
 import com.airam.helpfisio.controller.PacienteController;
 import com.airam.helpfisio.model.Calculos;
+import com.airam.helpfisio.model.DateUtil;
+import com.airam.helpfisio.model.Fisioterapeuta;
 import com.airam.helpfisio.model.Paciente;
 import com.airam.helpfisio.view.CalculosView;
 
@@ -27,18 +31,20 @@ public class CalculosCadastro implements DialogInterface.OnShowListener, View.On
     private CalculosController calculosController;
     private AlertDialog dialog;
 
-    private EditText editTextNome, editTextResultado;
-    private EditText editTextData, editTextHora, editTextObs;
+    private EditText editTextNome, editTextResultado, editTextUnidade ;
+    private EditText editTextData, editTextHora, editTextObs, editTextDesc;
+    private AutoCompleteTextView autoComTexViewMedico, autoComTexViewFisio;
     private Spinner spnIdPaciente;
 
-    ArrayAdapter<String> adapter;
-
     private List<String> listaNomePaciente = new ArrayList<String>();
+    private List<String> listaNomeFisio = new ArrayList<String>();
 
     private int pacienteId;
 
     List<Paciente> listPaciente;
+    List<Fisioterapeuta> listObjFisio;
     private PacienteController pacienteController;
+    private FisioterapeutaController fisioterapeutaController;
 
     private Calculos calculos;
 
@@ -65,15 +71,16 @@ public class CalculosCadastro implements DialogInterface.OnShowListener, View.On
         pacienteController = new PacienteController(context);
         arrayIdPaciente();
 
-        adapter = new ArrayAdapter<String>(context, android.R.layout.simple_spinner_item, listaNomePaciente);
+        ArrayAdapter<String> adapter = new ArrayAdapter<String>(context, android.R.layout.simple_spinner_item, listaNomePaciente);
         adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
         spnIdPaciente.setAdapter(adapter);
 
         spnIdPaciente.setOnItemSelectedListener(this);
 
-        /*int i = spnIdPaciente.getSelectedItemPosition();
-        Paciente paciente = listPaciente.get(i);
-        pacienteId = paciente.getId();*/
+        //AUTOCOMPLETETEXTVIEW
+        fisioterapeutaController = new FisioterapeutaController(context);
+        listaNomeFisio();
+        autoCompleteFisio();
 
         //CRIA OS BUTTONS DO ALERTDIALOG
         builder.setPositiveButton("Salvar", null);
@@ -84,6 +91,12 @@ public class CalculosCadastro implements DialogInterface.OnShowListener, View.On
         dialog.setOnShowListener(this);
         dialog.show();
 
+    }
+
+    private void listaNomeFisio(){
+        listObjFisio = fisioterapeutaController.getAll();
+        for (Fisioterapeuta fisioterapeuta : listObjFisio)
+            listaNomeFisio.add(fisioterapeuta.getNome() + " CREFITO: " + fisioterapeuta.getCrefito());
     }
 
     private void arrayIdPaciente() {
@@ -103,10 +116,13 @@ public class CalculosCadastro implements DialogInterface.OnShowListener, View.On
         spnIdPaciente.setSelection(getIndexPacienteId(calculos.getIdPaciente()));
 
         editTextNome.setText(calculos.getNome());
-        editTextData.setText(calculos.getData());
+        editTextData.setText(DateUtil.dateToString(calculos.getData()));
         editTextHora.setText(calculos.getHora());
         editTextObs.setText(calculos.getObservacoes());
         editTextResultado.setText(String.valueOf(calculos.getResultado()));
+        editTextUnidade.setText(calculos.getUnidade());
+        editTextDesc.setText(calculos.getDescricao());
+
 
     }
 
@@ -156,6 +172,10 @@ public class CalculosCadastro implements DialogInterface.OnShowListener, View.On
         String data = editTextData.getText().toString();
         String hora = editTextHora.getText().toString();
         String obs = editTextObs.getText().toString();
+        String unidade = editTextUnidade.getText().toString();
+        String descricao = editTextDesc.getText().toString();
+        String fisio = autoComTexViewFisio.getText().toString();
+        String medico = autoComTexViewMedico.getText().toString();
 
         //APRESENTA OS ERROS AO DEIXAR ALGUM ATRIBUTO EM BRANCO
         if (nome.length() == 0)
@@ -166,22 +186,35 @@ public class CalculosCadastro implements DialogInterface.OnShowListener, View.On
             editTextData.setError("Digite a Data!");
         if (hora.length() == 0)
             editTextHora.setError("Digite a Hora!");
+        if (unidade.length() == 0)
+            editTextUnidade.setError("Digite a Unidade(Kg, Ml e etc.)");
+        if (descricao.length() == 0)
+            editTextDesc.setError("Digite ");
+        if (fisio.length() == 0)
+            autoComTexViewFisio.setError("Digite o Fisioterapeuta!");
+        if (medico.length() == 0)
+            autoComTexViewMedico.setError("Digite o Médico!");
 
         //SE TODOS OS CAMPOS FOREM PREENCHIDOS SERÁ EXECUTADA ESTÁ AÇÃO
-        if (nome.length() != 0 && resultado.length() != 0 && data.length() != 0 && hora.length() != 0) {
+        if (nome.length() != 0 && resultado.length() != 0 && data.length() != 0 && hora.length() != 0 &&
+                unidade.length() != 0 && descricao.length() != 0 && fisio.length() != 0 && medico.length() != 0) {
 
             if (calculos == null) {
                 double dbResultado = Double.parseDouble(resultado);
 
                 //REGRAS PARA ARMAZENAR NO BANCO DE DADOS
                 Calculos calculos = new Calculos();
-
                 calculos.setIdPaciente(pacienteId);
                 calculos.setNome(nome);
                 calculos.setResultado(dbResultado);
-                calculos.setData(data);
+                calculos.setData(DateUtil.stringToDate(data));
                 calculos.setHora(hora);
                 calculos.setObservacoes(obs);
+                calculos.setUnidade(unidade);
+                calculos.setDescricao(descricao);
+                calculos.setMedico(medico);
+                calculos.setFisio(fisio);
+
                 criadoComSucesso = calculosController.insert(calculos);
             }else {
                 double dbResultado = Double.parseDouble(resultado);
@@ -189,8 +222,12 @@ public class CalculosCadastro implements DialogInterface.OnShowListener, View.On
                 calculos.setIdPaciente(pacienteId);
                 calculos.setNome(nome);
                 calculos.setResultado(dbResultado);
-                calculos.setData(data);
+                calculos.setData(DateUtil.stringToDate(data));
                 calculos.setHora(hora);
+                calculos.setUnidade(unidade);
+                calculos.setDescricao(descricao);
+                calculos.setMedico(medico);
+                calculos.setFisio(fisio);
                 calculos.setObservacoes(obs);
                 calculosController.edit(calculos, calculos.getId());
                 criadoComSucesso = true;
@@ -206,6 +243,10 @@ public class CalculosCadastro implements DialogInterface.OnShowListener, View.On
         editTextData = (EditText) view.findViewById(R.id.edtCalculosData);
         editTextHora = (EditText) view.findViewById(R.id.edtCalculosHora);
         editTextObs = (EditText) view.findViewById(R.id.edtCalculosObs);
+        editTextUnidade = (EditText) view.findViewById(R.id.edtCalculosUnidade);
+        editTextDesc = (EditText) view.findViewById(R.id.edtCalculosDesc);
+        autoComTexViewFisio = (AutoCompleteTextView) view.findViewById(R.id.autoTextViewCalculosFisio);
+        autoComTexViewMedico = (AutoCompleteTextView) view.findViewById(R.id.autoTextViewCalculosMedico);
     }
 
     @Override
@@ -218,6 +259,13 @@ public class CalculosCadastro implements DialogInterface.OnShowListener, View.On
 
     @Override
     public void onNothingSelected(AdapterView<?> adapterView) {
+
+    }
+
+    private void autoCompleteFisio(){
+        ArrayAdapter<String> adapter2 = new ArrayAdapter<String>(context, android.R.layout.select_dialog_item, listaNomeFisio);
+        autoComTexViewFisio.setThreshold(1);
+        autoComTexViewFisio.setAdapter(adapter2);
 
     }
 }

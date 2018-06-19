@@ -5,6 +5,7 @@ import android.content.Context;
 import android.database.Cursor;
 
 import com.airam.helpfisio.model.Calculos;
+import com.airam.helpfisio.model.DateUtil;
 
 public class CalculosController extends  BaseController<Calculos>{
 
@@ -36,7 +37,7 @@ public class CalculosController extends  BaseController<Calculos>{
         calculos.setResultado(c.getDouble(columnId));
 
         columnId = c.getColumnIndex(Calculos.COLUMN_DATA);
-        calculos.setData(c.getString(columnId));
+        calculos.setData(DateUtil.stringToDate(c.getString(columnId)));
 
         columnId = c.getColumnIndex(Calculos.COLUMN_HORA);
         calculos.setHora(c.getString(columnId));
@@ -44,8 +45,17 @@ public class CalculosController extends  BaseController<Calculos>{
         columnId = c.getColumnIndex(Calculos.COLUMN_OBSERVACOES);
         calculos.setObservacoes(c.getString(columnId));
 
-        columnId = c.getColumnIndex(Calculos.COLUMN_IDINDEX);
-        calculos.setIdIndex(c.getInt(columnId));
+        columnId = c.getColumnIndex(Calculos.COLUMN_FISIO);
+        calculos.setFisio(c.getString(columnId));
+
+        columnId = c.getColumnIndex(Calculos.COLUMN_UNIDADE);
+        calculos.setUnidade(c.getString(columnId));
+
+        columnId = c.getColumnIndex(Calculos.COLUMN_DESCRICAO);
+        calculos.setDescricao(c.getString(columnId));
+
+        columnId = c.getColumnIndex(Calculos.COLUMN_MEDICO);
+        calculos.setMedico(c.getString(columnId));
 
         return calculos;
     }
@@ -54,7 +64,8 @@ public class CalculosController extends  BaseController<Calculos>{
     protected String[] getColumns() {
         return new String[]{Calculos.COLUMN_ID, Calculos.COLUMN_IDPACIENTE, Calculos.COLUMN_NOME,
                     Calculos.COLUMN_RESULTADO, Calculos.COLUMN_DATA, Calculos.COLUMN_HORA,
-                    Calculos.COLUMN_OBSERVACOES, Calculos.COLUMN_IDINDEX};
+                    Calculos.COLUMN_OBSERVACOES, Calculos.COLUMN_FISIO, Calculos.COLUMN_UNIDADE,
+                    Calculos.COLUMN_DESCRICAO, Calculos.COLUMN_MEDICO};
     }
 
     @Override
@@ -63,11 +74,15 @@ public class CalculosController extends  BaseController<Calculos>{
 
         values.put(Calculos.COLUMN_NOME, calculos.getNome());
         values.put(Calculos.COLUMN_RESULTADO, calculos.getResultado());
-        values.put(Calculos.COLUMN_DATA, calculos.getData());
+        values.put(Calculos.COLUMN_DATA, DateUtil.dateToString(calculos.getData()));
         values.put(Calculos.COLUMN_HORA, calculos.getHora());
         values.put(Calculos.COLUMN_OBSERVACOES, calculos.getObservacoes());
         values.put(Calculos.COLUMN_IDPACIENTE, calculos.getIdPaciente());
-        values.put(Calculos.COLUMN_IDINDEX, calculos.getIdIndex());
+        values.put(Calculos.COLUMN_FISIO, calculos.getFisio());
+        values.put(Calculos.COLUMN_UNIDADE, calculos.getUnidade());
+        values.put(Calculos.COLUMN_DESCRICAO, calculos.getDescricao());
+        values.put(Calculos.COLUMN_MEDICO, calculos.getMedico());
+
 
         return values;
     }
