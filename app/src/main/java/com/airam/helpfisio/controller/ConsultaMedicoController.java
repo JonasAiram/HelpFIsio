@@ -5,6 +5,7 @@ import android.content.Context;
 import android.database.Cursor;
 
 import com.airam.helpfisio.model.ConsultaMedico;
+import com.airam.helpfisio.model.DateUtil;
 
 /**
  * Created by Jonas on 19/04/2018.
@@ -45,13 +46,20 @@ public class ConsultaMedicoController extends BaseController<ConsultaMedico>{
         consultaMedico.setTratamento(c.getString(columnId));
 
         columnId = c.getColumnIndex(ConsultaMedico.COLUMN_DATA);
-        consultaMedico.setData(c.getString(columnId));
+        consultaMedico.setData(DateUtil.stringToDate(c.getString(columnId)));
 
         columnId = c.getColumnIndex(ConsultaMedico.COLUMN_HORA);
         consultaMedico.setHora(c.getString(columnId));
 
         columnId = c.getColumnIndex(ConsultaMedico.COLUMN_ESPECIALIDADE);
         consultaMedico.setEspecialidadeConsulta(c.getString(columnId));
+
+        columnId = c.getColumnIndex(ConsultaMedico.COLUMN_VALOR);
+        consultaMedico.setValorConsulta(c.getDouble(columnId));
+
+        columnId = c.getColumnIndex(ConsultaMedico.COLUMN_VALORPAGO);
+        consultaMedico.setValorPago(c.getDouble(columnId));
+
 
         return consultaMedico;
     }
@@ -60,7 +68,8 @@ public class ConsultaMedicoController extends BaseController<ConsultaMedico>{
     protected String[] getColumns() {
         return new String[]{ConsultaMedico.COLUMN_ID, ConsultaMedico.COLUMN_IDMEDICO, ConsultaMedico.COLUMN_IDPACIENTE,
                 ConsultaMedico.COLUMN_DESC, ConsultaMedico.COLUMN_MEDICACAO, ConsultaMedico.COLUMN_TRATAMENTO,
-                ConsultaMedico.COLUMN_DATA, ConsultaMedico.COLUMN_HORA, ConsultaMedico.COLUMN_ESPECIALIDADE};
+                ConsultaMedico.COLUMN_DATA, ConsultaMedico.COLUMN_HORA, ConsultaMedico.COLUMN_ESPECIALIDADE, ConsultaMedico.COLUMN_VALOR,
+                ConsultaMedico.COLUMN_VALORPAGO};
     }
 
     protected ContentValues convertToContentValue(ConsultaMedico consultaMedico){
@@ -73,7 +82,9 @@ public class ConsultaMedicoController extends BaseController<ConsultaMedico>{
         values.put(ConsultaMedico.COLUMN_TRATAMENTO, consultaMedico.getTratamento());
         values.put(ConsultaMedico.COLUMN_ESPECIALIDADE, consultaMedico.getEspecialidadeConsulta());
         values.put(ConsultaMedico.COLUMN_HORA, consultaMedico.getHora());
-        values.put(ConsultaMedico.COLUMN_DATA, consultaMedico.getData());
+        values.put(ConsultaMedico.COLUMN_DATA, DateUtil.dateToString(consultaMedico.getData()));
+        values.put(ConsultaMedico.COLUMN_VALOR, consultaMedico.getValorConsulta());
+        values.put(ConsultaMedico.COLUMN_VALORPAGO, consultaMedico.getValorPago());
 
         return values;
     }

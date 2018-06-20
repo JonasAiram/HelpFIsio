@@ -12,6 +12,7 @@ public class ConsultaFisio {
     public static final String TABLE = "consultafisio";
 
     //NOME DAS COLUNAS
+    public static final String COLUMN_ID = "id";
     public static final String COLUMN_IDFISIO = "id_fisio";
     public static final String COLUMN_IDPACIENTE = "id_paciente";
     public static final String COLUMN_DESC = "desc";
@@ -23,6 +24,7 @@ public class ConsultaFisio {
 
     //CRIANDO TABELAS
     public static final String SQL_CREATE = "CREATE TABLE " + TABLE + "( "
+            + COLUMN_ID             +   " INTEGER PRIMARY KEY AUTOINCREMENT,"
             + COLUMN_IDFISIO        +   " INTEGER,"
             + COLUMN_IDPACIENTE     +   " INTEGER,"
             + COLUMN_DESC           +   " TEXT,"
@@ -30,7 +32,6 @@ public class ConsultaFisio {
             + COLUMN_TRATAMENTO     +   " TEXT,"
             + COLUMN_DATA           +   " TEXT,"
             + COLUMN_HORA           +   " TEXT,"
-            + "PRIMARY KEY("+ COLUMN_IDPACIENTE + "," + COLUMN_IDFISIO+ "),"
             + "FOREIGN KEY("+ COLUMN_IDFISIO +") REFERENCES " + Fisioterapeuta.TABLE + "(" +Fisioterapeuta.COLUMN_ID + "),"
             + "FOREIGN KEY("+ COLUMN_IDPACIENTE +") REFERENCES " + Paciente.TABLE + "(" +Paciente.COLUMN_ID + "))";
 

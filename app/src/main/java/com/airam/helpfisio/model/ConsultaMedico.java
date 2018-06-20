@@ -1,5 +1,7 @@
 package com.airam.helpfisio.model;
 
+import java.util.Date;
+
 /**
  * Created by jonas on 01/11/2017.
  */
@@ -19,6 +21,10 @@ public class ConsultaMedico {
     public static final String COLUMN_DATA = "data";
     public static final String COLUMN_HORA = "hora";
     public static final String COLUMN_ESPECIALIDADE = "especialidade";
+    public static final String COLUMN_VALOR = "valor";
+    public static final String COLUMN_VALORPAGO= "valorpago";
+
+
 
     //CRIANDO TABELAS
     public static final String SQL_CREATE = "CREATE TABLE " + TABLE + "( "
@@ -31,14 +37,39 @@ public class ConsultaMedico {
             + COLUMN_DATA           +   " TEXT,"
             + COLUMN_HORA           +   " TEXT,"
             + COLUMN_ESPECIALIDADE  +   " TEXT,"
+            + COLUMN_VALOR          +   " REAL,"
+            + COLUMN_VALORPAGO      +   " REAL,"
             + "FOREIGN KEY("+ COLUMN_IDMEDICO +") REFERENCES " + Medico.TABLE + "(" +Medico.COLUMN_ID + "),"
             + "FOREIGN KEY("+ COLUMN_IDPACIENTE +") REFERENCES " + Paciente.TABLE + "(" +Paciente.COLUMN_ID + "))";
 
     private int idMedico;
     private int idPaciente;
     private int id;
+    private String descricao, medicacao, tratamento, hora, especialidadeConsulta;
+    private double valorPago;
+    private Date data;
+    private double valorConsulta;
 
-    private String descricao, medicacao, tratamento, data, hora, especialidadeConsulta;
+    public double getValorConsulta() {
+        return valorConsulta;
+    }
+
+    public void setValorConsulta(double valorConsulta) {
+        this.valorConsulta = valorConsulta;
+    }
+
+    public double getValorPago() {
+        return valorPago;
+    }
+
+    public void setValorPago(double valorPago) {
+        this.valorPago = valorPago;
+    }
+
+    public void setData(Date data) {
+        this.data = data;
+    }
+
     public int getId() {
         return id;
     }
@@ -87,12 +118,8 @@ public class ConsultaMedico {
         this.tratamento = tratamento;
     }
 
-    public String getData() {
+    public Date getData() {
         return data;
-    }
-
-    public void setData(String data) {
-        this.data = data;
     }
 
     public String getHora() {
