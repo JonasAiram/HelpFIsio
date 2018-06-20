@@ -96,7 +96,7 @@ public class ConsultaMedicoController extends BaseController<ConsultaMedico>{
 
     @Override
     protected String getColumnId(){
-        return ConsultaMedico.COLUMN_IDMEDICO;
+        return ConsultaMedico.COLUMN_ID;
     }
 
 }

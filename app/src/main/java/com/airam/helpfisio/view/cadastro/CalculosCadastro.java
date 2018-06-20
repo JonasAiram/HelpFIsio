@@ -16,10 +16,12 @@ import android.widget.Toast;
 import com.airam.helpfisio.R;
 import com.airam.helpfisio.controller.CalculosController;
 import com.airam.helpfisio.controller.FisioterapeutaController;
+import com.airam.helpfisio.controller.MedicoController;
 import com.airam.helpfisio.controller.PacienteController;
 import com.airam.helpfisio.model.Calculos;
 import com.airam.helpfisio.model.DateUtil;
 import com.airam.helpfisio.model.Fisioterapeuta;
+import com.airam.helpfisio.model.Medico;
 import com.airam.helpfisio.model.Paciente;
 import com.airam.helpfisio.view.CalculosView;
 
@@ -38,13 +40,16 @@ public class CalculosCadastro implements DialogInterface.OnShowListener, View.On
 
     private List<String> listaNomePaciente = new ArrayList<String>();
     private List<String> listaNomeFisio = new ArrayList<String>();
+    private List<String> listaNomeMedico = new ArrayList<String>();
 
     private int pacienteId;
 
     List<Paciente> listPaciente;
     List<Fisioterapeuta> listObjFisio;
+    List<Medico> listObjMedico;
     private PacienteController pacienteController;
     private FisioterapeutaController fisioterapeutaController;
+    private MedicoController medicoController;
 
     private Calculos calculos;
 
@@ -82,6 +87,11 @@ public class CalculosCadastro implements DialogInterface.OnShowListener, View.On
         listaNomeFisio();
         autoCompleteFisio();
 
+        medicoController = new MedicoController(context);
+        listaNomeMedico();
+        autoCompleteMedico();
+
+
         //CRIA OS BUTTONS DO ALERTDIALOG
         builder.setPositiveButton("Salvar", null);
         builder.setNegativeButton("Voltar", null);
@@ -91,6 +101,12 @@ public class CalculosCadastro implements DialogInterface.OnShowListener, View.On
         dialog.setOnShowListener(this);
         dialog.show();
 
+    }
+
+    private void listaNomeMedico() {
+        listObjMedico = medicoController.getAll();
+        for (Medico medico : listObjMedico)
+            listaNomeMedico.add(medico.getNome() + " CRM: " + medico.getCrm());
     }
 
     private void listaNomeFisio(){
@@ -114,6 +130,8 @@ public class CalculosCadastro implements DialogInterface.OnShowListener, View.On
         this.calculos = calculos;
 
         spnIdPaciente.setSelection(getIndexPacienteId(calculos.getIdPaciente()));
+        autoComTexViewFisio.setText(calculos.getFisio());
+        autoComTexViewMedico.setText(calculos.getMedico());
 
         editTextNome.setText(calculos.getNome());
         editTextData.setText(DateUtil.dateToString(calculos.getData()));
@@ -122,7 +140,6 @@ public class CalculosCadastro implements DialogInterface.OnShowListener, View.On
         editTextResultado.setText(String.valueOf(calculos.getResultado()));
         editTextUnidade.setText(calculos.getUnidade());
         editTextDesc.setText(calculos.getDescricao());
-
 
     }
 
@@ -266,6 +283,14 @@ public class CalculosCadastro implements DialogInterface.OnShowListener, View.On
         ArrayAdapter<String> adapter2 = new ArrayAdapter<String>(context, android.R.layout.select_dialog_item, listaNomeFisio);
         autoComTexViewFisio.setThreshold(1);
         autoComTexViewFisio.setAdapter(adapter2);
+
+    }
+
+    private void autoCompleteMedico() {
+
+        ArrayAdapter<String> adapter2 = new ArrayAdapter<String>(context, android.R.layout.select_dialog_item, listaNomeMedico);
+        autoComTexViewMedico.setThreshold(1);
+        autoComTexViewMedico.setAdapter(adapter2);
 
     }
 }

@@ -17,6 +17,7 @@ import android.widget.Toast;
 import com.airam.helpfisio.R;
 import com.airam.helpfisio.controller.ConsultaFisioController;
 import com.airam.helpfisio.model.ConsultaFisio;
+import com.airam.helpfisio.model.DateUtil;
 import com.airam.helpfisio.view.cadastro.ConsultaFisioCadastro;
 
 import java.util.ArrayList;
@@ -83,7 +84,7 @@ public class ConsultaFisioView extends Activity implements View.OnClickListener,
 
         for (ConsultaFisio consultaFisio : consultaFisioList)
 
-            consListNome.add("Data: " + consultaFisio.getData() + " - Descrição: " + consultaFisio.getDescricao());
+            consListNome.add("Data: " + DateUtil.dateToString(consultaFisio.getData()) + " - Descrição: " + consultaFisio.getDescricao());
 
         adapter = new ArrayAdapter<String>(this, android.R.layout.simple_list_item_1, consListNome);
         listView.setAdapter(adapter);

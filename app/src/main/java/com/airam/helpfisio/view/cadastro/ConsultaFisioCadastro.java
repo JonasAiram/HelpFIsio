@@ -3,25 +3,49 @@ package com.airam.helpfisio.view.cadastro;
 import android.app.AlertDialog;
 import android.content.Context;
 import android.content.DialogInterface;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
+import android.widget.AdapterView;
+import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.Spinner;
 import android.widget.Toast;
 
 import com.airam.helpfisio.R;
 import com.airam.helpfisio.controller.ConsultaFisioController;
+import com.airam.helpfisio.controller.FisioterapeutaController;
+import com.airam.helpfisio.controller.PacienteController;
 import com.airam.helpfisio.model.ConsultaFisio;
+import com.airam.helpfisio.model.DateUtil;
+import com.airam.helpfisio.model.Fisioterapeuta;
+import com.airam.helpfisio.model.Paciente;
 import com.airam.helpfisio.view.ConsultaFisioView;
+
+import java.util.ArrayList;
+import java.util.List;
 
 public class ConsultaFisioCadastro implements DialogInterface.OnShowListener, View.OnClickListener, DialogInterface.OnDismissListener{
 
     private ConsultaFisioController consultaFisioController;
-    private AlertDialog dialog;
-
-    private EditText editTextDescricao, editTextPatologia, editTextTratamento, editTextData, editTextHora;
+    private PacienteController pacienteController;
+    private FisioterapeutaController fisioterapeutaController;
 
     private ConsultaFisio consultaFisio;
+
+    private AlertDialog dialog;
+    private EditText editTextDescricao, editTextPatologia, editTextTratamento, editTextData, editTextHora;
+    private EditText editTextEspecialidade, editTextValorPago, editTextValorConsulta;
+
+    Spinner spnFisioId, spnIdPaciente;
+
+    private int pacienteid, fisioid;
+
+    private List<String> listaNomeFisio = new ArrayList<String>();
+    private List<String> listaNomePaciente = new ArrayList<String>();
+    List<Fisioterapeuta> listFisioObj;
+    List<Paciente> listObjPaciente;
 
     Context context;
 
@@ -45,6 +69,28 @@ public class ConsultaFisioCadastro implements DialogInterface.OnShowListener, Vi
         editTextTratamento = (EditText) view.findViewById(R.id.edtConsFisioTratamento);
         editTextData = (EditText) view.findViewById(R.id.edtConsFisioData);
         editTextHora= (EditText) view.findViewById(R.id.edtConsFisioHora);
+        editTextEspecialidade = (EditText) view.findViewById(R.id.edtConsFisioEspecialidade);
+        editTextValorConsulta = (EditText) view.findViewById(R.id.edtConsFisioValor);
+        editTextValorPago = (EditText) view.findViewById(R.id.edtConsFisioValorPago);
+
+        spnFisioId = (Spinner) view.findViewById(R.id.spnConsultaFisioId);
+        spnIdPaciente = (Spinner) view.findViewById(R.id.spnConsultaFisioIdPaciente);
+
+        //SPINNER FISIO
+        fisioterapeutaController = new FisioterapeutaController(context);
+        arrayIdFisio();
+        ArrayAdapter<String> adapter = new ArrayAdapter<String>(context, android.R.layout.simple_spinner_item, listaNomeFisio);
+        adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+        spnFisioId.setAdapter(adapter);
+        spnIdFisioItemSelected();
+
+        //SPINNER PACIENTE
+        pacienteController = new PacienteController(context);
+        arrayIdPaciente();
+        ArrayAdapter<String> adapter2 = new ArrayAdapter<String>(context, android.R.layout.simple_spinner_item, listaNomePaciente);
+        adapter2.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+        spnIdPaciente.setAdapter(adapter2);
+        spnIdPacienteItemSelected();
 
         //CRIA OS BUTTONS DO ALERTDIALOG
         builder.setPositiveButton("Salvar", null);
@@ -57,14 +103,54 @@ public class ConsultaFisioCadastro implements DialogInterface.OnShowListener, Vi
 
     }
 
+    private void arrayIdFisio() {
+        listFisioObj = fisioterapeutaController.getAll();
+        for (Fisioterapeuta fisioterapeuta : listFisioObj)
+            listaNomeFisio.add(fisioterapeuta.getNome() + " CREFITO: " + fisioterapeuta.getCrefito());
+    }
+
+    private void arrayIdPaciente() {
+        listObjPaciente = pacienteController.getAll();
+        for (Paciente paciente : listObjPaciente)
+            listaNomePaciente.add(paciente.getNome() + " CPF: " + paciente.getCpf());
+    }
+
     public void loadConsulta(ConsultaFisio consultaFisio){
 
         this.consultaFisio = consultaFisio;
+
+        Log.e("LOAD id PACIENTE", "" + consultaFisio.getIdFisio());
+        spnIdPaciente.setSelection(getIndexPacienteId(consultaFisio.getIdPaciente()));
+        spnFisioId.setSelection(getIndexFisioId(consultaFisio.getIdFisio()));
+
         editTextDescricao.setText(consultaFisio.getDescricao());
         editTextPatologia.setText(consultaFisio.getPatologia());
         editTextTratamento.setText(consultaFisio.getTratamento());
-        editTextData.setText(consultaFisio.getData());
+        editTextData.setText(DateUtil.dateToString(consultaFisio.getData()));
         editTextHora.setText(consultaFisio.getHora());
+        editTextEspecialidade.setText(consultaFisio.getEspecialidade());
+        editTextValorConsulta.setText(String.valueOf(consultaFisio.getValorConsulta()));
+        editTextValorPago.setText(String.valueOf(consultaFisio.getValorPago()));
+
+    }
+
+    private int getIndexFisioId(int idFisio) {
+        for (int index = 0; index < listFisioObj.size(); index++){
+         Fisioterapeuta fisioterapeuta = listFisioObj.get(index);
+         if (idFisio == fisioterapeuta.getId())
+             return index;
+        }
+
+        return 0;
+    }
+
+    private int getIndexPacienteId(int idPaciente) {
+        for (int index = 0; index < listObjPaciente.size(); index++){
+            Paciente paciente = listObjPaciente.get(index);
+            if (idPaciente == paciente.getId())
+                return index;
+        }
+        return 0;
     }
 
     @Override
@@ -98,6 +184,7 @@ public class ConsultaFisioCadastro implements DialogInterface.OnShowListener, Vi
         String tratamento = editTextTratamento.getText().toString();
         String data = editTextData.getText().toString();
         String hora = editTextHora.getText().toString();
+        String especialidade = editTextEspecialidade.getText().toString();
 
         //APRESENTA OS ERROS AO DEIXAR ALGUM ATRIBUTO EM BRANCO
         if (descricao.length() == 0)
@@ -117,24 +204,41 @@ public class ConsultaFisioCadastro implements DialogInterface.OnShowListener, Vi
 
             if (consultaFisio == null) {
 
+                double valorConsDouble = Double.parseDouble(editTextValorConsulta.getText().toString());
+                double valorPagoDouble = Double.parseDouble(editTextValorPago.getText().toString());
 
                 //REGRAS PARA ARMAZENAR NO BANCO DE DADOS
                 ConsultaFisio consultaFisio = new ConsultaFisio();
                 consultaFisio.setDescricao(descricao);
                 consultaFisio.setPatologia(patologia);
                 consultaFisio.setTratamento(tratamento);
-                consultaFisio.setData(data);
+                consultaFisio.setData(DateUtil.stringToDate(data));
                 consultaFisio.setHora(hora);
+                consultaFisio.setEspecialidade(especialidade);
+                consultaFisio.setValorConsulta(valorConsDouble);
+                consultaFisio.setValorPago(valorPagoDouble);
+                consultaFisio.setIdFisio(fisioid);
+                Log.e("INSERT id PACIENTE", "" + fisioid);
+                consultaFisio.setIdPaciente(pacienteid);
 
                 criadoComSucesso = consultaFisioController.insert(consultaFisio);
             }else {
 
+                double valorConsDouble = Double.parseDouble(editTextValorConsulta.getText().toString());
+                double valorPagoDouble = Double.parseDouble(editTextValorPago.getText().toString());
+
                 consultaFisio.setDescricao(descricao);
                 consultaFisio.setPatologia(patologia);
                 consultaFisio.setTratamento(tratamento);
-                consultaFisio.setData(data);
+                consultaFisio.setData(DateUtil.stringToDate(data));
                 consultaFisio.setHora(hora);
-                consultaFisioController.edit(consultaFisio, consultaFisio.getIdFisio());
+                consultaFisio.setEspecialidade(especialidade);
+                consultaFisio.setValorConsulta(valorConsDouble);
+                consultaFisio.setValorPago(valorPagoDouble);
+                consultaFisio.setIdFisio(fisioid);
+                consultaFisio.setIdPaciente(pacienteid);
+
+                consultaFisioController.edit(consultaFisio, consultaFisio.getId());
                 criadoComSucesso = true;
             }
         }
@@ -144,4 +248,35 @@ public class ConsultaFisioCadastro implements DialogInterface.OnShowListener, Vi
     public void onDismiss(DialogInterface dialogInterface) {
         consultaFisioController.closeDb();
     }
+
+    private void spnIdFisioItemSelected() {
+
+        spnFisioId.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
+            @Override
+            public void onItemSelected(AdapterView<?> adapterView, View view, int i, long l) {
+                Fisioterapeuta fisioterapeuta = listFisioObj.get(i);
+                fisioid = fisioterapeuta.getId();
+            }
+
+            @Override
+            public void onNothingSelected(AdapterView<?> adapterView) {
+
+            }
+        });
+    }
+
+    private void spnIdPacienteItemSelected() {
+
+        spnIdPaciente.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
+            @Override
+            public void onItemSelected(AdapterView<?> adapterView, View view, int i, long l) {
+                Paciente paciente = listObjPaciente.get(i);
+                pacienteid = paciente.getId();
+            }
+            @Override
+            public void onNothingSelected(AdapterView<?> adapterView) {
+            }
+        });
+    }
 }
+

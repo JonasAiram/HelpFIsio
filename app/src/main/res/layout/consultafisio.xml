@@ -1,4 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content">
 
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
@@ -156,6 +159,8 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_weight="1"
+            android:hint="xx-xx-xxxx"
+            android:gravity="center"
             android:inputType="text"/>
 
     </LinearLayout>
@@ -179,8 +184,84 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_weight="1"
+            android:hint="00h00"
             android:inputType="text"/>
 
     </LinearLayout>
 
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:layout_marginTop="8dp">
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Especialidade:"
+            android:typeface="sans"
+            android:textSize="17sp"
+            android:layout_weight="2"/>
+
+        <EditText
+            android:id="@+id/edtConsFisioEspecialidade"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_weight="2"
+            android:inputType="text"
+            android:hint="Especialidade do Atendimento"/>
+
+    </LinearLayout>
+
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:layout_marginTop="8dp">
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Valor Consulta:"
+            android:typeface="sans"
+            android:textSize="17sp"
+            android:layout_weight="2"/>
+
+        <EditText
+            android:id="@+id/edtConsFisioValor"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_weight="2"
+            android:inputType="text"
+            android:hint="R$..."/>
+
+    </LinearLayout>
+
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:layout_marginTop="8dp">
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Valor Pago:"
+            android:typeface="sans"
+            android:textSize="17sp"
+            android:layout_weight="2"/>
+
+        <EditText
+            android:id="@+id/edtConsFisioValorPago"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_weight="2"
+            android:inputType="text"
+            android:hint="R$..."/>
+
+    </LinearLayout>
+
 </LinearLayout>
+</ScrollView>
