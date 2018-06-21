@@ -78,7 +78,7 @@ public class MedicoView extends Activity implements View.OnClickListener, Adapte
 
         for (Medico medico : medicoList)
 
-            medicoListNome.add(medico.getNome() + " " + medico.getSobrenome() + " - CPF: " + medico.getCpf());
+            medicoListNome.add(medico.getNome() + " " + medico.getSobrenome() + " - CRM: " + medico.getCrm());
 
         adapter = new ArrayAdapter<String>(this, android.R.layout.simple_list_item_1, medicoListNome);
         listView.setAdapter(adapter);

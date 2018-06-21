@@ -56,6 +56,9 @@ public class ConsultaFisioController extends BaseController<ConsultaFisio>{
         columnId = c.getColumnIndex(ConsultaFisio.COLUMN_VALORPAGO);
         consultaFisio.setValorPago(c.getDouble(columnId));
 
+        columnId = c.getColumnIndex(ConsultaFisio.COLUMN_PACIENTENOME);
+        consultaFisio.setPacienteNome(c.getString(columnId));
+
 
         return consultaFisio;
     }
@@ -65,7 +68,7 @@ public class ConsultaFisioController extends BaseController<ConsultaFisio>{
         return new String[]{ConsultaFisio.COLUMN_ID, ConsultaFisio.COLUMN_IDFISIO, ConsultaFisio.COLUMN_IDPACIENTE,
                 ConsultaFisio.COLUMN_DESC, ConsultaFisio.COLUMN_PATOLOGIA, ConsultaFisio.COLUMN_TRATAMENTO,
                 ConsultaFisio.COLUMN_DATA, ConsultaFisio.COLUMN_HORA, ConsultaFisio.COLUMN_ESPECIALIDADE,
-                ConsultaFisio.COLUMN_VALOR, ConsultaFisio.COLUMN_VALORPAGO};
+                ConsultaFisio.COLUMN_VALOR, ConsultaFisio.COLUMN_VALORPAGO, ConsultaFisio.COLUMN_PACIENTENOME};
     }
 
     protected ContentValues convertToContentValue(ConsultaFisio consultaFisio) {
@@ -81,6 +84,7 @@ public class ConsultaFisioController extends BaseController<ConsultaFisio>{
         values.put(ConsultaFisio.COLUMN_ESPECIALIDADE, consultaFisio.getEspecialidade());
         values.put(ConsultaFisio.COLUMN_VALORPAGO, consultaFisio.getValorPago());
         values.put(ConsultaFisio.COLUMN_VALOR, consultaFisio.getValorConsulta());
+        values.put(ConsultaFisio.COLUMN_PACIENTENOME, consultaFisio.getPacienteNome());
 
         return values;
     }

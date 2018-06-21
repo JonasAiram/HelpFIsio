@@ -45,6 +45,7 @@ public class ConsultaMedicoCadastro implements DialogInterface.OnShowListener, V
     private Spinner spnIdMedico, spnIdPaciente;
 
     private int medicoid, pacienteid;
+    private String pacienteNome;
 
     private List<String> listaNomeMedico = new ArrayList<String>();
     private List<String> listaNomePaciente = new ArrayList<String>();
@@ -228,6 +229,7 @@ public class ConsultaMedicoCadastro implements DialogInterface.OnShowListener, V
                 consultaMedico.setValorPago(valorPagoDouble);
                 consultaMedico.setIdPaciente(pacienteid);
                 consultaMedico.setIdMedico(medicoid);
+                consultaMedico.setPacienteNome(pacienteNome);
 
                 criadoComSucesso = consultaMedicoController.insert(consultaMedico);
             }else{
@@ -244,6 +246,7 @@ public class ConsultaMedicoCadastro implements DialogInterface.OnShowListener, V
                 consultaMedico.setValorPago(valorPagoDouble);
                 consultaMedico.setIdPaciente(pacienteid);
                 consultaMedico.setIdMedico(medicoid);
+                consultaMedico.setPacienteNome(pacienteNome);
                 Log.e("TESTE", String.valueOf(medicoid));
 
                 consultaMedicoController.edit(consultaMedico, consultaMedico.getId());
@@ -279,6 +282,7 @@ public class ConsultaMedicoCadastro implements DialogInterface.OnShowListener, V
             public void onItemSelected(AdapterView<?> adapterView, View view, int i, long l) {
                 Paciente paciente = listObjPaciente.get(i);
                 pacienteid = paciente.getId();
+                pacienteNome = paciente.getNome() + " CPF: " + paciente.getCpf();
             }
             @Override
             public void onNothingSelected(AdapterView<?> adapterView) {

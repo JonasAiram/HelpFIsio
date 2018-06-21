@@ -54,7 +54,7 @@ public class PacienteController extends BaseController<Paciente>{
         paciente.setSobrenome(c.getString(columnId));
 
         columnId = c.getColumnIndex(Paciente.COLUMN_TELEFONE);
-        paciente.setTelefone(c.getInt(columnId));
+        paciente.setTelefone(c.getString(columnId));
 
         columnId = c.getColumnIndex(Paciente.COLUMN_ID_LEITO);
         paciente.setId_leito(c.getInt(columnId));

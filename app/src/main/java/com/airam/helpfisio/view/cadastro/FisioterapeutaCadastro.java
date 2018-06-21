@@ -150,7 +150,6 @@ public class FisioterapeutaCadastro implements DialogInterface.OnShowListener, V
 
                 int rgInt = Integer.parseInt(rg);
                 int crefitoInt = Integer.parseInt(crefito);
-                int telefoneInt = Integer.parseInt(telefone);
                 double salarioDouble = Double.parseDouble(salario);
                 double pesoDouble = Double.parseDouble(peso);
 
@@ -162,7 +161,7 @@ public class FisioterapeutaCadastro implements DialogInterface.OnShowListener, V
                 fisioterapeuta.setData(DateUtil.stringToDate(data));
                 fisioterapeuta.setCrefito(crefitoInt);
                 fisioterapeuta.setCargo(cargo);
-                fisioterapeuta.setTelefone(telefoneInt);
+                fisioterapeuta.setTelefone(telefone);
                 fisioterapeuta.setSobrenome(sobrenome);
                 fisioterapeuta.setSalario(salarioDouble);
                 fisioterapeuta.setPeso(pesoDouble);
@@ -173,7 +172,6 @@ public class FisioterapeutaCadastro implements DialogInterface.OnShowListener, V
 
                 int rgInt = Integer.parseInt(rg);
                 int crefitoInt = Integer.parseInt(crefito);
-                int telefoneInt = Integer.parseInt(telefone);
                 double salarioDouble = Double.parseDouble(salario);
                 double pesoDouble = Double.parseDouble(peso);
 
@@ -183,7 +181,7 @@ public class FisioterapeutaCadastro implements DialogInterface.OnShowListener, V
                 fisioterapeuta.setData(DateUtil.stringToDate(data));
                 fisioterapeuta.setCrefito(crefitoInt);
                 fisioterapeuta.setCargo(cargo);
-                fisioterapeuta.setTelefone(telefoneInt);
+                fisioterapeuta.setTelefone(telefone);
                 fisioterapeuta.setSobrenome(sobrenome);
                 fisioterapeuta.setSalario(salarioDouble);
                 fisioterapeuta.setPeso(pesoDouble);

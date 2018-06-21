@@ -16,6 +16,7 @@ import android.widget.Toast;
 
 import com.airam.helpfisio.R;
 import com.airam.helpfisio.controller.LeitoController;
+import com.airam.helpfisio.model.Hospital;
 import com.airam.helpfisio.model.Leito;
 import com.airam.helpfisio.view.cadastro.LeitoCadastro;
 
@@ -76,10 +77,13 @@ public class LeitoView extends Activity implements View.OnClickListener, Adapter
 
         leitoList = new LeitoController(this).getAll();
 
-        for (Leito leito : leitoList)
+        Hospital hospital;
 
-            leitoListNome.add("Tipo: " + leito.getTipo() + " - Qtd: " + leito.getQuantidade());
+        for (Leito leito : leitoList) {
 
+            hospital = new LeitoController(this).buscarNomePeloId(leito.getId_Hospital());
+            leitoListNome.add("Tipo: " + leito.getTipo() + " - Qtd: " + leito.getQuantidade() + "Hospital: " + hospital.getNome());
+        }
         adapter = new ArrayAdapter<String>(this, android.R.layout.simple_list_item_1, leitoListNome);
         listView.setAdapter(adapter);
 

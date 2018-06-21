@@ -216,7 +216,6 @@ public class PacienteCadastro implements DialogInterface.OnShowListener, View.On
 
                 //CONVERTER PARA O TIPO DE DADOS QUE SERÁ ARMAZENADOS NO BANCO DE DADOS
                 int Rg = Integer.parseInt(editTextRG.getText().toString());
-                int telefone = Integer.parseInt(editTextTelefone.getText().toString());
                 double altura = Double.parseDouble(editTextAltura.getText().toString());
                 double peso = Double.parseDouble(editTextPeso.getText().toString());
 
@@ -227,7 +226,7 @@ public class PacienteCadastro implements DialogInterface.OnShowListener, View.On
                 paciente.setAltura(altura);
                 paciente.setPeso(peso);
                 paciente.setData(DateUtil.stringToDate(pacienteData));
-                paciente.setTelefone(telefone);
+                paciente.setTelefone(pacienteTelefone);
                 paciente.setSobrenome(pacienteSobrenome);
                 paciente.setIdHospital(idHospital);
                 paciente.setId_leito(idLeito);
@@ -236,7 +235,6 @@ public class PacienteCadastro implements DialogInterface.OnShowListener, View.On
             }else{
                 //CONVERTER PARA O TIPO DE DADOS QUE SERÁ ARMAZENADOS NO BANCO DE DADOS
                 int Rg = Integer.parseInt(editTextRG.getText().toString());
-                int telefone = Integer.parseInt(editTextTelefone.getText().toString());
                 double altura = Double.parseDouble(editTextAltura.getText().toString());
                 double peso = Double.parseDouble(editTextPeso.getText().toString());
 
@@ -246,7 +244,7 @@ public class PacienteCadastro implements DialogInterface.OnShowListener, View.On
                 paciente.setAltura(altura);
                 paciente.setPeso(peso);
                 paciente.setData(DateUtil.stringToDate(pacienteData));
-                paciente.setTelefone(telefone);
+                paciente.setTelefone(pacienteTelefone);
                 paciente.setSobrenome(pacienteSobrenome);
                 paciente.setIdHospital(idHospital);
                 paciente.setId_leito(idLeito);

@@ -84,7 +84,7 @@ public class ConsultaFisioView extends Activity implements View.OnClickListener,
 
         for (ConsultaFisio consultaFisio : consultaFisioList)
 
-            consListNome.add("Data: " + DateUtil.dateToString(consultaFisio.getData()) + " - Descrição: " + consultaFisio.getDescricao());
+            consListNome.add("Paciente: "+ consultaFisio.getPacienteNome() +" Data: " + DateUtil.dateToString(consultaFisio.getData()));
 
         adapter = new ArrayAdapter<String>(this, android.R.layout.simple_list_item_1, consListNome);
         listView.setAdapter(adapter);

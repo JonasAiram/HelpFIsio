@@ -151,7 +151,6 @@ public class MedicoCadastro implements DialogInterface.OnShowListener, View.OnCl
 
                 int rgInt = Integer.parseInt(rg);
                 int crmInt = Integer.parseInt(crm);
-                int intTelefone = Integer.parseInt(telefone);
                 double salarioDouble = Double.parseDouble(salario);
                 double pesoDouble = Double.parseDouble(peso);
 
@@ -165,7 +164,7 @@ public class MedicoCadastro implements DialogInterface.OnShowListener, View.OnCl
                 medico.setData(DateUtil.stringToDate(data));
                 medico.setCrm(crmInt);
                 medico.setCargo(cargo);
-                medico.setTelefone(intTelefone);
+                medico.setTelefone(telefone);
                 medico.setSobrenome(sobrenome);
                 medico.setSalario(salarioDouble);
                 medico.setPeso(pesoDouble);
@@ -175,7 +174,6 @@ public class MedicoCadastro implements DialogInterface.OnShowListener, View.OnCl
             }else {
                 int rgInt = Integer.parseInt(rg);
                 int crmInt = Integer.parseInt(crm);
-                int intTelefone = Integer.parseInt(telefone);
                 double salarioDouble = Double.parseDouble(salario);
                 double pesoDouble = Double.parseDouble(peso);
 
@@ -185,7 +183,7 @@ public class MedicoCadastro implements DialogInterface.OnShowListener, View.OnCl
                 medico.setData(DateUtil.stringToDate(data));
                 medico.setCrm(crmInt);
                 medico.setCargo(cargo);
-                medico.setTelefone(intTelefone);
+                medico.setTelefone(telefone);
                 medico.setSobrenome(sobrenome);
                 medico.setSalario(salarioDouble);
                 medico.setPeso(pesoDouble);

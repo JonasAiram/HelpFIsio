@@ -48,7 +48,7 @@ public class FisioterapeutaController extends BaseController<Fisioterapeuta>{
         fisioterapeuta.setCargo(c.getString(columnId));
 
         columnId = c.getColumnIndex(Fisioterapeuta.COLUMN_TELEFONE);
-        fisioterapeuta.setTelefone(c.getInt(columnId));
+        fisioterapeuta.setTelefone(c.getString(columnId));
 
         columnId = c.getColumnIndex(Fisioterapeuta.COLUMN_SALARIO);
         fisioterapeuta.setSalario(c.getDouble(columnId));

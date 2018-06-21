@@ -3,8 +3,10 @@ package com.airam.helpfisio.controller;
 import android.content.ContentValues;
 import android.content.Context;
 import android.database.Cursor;
+import android.database.sqlite.SQLiteDatabase;
 
 import com.airam.helpfisio.model.DateUtil;
+import com.airam.helpfisio.model.Hospital;
 import com.airam.helpfisio.model.Leito;
 
 /**
@@ -99,4 +101,21 @@ public class LeitoController extends BaseController<Leito>{
         return Leito.COLUMN_ID;
     }
 
+    public Hospital buscarNomePeloId(int hospitalId){
+
+        Hospital hospital = new Hospital();
+
+        String sql = "SELECT * FROM hospital WHERE _id = " + hospitalId;
+         Cursor c = db.rawQuery(sql, null);
+         if (c.moveToFirst()){
+
+             String nome = c.getString(c.getColumnIndex("nome"));
+
+             hospital = new Hospital();
+
+             hospital.setId(hospitalId);
+             hospital.setNome(nome);
+         }
+         return hospital;
+    }
 }

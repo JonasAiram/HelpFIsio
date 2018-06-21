@@ -143,10 +143,10 @@ public class LeitoCadastro implements DialogInterface.OnShowListener, View.OnCli
         insertLeito();
 
         if (criadoComSucesso) {
-            Toast.makeText(context, "Paciente Armazenado Com Sucesso.", Toast.LENGTH_SHORT).show();
+            Toast.makeText(context, "Leito Armazenado Com Sucesso.", Toast.LENGTH_SHORT).show();
             ((LeitoView) context).atualizarRegistros();
         } else
-            Toast.makeText(context, "Não Foi Possivel Armazenar o Paciente.", Toast.LENGTH_SHORT).show();
+            Toast.makeText(context, "Não Foi Possivel Armazenar o Leito.", Toast.LENGTH_SHORT).show();
 
         dialog.dismiss();
 

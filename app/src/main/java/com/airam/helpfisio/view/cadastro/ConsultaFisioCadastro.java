@@ -41,6 +41,7 @@ public class ConsultaFisioCadastro implements DialogInterface.OnShowListener, Vi
     Spinner spnFisioId, spnIdPaciente;
 
     private int pacienteid, fisioid;
+    private String pacienteNome;
 
     private List<String> listaNomeFisio = new ArrayList<String>();
     private List<String> listaNomePaciente = new ArrayList<String>();
@@ -218,8 +219,8 @@ public class ConsultaFisioCadastro implements DialogInterface.OnShowListener, Vi
                 consultaFisio.setValorConsulta(valorConsDouble);
                 consultaFisio.setValorPago(valorPagoDouble);
                 consultaFisio.setIdFisio(fisioid);
-                Log.e("INSERT id PACIENTE", "" + fisioid);
                 consultaFisio.setIdPaciente(pacienteid);
+                consultaFisio.setPacienteNome(pacienteNome);
 
                 criadoComSucesso = consultaFisioController.insert(consultaFisio);
             }else {
@@ -237,6 +238,7 @@ public class ConsultaFisioCadastro implements DialogInterface.OnShowListener, Vi
                 consultaFisio.setValorPago(valorPagoDouble);
                 consultaFisio.setIdFisio(fisioid);
                 consultaFisio.setIdPaciente(pacienteid);
+                consultaFisio.setPacienteNome(pacienteNome);
 
                 consultaFisioController.edit(consultaFisio, consultaFisio.getId());
                 criadoComSucesso = true;
@@ -272,6 +274,7 @@ public class ConsultaFisioCadastro implements DialogInterface.OnShowListener, Vi
             public void onItemSelected(AdapterView<?> adapterView, View view, int i, long l) {
                 Paciente paciente = listObjPaciente.get(i);
                 pacienteid = paciente.getId();
+                pacienteNome = paciente.getNome() + " CPF: " + paciente.getCpf();
             }
             @Override
             public void onNothingSelected(AdapterView<?> adapterView) {

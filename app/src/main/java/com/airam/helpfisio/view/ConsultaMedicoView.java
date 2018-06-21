@@ -18,6 +18,7 @@ import com.airam.helpfisio.R;
 import com.airam.helpfisio.controller.ConsultaMedicoController;
 import com.airam.helpfisio.model.ConsultaMedico;
 import com.airam.helpfisio.model.DateUtil;
+import com.airam.helpfisio.model.Paciente;
 import com.airam.helpfisio.view.cadastro.ConsultaMedicoCadastro;
 
 import java.util.ArrayList;
@@ -84,7 +85,7 @@ public class ConsultaMedicoView extends Activity implements View.OnClickListener
 
         for (ConsultaMedico consultaMedico : consultaMedicoList)
 
-            consListNome.add("Data: " + DateUtil.dateToString(consultaMedico.getData()) + " - Paciente: " + consultaMedico.getIdPaciente());
+            consListNome.add("Paciente: " + consultaMedico.getPacienteNome() +" Data: " + DateUtil.dateToString(consultaMedico.getData()));
 
         adapter = new ArrayAdapter<String>(this, android.R.layout.simple_list_item_1, consListNome);
         listView.setAdapter(adapter);

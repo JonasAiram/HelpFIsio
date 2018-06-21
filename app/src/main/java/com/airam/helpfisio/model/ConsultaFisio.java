@@ -17,6 +17,7 @@ public class ConsultaFisio {
     public static final String COLUMN_ID = "id";
     public static final String COLUMN_IDFISIO = "id_fisio";
     public static final String COLUMN_IDPACIENTE = "id_paciente";
+    public static final String COLUMN_PACIENTENOME = "nomepaciente";
     public static final String COLUMN_DESC = "desc";
     public static final String COLUMN_PATOLOGIA = "patologia";
     public static final String COLUMN_TRATAMENTO = "tratamento";
@@ -32,6 +33,7 @@ public class ConsultaFisio {
             + COLUMN_ID             +   " INTEGER PRIMARY KEY AUTOINCREMENT,"
             + COLUMN_IDFISIO        +   " INTEGER,"
             + COLUMN_IDPACIENTE     +   " INTEGER,"
+            + COLUMN_PACIENTENOME   +   " TEXT,"
             + COLUMN_DESC           +   " TEXT,"
             + COLUMN_PATOLOGIA      +   " TEXT,"
             + COLUMN_TRATAMENTO     +   " TEXT,"
@@ -44,10 +46,23 @@ public class ConsultaFisio {
             + "FOREIGN KEY("+ COLUMN_IDPACIENTE +") REFERENCES " + Paciente.TABLE + "(" +Paciente.COLUMN_ID + "))";
 
     private int id, idFisio, idPaciente;
-    private String descricao, patologia, tratamento, hora, especialidade;
+    private String descricao;
+    private String patologia;
+    private String tratamento;
+    private String hora;
+    private String especialidade;
+    private String pacienteNome;
     private Date data;
     private double valorPago;
     private double valorConsulta;
+
+    public String getPacienteNome() {
+        return pacienteNome;
+    }
+
+    public void setPacienteNome(String pacienteNome) {
+        this.pacienteNome = pacienteNome;
+    }
 
     public int getId() {
         return id;

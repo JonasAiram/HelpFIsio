@@ -46,7 +46,7 @@ public class MedicoController extends BaseController<Medico>{
         medico.setCargo(c.getString(columnId));
 
         columnId = c.getColumnIndex(Medico.COLUMN_TELEFONE);
-        medico.setTelefone(c.getInt(columnId));
+        medico.setTelefone(c.getString(columnId));
 
         columnId = c.getColumnIndex(Medico.COLUMN_SOBRENOME);
         medico.setSobrenome(c.getString(columnId));

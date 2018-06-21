@@ -24,7 +24,7 @@ public class Pessoa {
 
     private int id;
     private int rg;
-    private int telefone;
+    private String telefone;
     private String nome, cpf, sobrenome;
     private Date Data;
 
@@ -44,11 +44,11 @@ public class Pessoa {
         this.rg = rg;
     }
 
-    public int getTelefone() {
+    public String getTelefone() {
         return telefone;
     }
 
-    public void setTelefone(int telefone) {
+    public void setTelefone(String telefone) {
         this.telefone = telefone;
     }
 
