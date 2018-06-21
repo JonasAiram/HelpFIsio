@@ -11,6 +11,7 @@ import android.widget.EditText;
 import android.widget.Toast;
 
 import com.airam.helpfisio.R;
+import com.airam.helpfisio.view.cadastro.CalculosCadastro;
 
 /**
  * Created by jonas on 31/10/2017.
@@ -18,8 +19,8 @@ import com.airam.helpfisio.R;
 
 public class VolumeCorrente extends AppCompatActivity{
 
-
     EditText edtTextVolMin, edtTextFreRes;
+    double result;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -61,7 +62,7 @@ public class VolumeCorrente extends AppCompatActivity{
 
             double dobVm = Double.parseDouble(edtTextVolMin.getText().toString());
             double dobFr = Double.parseDouble(edtTextFreRes.getText().toString());
-            double result = dobVm * dobFr;
+            result = dobVm * dobFr;
 
             final AlertDialog.Builder alertDialogBuilder = new AlertDialog.Builder(context);
 
@@ -73,6 +74,9 @@ public class VolumeCorrente extends AppCompatActivity{
                 public void onClick(DialogInterface dialog, int which) {
 
                     //Regras de negocio para salvar o resultado no banco de dados.
+                    CalculosCadastro calculosCadastro = new CalculosCadastro(context);
+                    calculosCadastro.saveCalculo("Volume Corrente", "Ml", result);
+
 
                     dialog.dismiss();
                 }

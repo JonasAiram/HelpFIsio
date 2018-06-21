@@ -1,5 +1,7 @@
 package com.airam.helpfisio.model;
 
+import java.util.Date;
+
 /**
  * Created by jonas on 01/11/2017.
  */
@@ -47,15 +49,15 @@ public class Hospital {
     private String cidade;
     private String UF;
     private String diretor;
-    private String dtCriacao;
+    private Date dtCriacao;
 
     private double valor;
 
-    public String getdtCriacao() {
+    public Date getdtCriacao() {
         return dtCriacao;
     }
 
-    public void setdtCriacao(String data) {
+    public void setdtCriacao(Date data) {
         this.dtCriacao = data;
     }
 

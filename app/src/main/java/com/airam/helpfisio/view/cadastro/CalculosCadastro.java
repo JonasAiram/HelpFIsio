@@ -26,6 +26,7 @@ import com.airam.helpfisio.model.Paciente;
 import com.airam.helpfisio.view.CalculosView;
 
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 
 public class CalculosCadastro implements DialogInterface.OnShowListener, View.OnClickListener, DialogInterface.OnDismissListener, AdapterView.OnItemSelectedListener{
@@ -291,6 +292,19 @@ public class CalculosCadastro implements DialogInterface.OnShowListener, View.On
         ArrayAdapter<String> adapter2 = new ArrayAdapter<String>(context, android.R.layout.select_dialog_item, listaNomeMedico);
         autoComTexViewMedico.setThreshold(1);
         autoComTexViewMedico.setAdapter(adapter2);
+
+    }
+
+    public void saveCalculo(String nome, String unidade, double result){
+
+        Date date = new Date();
+
+        editTextNome.setText(nome);
+        editTextUnidade.setText(unidade);
+        editTextResultado.setText(String.valueOf(result));
+        editTextData.setText(DateUtil.dateToString(date));
+        editTextHora.setText(DateUtil.horaToString(date));
+
 
     }
 }

@@ -11,6 +11,7 @@ import android.widget.Toast;
 
 import com.airam.helpfisio.R;
 import com.airam.helpfisio.controller.HospitalController;
+import com.airam.helpfisio.model.DateUtil;
 import com.airam.helpfisio.model.Hospital;
 import com.airam.helpfisio.view.HospitalView;
 
@@ -73,7 +74,7 @@ public class HospitalCadastro implements DialogInterface.OnShowListener, View.On
         editTextUF.setText(hospital.getUF());
         editTextTelefone.setText(String.valueOf(hospital.getTelefone()));
         editTextDiretor.setText(hospital.getDiretor());
-        editTextdtCriacao.setText(hospital.getdtCriacao());
+        editTextdtCriacao.setText(DateUtil.dateToString(hospital.getdtCriacao()));
         editTextvalor.setText(String.valueOf(hospital.getValor()));
 
     }
@@ -158,7 +159,7 @@ public class HospitalCadastro implements DialogInterface.OnShowListener, View.On
                 hospital.setUF(uf);
                 hospital.setTelefone(telefoneHospital);
                 hospital.setDiretor(diretor);
-                hospital.setdtCriacao(dtCriacao);
+                hospital.setdtCriacao(DateUtil.stringToDate(dtCriacao));
                 hospital.setValor(valorDouble);
 
                 criadoComSucesso = hospitalController.insert(hospital);
@@ -177,7 +178,7 @@ public class HospitalCadastro implements DialogInterface.OnShowListener, View.On
                 hospital.setUF(uf);
                 hospital.setTelefone(telefoneHospital);
                 hospital.setDiretor(diretor);
-                hospital.setdtCriacao(dtCriacao);
+                hospital.setdtCriacao(DateUtil.stringToDate(dtCriacao));
                 hospital.setValor(valorDouble);
                 hospitalController.edit(hospital, hospital.getId());
                 criadoComSucesso = true;

@@ -1,5 +1,7 @@
 package com.airam.helpfisio.model;
 
+import java.util.Date;
+
 /**
  * Created by jonas on 01/11/2017.
  */
@@ -41,8 +43,9 @@ public class Leito {
     private int quantidade;
     private int andar;
     private int id_Hospital;
-    private String tipo, chefe, medicoResp, fisioResp, data;
+    private String tipo, chefe, medicoResp, fisioResp;
     private Double orcamentoMesal;
+    private Date data;
 
     public String getMedicoResp() {
         return medicoResp;
@@ -60,11 +63,11 @@ public class Leito {
         this.fisioResp = fisioResp;
     }
 
-    public String getData() {
+    public Date getData() {
         return data;
     }
 
-    public void setData(String data) {
+    public void setData(Date data) {
         this.data = data;
     }
 

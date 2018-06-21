@@ -8,6 +8,12 @@ import java.util.Date;
 public class DateUtil {
 
     private static final String FORMAT_DEFAULT = "dd-MM-yyyy";
+    private static final String FORMAT_HORA = "HH:mm";
+
+    public static String horaToString(Date date){
+        DateFormat dateFormat = new SimpleDateFormat(FORMAT_HORA);
+        return dateFormat.format(date);
+    }
 
     public static String dateToString(Date date) {
         DateFormat dateFormat = new SimpleDateFormat(FORMAT_DEFAULT);

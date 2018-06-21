@@ -15,6 +15,7 @@ import android.widget.Toast;
 import com.airam.helpfisio.R;
 import com.airam.helpfisio.controller.HospitalController;
 import com.airam.helpfisio.controller.LeitoController;
+import com.airam.helpfisio.model.DateUtil;
 import com.airam.helpfisio.model.Hospital;
 import com.airam.helpfisio.model.Leito;
 import com.airam.helpfisio.view.LeitoView;
@@ -110,7 +111,7 @@ public class LeitoCadastro implements DialogInterface.OnShowListener, View.OnCli
         editTextQtd.setText(String.valueOf(leito.getQuantidade()));
         editTextChefe.setText(leito.getChefe());
         editTextAndar.setText(String.valueOf(leito.getAndar()));
-        editTextData.setText(leito.getData());
+        editTextData.setText(DateUtil.dateToString(leito.getData()));
         editTextMedico.setText(leito.getMedicoResp());
         editTextFisio.setText(leito.getFisioResp());
         editTextCusto.setText(String.valueOf(leito.getCustoSemanal()));
@@ -202,7 +203,7 @@ public class LeitoCadastro implements DialogInterface.OnShowListener, View.OnCli
                 leito.setChefe(chefe);
                 leito.setAndar(andarLeito);
                 leito.setId_Hospital(idHospital);
-                leito.setData(data);
+                leito.setData(DateUtil.stringToDate(data));
                 leito.setMedicoResp(medico);
                 leito.setFisioResp(fisio);
                 leito.setCustoSemanal(custoDouble);
@@ -222,7 +223,7 @@ public class LeitoCadastro implements DialogInterface.OnShowListener, View.OnCli
                 leito.setChefe(chefe);
                 leito.setAndar(andarLeito);
                 leito.setId_Hospital(idHospital);
-                leito.setData(data);
+                leito.setData(DateUtil.stringToDate(data));
                 leito.setMedicoResp(medico);
                 leito.setFisioResp(fisio);
                 leito.setCustoSemanal(custoDouble);

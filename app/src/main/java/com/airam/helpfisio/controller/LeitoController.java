@@ -4,6 +4,7 @@ import android.content.ContentValues;
 import android.content.Context;
 import android.database.Cursor;
 
+import com.airam.helpfisio.model.DateUtil;
 import com.airam.helpfisio.model.Leito;
 
 /**
@@ -47,7 +48,7 @@ public class LeitoController extends BaseController<Leito>{
         leito.setId_Hospital(c.getInt(columnId));
 
         columnId = c.getColumnIndex(Leito.COLUMN_DATA);
-        leito.setData(c.getString(columnId));
+        leito.setData(DateUtil.stringToDate(c.getString(columnId)));
 
         columnId = c.getColumnIndex(Leito.COLUMN_MEDICORESP);
         leito.setMedicoResp(c.getString(columnId));
@@ -79,7 +80,7 @@ public class LeitoController extends BaseController<Leito>{
         values.put(Leito.COLUMN_CHEFE, leito.getChefe());
         values.put(Leito.COLUMN_ANDAR, leito.getAndar());
         values.put(Leito.COLUMN_ID_HOSPIAL, leito.getId_Hospital());
-        values.put(Leito.COLUMN_DATA, leito.getData());
+        values.put(Leito.COLUMN_DATA, DateUtil.dateToString(leito.getData()));
         values.put(Leito.COLUMN_MEDICORESP, leito.getMedicoResp());
         values.put(Leito.COLUMN_FISIORESP, leito.getFisioResp());
         values.put(Leito.COLUMN_CUSTOSEMANAL, leito.getCustoSemanal());

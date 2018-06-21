@@ -4,6 +4,7 @@ import android.content.ContentValues;
 import android.content.Context;
 import android.database.Cursor;
 
+import com.airam.helpfisio.model.DateUtil;
 import com.airam.helpfisio.model.Hospital;
 
 public class HospitalController extends BaseController<Hospital>{
@@ -50,7 +51,7 @@ public class HospitalController extends BaseController<Hospital>{
         hospital.setNumero(c.getInt(columnId));
 
         columnId = c.getColumnIndex(Hospital.COLUMN_DTCRIACAO);
-        hospital.setdtCriacao(c.getString(columnId));
+        hospital.setdtCriacao(DateUtil.stringToDate(c.getString(columnId)));
 
         columnId = c.getColumnIndex(Hospital.COLUMN_VALOR);
         hospital.setValor(c.getDouble(columnId));
@@ -77,7 +78,7 @@ public class HospitalController extends BaseController<Hospital>{
         values.put(Hospital.COLUMN_TELEFONE, hospital.getTelefone());
         values.put(Hospital.COLUMN_DIRETOR, hospital.getDiretor());
         values.put(Hospital.COLUMN_NUMENRO, hospital.getNumero());
-        values.put(Hospital.COLUMN_DTCRIACAO, hospital.getdtCriacao());
+        values.put(Hospital.COLUMN_DTCRIACAO, DateUtil.dateToString(hospital.getdtCriacao()));
         values.put(Hospital.COLUMN_VALOR, hospital.getValor());
 
         return values;
