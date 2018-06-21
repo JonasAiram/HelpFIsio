@@ -20,9 +20,6 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         btnCadastro.setOnClickListener(this);
         btnCalculos = (Button) findViewById(R.id.btnCalculos);
         btnCalculos.setOnClickListener(this);
-        btnListar = (Button) findViewById(R.id.btnListar);
-        btnListar.setOnClickListener(this);
-
     }
 
     @Override

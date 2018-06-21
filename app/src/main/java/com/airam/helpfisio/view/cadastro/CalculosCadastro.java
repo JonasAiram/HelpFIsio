@@ -43,7 +43,7 @@ public class CalculosCadastro implements DialogInterface.OnShowListener, View.On
     private List<String> listaNomeFisio = new ArrayList<String>();
     private List<String> listaNomeMedico = new ArrayList<String>();
 
-    private int pacienteId;
+    private int pacienteId, count = 0;
 
     List<Paciente> listPaciente;
     List<Fisioterapeuta> listObjFisio;
@@ -168,7 +168,8 @@ public class CalculosCadastro implements DialogInterface.OnShowListener, View.On
 
             if (criadoComSucesso) {
                 Toast.makeText(context, "Cálculo Armazenado Com Sucesso.", Toast.LENGTH_SHORT).show();
-                ((CalculosView) context).atualizarRegistros();
+                if (count == 0)
+                    ((CalculosView) context).atualizarRegistros();
             }
             else
                 Toast.makeText(context, "Não Foi Possivel Armazenar o Cálculo.", Toast.LENGTH_SHORT).show();
@@ -295,7 +296,7 @@ public class CalculosCadastro implements DialogInterface.OnShowListener, View.On
 
     }
 
-    public void saveCalculo(String nome, String unidade, double result){
+    public void saveCalculo(String nome, String unidade, String result){
 
         Date date = new Date();
 
@@ -304,7 +305,6 @@ public class CalculosCadastro implements DialogInterface.OnShowListener, View.On
         editTextResultado.setText(String.valueOf(result));
         editTextData.setText(DateUtil.dateToString(date));
         editTextHora.setText(DateUtil.horaToString(date));
-
-
+        count = 1;
     }
 }

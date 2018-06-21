@@ -16,23 +16,25 @@ import com.airam.helpfisio.R;
 import com.airam.helpfisio.view.cadastro.CalculosCadastro;
 
 /**
- * Created by jonas on 31/10/2017.
+ * Created by Jonas on 21/06/2018.
  */
 
-public class PesoIdeal extends AppCompatActivity{
+public class CapacidadeVitalLenta extends AppCompatActivity{
 
-    EditText edtTextAltura;
+    EditText editTextAltura, editTextIdade;
     RadioGroup radioGroup;
     RadioButton radioButton;
     int idRadio;
-    String result;
+    String resultado;
+    double result;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.pesoideal);
+        setContentView(R.layout.capacidadevitallenta);
 
-        edtTextAltura = (EditText) findViewById(R.id.edtAltura);
+        editTextAltura = (EditText) findViewById(R.id.edtCapacidadeAltura);
+        editTextIdade = (EditText) findViewById(R.id.edtCapacidadeIdade);
 
         Button btnCalcular, btnLimpar;
 
@@ -53,19 +55,20 @@ public class PesoIdeal extends AppCompatActivity{
             idRadio = radioGroup.getCheckedRadioButtonId();
             radioButton = (RadioButton) findViewById(idRadio);
 
-            if (edtTextAltura.getText().toString().equals("")){
+            if (editTextAltura.getText().toString().equals("") || editTextIdade.getText().toString().equals("")){
                 Toast.makeText(context, "Por favor, Preencha os Campos.", Toast.LENGTH_LONG).show();
                 return;
             }
 
-            result = "" + radioButton.getText();
+            resultado = "" + radioButton.getText();
 
-            if (result.equals("Masculino"))
-                result = "50";
+            double idade = Double.parseDouble(editTextIdade.getText().toString());
+            double altura = Double.parseDouble(editTextAltura.getText().toString());
+
+            if (resultado.equals("Masculino"))
+                result = 0.05211 - ((0.22*idade) - (3.6*altura));
             else
-                result = "45";
-
-            result = String.valueOf(Integer.parseInt(result) + (0.91*(Integer.parseInt(edtTextAltura.getText().toString()) - 152)));
+                result = 0.04111 - ((0.018*idade)-(2.69*altura));
 
             final AlertDialog.Builder alertDialogBuilder = new AlertDialog.Builder(context);
 
@@ -78,7 +81,7 @@ public class PesoIdeal extends AppCompatActivity{
 
                     //Regras de negocio para salvar o resultado no banco de dados.
                     CalculosCadastro calculosCadastro = new CalculosCadastro(context);
-                    calculosCadastro.saveCalculo("Peso Ideal", "Kg", result);
+                    calculosCadastro.saveCalculo("Capacidade Vital Lenta", "ml", "" + result);
 
                     dialog.dismiss();
                 }
@@ -88,7 +91,8 @@ public class PesoIdeal extends AppCompatActivity{
 
                 public void onClick(DialogInterface dialog, int which) {
 
-                    edtTextAltura.setText("");
+                    editTextAltura.setText("");
+                    editTextIdade.setText("");
                     dialog.dismiss();
                 }
             });
@@ -100,9 +104,9 @@ public class PesoIdeal extends AppCompatActivity{
         @Override
         public void onClick(View view) {
 
-            edtTextAltura.setText("");
+            editTextAltura.setText("");
+            editTextIdade.setText("");
 
         }
     };
-
 }

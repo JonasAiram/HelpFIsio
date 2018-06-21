@@ -8,69 +8,62 @@ import android.support.v7.app.AppCompatActivity;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
-import android.widget.RadioButton;
-import android.widget.RadioGroup;
 import android.widget.Toast;
 
 import com.airam.helpfisio.R;
 import com.airam.helpfisio.view.cadastro.CalculosCadastro;
 
 /**
- * Created by jonas on 31/10/2017.
+ * Created by Jonas on 21/06/2018.
  */
 
-public class PesoIdeal extends AppCompatActivity{
+public class PArterialO2 extends AppCompatActivity{
 
-    EditText edtTextAltura;
-    RadioGroup radioGroup;
-    RadioButton radioButton;
-    int idRadio;
-    String result;
+    Button btnCalcular, btnLimpar;
+    EditText editTextIdade;
+    double result;
+    Context context;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.pesoideal);
+        setContentView(R.layout.parterialo2);
 
-        edtTextAltura = (EditText) findViewById(R.id.edtAltura);
-
-        Button btnCalcular, btnLimpar;
+        editTextIdade = (EditText) findViewById(R.id.edtArterialO2Idade);
 
         btnCalcular = (Button) findViewById(R.id.btnCalcular);
         btnLimpar = (Button) findViewById(R.id.btnLimpar);
 
         btnCalcular.setOnClickListener(btnCalcularAction);
         btnLimpar.setOnClickListener(btnLimparAction);
-
     }
+
+    private View.OnClickListener btnLimparAction = new View.OnClickListener() {
+        @Override
+        public void onClick(View view) {
+            editTextIdade.setText("");
+        }
+    };
 
     private View.OnClickListener btnCalcularAction = new View.OnClickListener() {
         @Override
         public void onClick(View view) {
-            final Context context = view.getContext();
 
-            radioGroup = (RadioGroup) findViewById(R.id.radioGroupId);
-            idRadio = radioGroup.getCheckedRadioButtonId();
-            radioButton = (RadioButton) findViewById(idRadio);
+             context = view.getContext();
 
-            if (edtTextAltura.getText().toString().equals("")){
-                Toast.makeText(context, "Por favor, Preencha os Campos.", Toast.LENGTH_LONG).show();
+            if (editTextIdade.getText().toString().equals("")){
+                Toast.makeText(context, "Por favor, Preencha o Campo.", Toast.LENGTH_LONG).show();
                 return;
             }
 
-            result = "" + radioButton.getText();
+            int pArterialo2 = Integer.parseInt(editTextIdade.getText().toString());
 
-            if (result.equals("Masculino"))
-                result = "50";
-            else
-                result = "45";
-
-            result = String.valueOf(Integer.parseInt(result) + (0.91*(Integer.parseInt(edtTextAltura.getText().toString()) - 152)));
+            result = 109 - (pArterialo2 * 0.43);
 
             final AlertDialog.Builder alertDialogBuilder = new AlertDialog.Builder(context);
 
             alertDialogBuilder.setTitle("Resultado!");
-            alertDialogBuilder.setMessage("Peso Ideal = " + result);
+            alertDialogBuilder.setMessage("Pressão Arterial O² = " + result);
 
             alertDialogBuilder.setPositiveButton(" Salvar ", new DialogInterface.OnClickListener(){
 
@@ -78,7 +71,7 @@ public class PesoIdeal extends AppCompatActivity{
 
                     //Regras de negocio para salvar o resultado no banco de dados.
                     CalculosCadastro calculosCadastro = new CalculosCadastro(context);
-                    calculosCadastro.saveCalculo("Peso Ideal", "Kg", result);
+                    calculosCadastro.saveCalculo("Pressão Arterial O² ", "mmHg", String.valueOf(result));
 
                     dialog.dismiss();
                 }
@@ -88,21 +81,12 @@ public class PesoIdeal extends AppCompatActivity{
 
                 public void onClick(DialogInterface dialog, int which) {
 
-                    edtTextAltura.setText("");
+                    editTextIdade.setText("");
                     dialog.dismiss();
                 }
             });
             alertDialogBuilder.show();
-        }
-    };
-
-    private View.OnClickListener btnLimparAction = new View.OnClickListener() {
-        @Override
-        public void onClick(View view) {
-
-            edtTextAltura.setText("");
 
         }
     };
-
 }

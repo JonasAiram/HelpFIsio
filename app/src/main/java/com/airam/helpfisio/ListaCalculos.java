@@ -7,6 +7,9 @@ import android.view.View;
 import android.widget.ArrayAdapter;
 import android.widget.ListView;
 import android.widget.Toast;
+
+import com.airam.helpfisio.calculos.CapacidadeVitalLenta;
+import com.airam.helpfisio.calculos.PArterialO2;
 import com.airam.helpfisio.calculos.PesoIdeal;
 import com.airam.helpfisio.calculos.VolumeCorrente;
 
@@ -31,13 +34,21 @@ public class ListaCalculos extends ListActivity{
         switch (position) {
             case 0:
                 intent = new Intent(this, VolumeCorrente.class);
-                intent.putExtra("funcao", "Volume Corrente");
                 dispararIntent(intent);
                 break;
 
             case 1:
                 intent = new Intent(this, PesoIdeal.class);
-                intent.putExtra("funcao", "Peso Ideal");
+                dispararIntent(intent);
+                break;
+
+            case 2:
+                intent = new Intent(this, PArterialO2.class);
+                dispararIntent(intent);
+                break;
+
+            case 3:
+                intent = new Intent(this, CapacidadeVitalLenta.class);
                 dispararIntent(intent);
                 break;
 

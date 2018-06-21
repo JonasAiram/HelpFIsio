@@ -75,7 +75,7 @@ public class VolumeCorrente extends AppCompatActivity{
 
                     //Regras de negocio para salvar o resultado no banco de dados.
                     CalculosCadastro calculosCadastro = new CalculosCadastro(context);
-                    calculosCadastro.saveCalculo("Volume Corrente", "Ml", result);
+                    calculosCadastro.saveCalculo("Volume Corrente", "Ml", String.valueOf(result));
 
 
                     dialog.dismiss();

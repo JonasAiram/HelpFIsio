@@ -161,7 +161,7 @@
             android:layout_weight="1"
             android:hint="##/##/####"
             android:gravity="center"
-            android:inputType="text"/>
+            android:inputType="date"/>
 
     </LinearLayout>
 

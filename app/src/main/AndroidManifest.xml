@@ -20,6 +20,8 @@
         <activity android:name=".ListaCalculos" />
         <activity android:name=".ListaCadastros" />
         <activity android:name=".calculos.PesoIdeal" />
+        <activity android:name=".calculos.PArterialO2"/>
+        <activity android:name=".calculos.CapacidadeVitalLenta"/>
         <activity android:name=".view.PacienteView"/>
         <activity android:name=".view.MedicoView"/>
         <activity android:name=".view.LeitoView"/>
