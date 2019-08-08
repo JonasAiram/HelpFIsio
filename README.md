@@ -1,5 +1,4 @@
 # HelpFIsio
-Projeto de conclusão de curso de Sistemas de Informações da Estaciode Sá.
 
 1-  Requisitos
 
