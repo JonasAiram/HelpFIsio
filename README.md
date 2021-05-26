@@ -2,7 +2,7 @@
 
 ## 1-  Requisitos
 
-   Programa para dispisitivos Android, utilizando conceitos de orientação a objetos (Herança, polimorfismo, encapsulamento e etc).
+   Programa para dispositivos Android, utilizando conceitos de orientação a objetos (Herança, polimorfismo, encapsulamento e etc).
 
 ## 2- Objetivo 
 
